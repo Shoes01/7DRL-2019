@@ -3,11 +3,11 @@ import tcod as libtcod
 
 from game import COLORS, SCREEN_HEIGHT, SCREEN_WIDTH
 
-def render_all(con, entities, game_map):
+def render_all(con, entities, fov_map, game_map):
     ' Render all things that appear on the screen. '
-    # Draw the game_map tiles.
-    for (x, y), value in np.ndenumerate(game_map.tiles):
-        draw_tile(con, x, y, value)
+    # Draw the game_map tiles that are in the fov.
+    for (x, y), _ in np.ndenumerate(game_map.tiles):
+            draw_tile(con, fov_map, game_map, x, y)
     
     # Draw the entities.
     for entity in entities:
@@ -16,11 +16,20 @@ def render_all(con, entities, game_map):
     # Send to console.
     libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
 
-def draw_tile(con, x, y, value):
-    if value == 0:
-        libtcod.console_set_char_background(con, x, y, COLORS['dark_floor'], libtcod.BKGND_SET)
-    if value == 1:
-        libtcod.console_set_char_background(con, x, y, COLORS['dark_wall'], libtcod.BKGND_SET)
+def draw_tile(con, fov_map, game_map, x, y):
+    visible = libtcod.map_is_in_fov(fov_map, x, y)
+    blocks_sight, blocks_path = game_map.tiles[x][y]
+    
+    if visible:
+        if blocks_path:
+            libtcod.console_set_char_background(con, x, y, COLORS['light_wall'], libtcod.BKGND_SET)
+        else:
+            libtcod.console_set_char_background(con, x, y, COLORS['light_floor'], libtcod.BKGND_SET)
+    else:
+        if blocks_sight:
+            libtcod.console_set_char_background(con, x, y, COLORS['dark_wall'], libtcod.BKGND_SET)
+        else:
+            libtcod.console_set_char_background(con, x, y, COLORS['dark_floor'], libtcod.BKGND_SET)
 
 def draw_entity(con, entity):
     char = entity.base.char

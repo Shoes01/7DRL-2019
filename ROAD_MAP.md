@@ -3,9 +3,6 @@ Basic stuff. Input > Update > Render.
 
 ### Character
 Basic functionality for a movable player entity on screen.
-> Create Entity class
->> Create components: Position, Base
->>> Base contains glyph, color, name
 
 ### Maps
 Map generation happens here.

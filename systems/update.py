@@ -1,4 +1,4 @@
-from game import GameStates
+from game import GameStates, FOV_RADIUS
 from systems.movement import move
 
 def update(action, entities, game, player):

@@ -7,10 +7,12 @@ class GameMap:
         self.tiles = self.initialize_tiles()
 
     def initialize_tiles(self):
-        tiles = np.zeros([self.width, self.height], dtype=int)
-        # TODO: Use an Enum system here?
-        tiles[30][22] = 1
-        tiles[31][22] = 1
-        tiles[32][22] = 1
+        # Create a numpy array full of zeros.
+        tiles = np.zeros([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool)])
+
+        # TODO: Find out where to put mapgen code... in a system?
+        tiles[30][30] = (True, True)
+        tiles[30][31] = (True, True)
+        tiles[30][32] = (True, True)
 
         return tiles
