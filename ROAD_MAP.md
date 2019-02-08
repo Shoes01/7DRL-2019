@@ -12,6 +12,10 @@ Map generation happens here.
 ### FOV
 libtcod handles this.
 
+>>> Numpy optimizations
+Don't use [][], but instead [,]
+This way, we can set the fov_map via array math, not for loops
+
 ### Path Finding
 Collision logic is done here
 

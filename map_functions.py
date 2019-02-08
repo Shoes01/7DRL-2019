@@ -8,11 +8,11 @@ class GameMap:
 
     def initialize_tiles(self):
         # Create a numpy array full of zeros.
-        tiles = np.zeros([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool)])
+        tiles = np.zeros([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool)], order='F')
 
         # TODO: Find out where to put mapgen code... in a system?
-        tiles[30][30] = (True, True)
-        tiles[30][31] = (True, True)
-        tiles[30][32] = (True, True)
+        tiles[20, 20] = True, True
+        tiles[20, 21] = True, True
+        tiles[20, 22] = True, True
 
         return tiles

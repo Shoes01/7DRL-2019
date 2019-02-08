@@ -18,7 +18,7 @@ def render_all(con, entities, fov_map, game_map):
 
 def draw_tile(con, fov_map, game_map, x, y):
     visible = libtcod.map_is_in_fov(fov_map, x, y)
-    blocks_sight, blocks_path = game_map.tiles[x][y]
+    blocks_sight, blocks_path = game_map.tiles[x, y]
     
     if visible:
         if blocks_path:

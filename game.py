@@ -31,7 +31,7 @@ def initialize_new_game():
     entities.append(player)
 
     # Create other basic functions.
-    con = libtcod.console_new(SCREEN_WIDTH, SCREEN_HEIGHT)    
+    con = libtcod.console.Console(SCREEN_WIDTH, SCREEN_HEIGHT, order='F')
     game = GameThing()
     game_map = GameMap(SCREEN_WIDTH, SCREEN_HEIGHT)
     key = libtcod.Key()

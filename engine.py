@@ -8,7 +8,7 @@ from systems.update import update
 
 def main():
     libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
-    libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, title=GAME_TITLE)
+    libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, title=GAME_TITLE, order='F')
 
     con, entities, fov_map, game, game_map, key, mouse, player = initialize_new_game()
 
@@ -20,7 +20,7 @@ def main():
         action = handle_keys(key)
 
         # Update game.
-        update(action, entities, game, player)
+        update(action, entities, game, game_map, player)
 
         if game.state == GameStates.EXIT:
                 return True
