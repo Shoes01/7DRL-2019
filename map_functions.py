@@ -9,7 +9,9 @@ class GameMap:
 
     def initialize_tiles(self):
         # Create a numpy array full of ones.
-        tiles = np.ones([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool)], order='F')
+        tiles = np.ones([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool), ('explored', bool)], order='F')
+
+        tiles['explored'] = np.zeros([self.width, self.height], dtype=int)
 
         return tiles
     
@@ -34,7 +36,7 @@ class GameMap:
         ' Dig out a room in the center. Nothing fancy. '
         for x in range(node.x + 1, node.x + node.w - 1):
             for y in range(node.y + 1, node.y + node.h - 1):
-                self.tiles[x, y] = False, False
+                self.tiles[x, y] = False, False, False
 
     def connect_rooms(self, node1, node2):
         ' Connect the middle of the rooms. Or nodes. '
@@ -53,7 +55,7 @@ class GameMap:
                 start = y2c
         
             for y in range(start + 1, end):
-                self.tiles[x1c, y] = False, False
+                self.tiles[x1c, y] = False, False, False
         if y1c == y2c:
             start = 99
             end = 0
@@ -65,4 +67,4 @@ class GameMap:
                 start = x2c
         
             for x in range(start + 1, end):
-                self.tiles[x, y1c] = False, False
+                self.tiles[x, y1c] = False, False, False

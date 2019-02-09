@@ -7,22 +7,17 @@ Basic functionality for a movable player entity on screen.
 ### Maps
 Map generation happens here.
 
-[Intent] : a basic dungeon. Rooms, corridors. Nothing special. BSP.
-
 ### FOV
 libtcod handles this.
 
->>> Numpy optimizations
-Don't use [][], but instead [,]
-This way, we can set the fov_map via array math, not for loops
-
 ### Path Finding
 Collision logic is done here
+Explored tiles as well
 
 ### Monsters
 Zombie AI.
-Monster generation within the dungeon.
-A* pathing?
+Monster generation within the dungeon. And player
+A* pathing? Start with basic pathing.
 
 ### Combat?
 Collisions turn into combat here!
