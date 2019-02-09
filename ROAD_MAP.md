@@ -1,23 +1,15 @@
-### Main Loop
-Basic stuff. Input > Update > Render.
-
-### Character
-Basic functionality for a movable player entity on screen.
-
-### Maps
-Map generation happens here.
-
-### FOV
-libtcod handles this.
-
-### Path Finding
-Collision logic is done here
-Explored tiles as well
-
 ### Monsters
-Zombie AI.
-Monster generation within the dungeon. And player
-A* pathing? Start with basic pathing.
+Create monster generation code
+> Generate dungeon
+>>> Remember list of rooms
+> Spawn the player in one room
+> Spawn monsters in each other room
+
+Create components/systems needed for AI entity
+> AI component
+>>> Decide to move toward the player, and send that to the move system
+> Uses the move system to move
+
 
 ### Combat?
 Collisions turn into combat here!

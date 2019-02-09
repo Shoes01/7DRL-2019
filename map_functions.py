@@ -1,4 +1,5 @@
 import numpy as np
+import random
 import tcod as libtcod
 
 class GameMap:
@@ -6,6 +7,8 @@ class GameMap:
         self.width = width
         self.height = height
         self.tiles = self.initialize_tiles()
+        
+        self.rooms = []
 
     def initialize_tiles(self):
         # Create a numpy array full of ones.
@@ -34,6 +37,7 @@ class GameMap:
     
     def dig_room(self, node):
         ' Dig out a room in the center. Nothing fancy. '
+        self.rooms.append(node)
         for x in range(node.x + 1, node.x + node.w - 1):
             for y in range(node.y + 1, node.y + node.h - 1):
                 self.tiles[x, y] = False, False, False
@@ -68,3 +72,14 @@ class GameMap:
         
             for x in range(start + 1, end):
                 self.tiles[x, y1c] = False, False, False
+        
+    def place_player(self, position):
+        room = random.choice(self.rooms)
+        x = random.randint(room.x, room.x + room.w)
+        y = random.randint(room.y, room.y + room.h)
+        position.x, position.y = x, y
+
+        return position
+    
+    def place_monsters(self):
+        pass

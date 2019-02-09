@@ -40,7 +40,11 @@ def initialize_new_game():
     # Create a first map.
     game_map.generate_new_map()
 
+    # Create fov map.
     fov_map = initialize_fov(game_map)
+
+    # Place player.
+    player.pos = game_map.place_player(player.pos)
 
     return con, entities, fov_map, game, game_map, key, mouse, player
 
