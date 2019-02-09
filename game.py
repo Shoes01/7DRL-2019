@@ -37,6 +37,9 @@ def initialize_new_game():
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
+    # Create a first map.
+    game_map.generate_new_map()
+
     fov_map = initialize_fov(game_map)
 
     return con, entities, fov_map, game, game_map, key, mouse, player
