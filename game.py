@@ -7,9 +7,9 @@ from components.pos import Position
 from map_functions import GameMap
 from systems.fov import initialize_fov
 
-COLORS = {  'dark_floor': libtcod.blue,
+COLORS = {  'dark_floor': libtcod.light_blue,
             'dark_wall': libtcod.dark_blue,
-            'light_floor': libtcod.yellow,
+            'light_floor': libtcod.light_yellow,
             'light_wall': libtcod.dark_yellow}
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
@@ -24,7 +24,7 @@ def initialize_new_game():
     # Create player entity.
     _base = Base('player', '@', libtcod.white)
     _pos = Position(15, 15)
-    player = Entity(_base, _pos)
+    player = Entity(base=_base, pos=_pos)
 
     # Fill entities list.
     entities = []
@@ -37,6 +37,9 @@ def initialize_new_game():
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
+    # TODO: Wrap this all up in a "generate dungeon" thing.
+    # TODO: Maybe move map_functions.py into a folder and split it into a bunch of files.
+
     # Create a first map.
     game_map.generate_new_map()
 
@@ -45,6 +48,9 @@ def initialize_new_game():
 
     # Place player.
     player.pos = game_map.place_player(player.pos)
+
+    # Generate monsters.
+    game_map.place_monsters(entities, game_map)
 
     return con, entities, fov_map, game, game_map, key, mouse, player
 

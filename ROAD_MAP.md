@@ -1,9 +1,6 @@
 ### Monsters
 Create monster generation code
-> Generate dungeon
->>> Remember list of rooms
-> Spawn the player in one room
-> Spawn monsters in each other room
+> Pass through to ensure things are clean
 
 Create components/systems needed for AI entity
 > AI component

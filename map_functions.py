@@ -2,6 +2,8 @@ import numpy as np
 import random
 import tcod as libtcod
 
+from systems.factory import create_monster
+
 class GameMap:
     def __init__(self, width, height):
         self.width = width
@@ -75,11 +77,38 @@ class GameMap:
         
     def place_player(self, position):
         room = random.choice(self.rooms)
-        x = random.randint(room.x, room.x + room.w)
-        y = random.randint(room.y, room.y + room.h)
+        x = random.randint(room.x, room.x + room.w - 1)
+        y = random.randint(room.y, room.y + room.h - 1)
         position.x, position.y = x, y
+
+        self.rooms.remove(room)
 
         return position
     
-    def place_monsters(self):
-        pass
+    def place_monsters(self, entities, game_map):
+        for room in self.rooms:
+            size = room.h + room.w
+            number_of_monsters = size // 5  # This controls monster density
+
+            while number_of_monsters > 0:
+                monster = create_monster()
+
+                x = random.randint(room.x, room.x + room.w - 1)
+                y = random.randint(room.y, room.y + room.h - 1)
+                monster.pos.x, monster.pos.y = x, y
+
+                # blocks_path = False
+                _, blocks_path, _ = game_map.tiles[x, y]
+                # TODO: Why does this not work?
+
+                if not blocks_path and not tile_occupied(entities, x, y):
+                    entities.append(monster)
+
+                number_of_monsters -= 1
+
+def tile_occupied(entities, x, y):
+    for entity in entities:
+        if x == entity.pos.x and y == entity.pos.y:
+            return True
+    else:
+        return False

@@ -11,7 +11,7 @@ def render_all(con, entities, fov_map, game_map):
     
     # Draw the entities.
     for entity in entities:
-        draw_entity(con, entity)
+        draw_entity(con, entity, fov_map)
 
     # Send to console.
     libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
@@ -41,14 +41,15 @@ def draw_tile(con, fov_map, game_map, x, y):
         # If neither visible nor explored, it is just black.
         libtcod.console_set_char_background(con, x, y, libtcod.black, libtcod.BKGND_SET)
 
-def draw_entity(con, entity):
+def draw_entity(con, entity, fov_map):
     char = entity.base.char
     color = entity.base.color
     x = entity.pos.x
     y = entity.pos.y
     
-    libtcod.console_set_default_foreground(con, color)
-    libtcod.console_put_char(con, x, y, char, libtcod.BKGND_NONE)
+    if libtcod.map_is_in_fov(fov_map, x, y):
+        libtcod.console_set_default_foreground(con, color)
+        libtcod.console_put_char(con, x, y, char, libtcod.BKGND_NONE)
 
 def clear_all(con, entities):
     for entity in entities:
