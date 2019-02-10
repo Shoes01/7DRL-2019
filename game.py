@@ -21,6 +21,7 @@ class GameStates(Enum):
     EXIT = 0
     PLAYER_TURN = 1
     ENEMY_TURN = 2
+    PLAYER_DEAD = 3
 
 def initialize_new_game():
     # Create player entity.

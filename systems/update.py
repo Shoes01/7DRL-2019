@@ -21,7 +21,10 @@ def update(action, entities, fov_map, game, game_map, player):
             if entity.ai:
                 take_turn(entity, entities, game_map, fov_map, player)
         
-        game.state = GameStates.PLAYER_TURN
+        if player.stats.hp <= 0:
+            game.state = GameStates.PLAYER_DEAD
+        else:
+            game.state = GameStates.PLAYER_TURN
         
-    if _exit:
+    if _exit or game.state == GameStates.PLAYER_DEAD:
         game.state = GameStates.EXIT
