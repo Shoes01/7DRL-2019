@@ -76,12 +76,10 @@ class GameMap:
                 self.tiles[x, y1c] = False, False, False
         
     def place_player(self, position):
-        room = random.choice(self.rooms)
-        x = random.randint(room.x, room.x + room.w - 1)
-        y = random.randint(room.y, room.y + room.h - 1)
-        position.x, position.y = x, y
+        room = self.rooms.pop(random.randint(0, len(self.rooms)))
 
-        self.rooms.remove(room)
+        position.x = random.randint(room.x, room.x + room.w - 1)
+        position.y = random.randint(room.y, room.y + room.h - 1)
 
         return position
     
@@ -97,9 +95,7 @@ class GameMap:
                 y = random.randint(room.y, room.y + room.h - 1)
                 monster.pos.x, monster.pos.y = x, y
 
-                # blocks_path = False
                 _, blocks_path, _ = game_map.tiles[x, y]
-                # TODO: Why does this not work?
 
                 if not blocks_path and not tile_occupied(entities, x, y):
                     entities.append(monster)

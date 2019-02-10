@@ -37,9 +37,6 @@ def initialize_new_game():
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
-    # TODO: Wrap this all up in a "generate dungeon" thing.
-    # TODO: Maybe move map_functions.py into a folder and split it into a bunch of files.
-
     # Create a first map.
     game_map.generate_new_map()
 

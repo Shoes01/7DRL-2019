@@ -1,7 +1,4 @@
 ### Monsters
-Create monster generation code
-> Pass through to ensure things are clean
-
 Create components/systems needed for AI entity
 > AI component
 >>> Decide to move toward the player, and send that to the move system
@@ -25,6 +22,9 @@ Python can do this easily?
 
 ### Character++
 Skills and ranged attack systems get done here.
+
+### Mapgen++
+Move map_gen code into a folder and split into appropriate pieces
 
 ### Numpy optmizations
 
