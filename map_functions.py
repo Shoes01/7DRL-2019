@@ -75,11 +75,18 @@ class GameMap:
             for x in range(start + 1, end):
                 self.tiles[x, y1c] = False, False, False
         
-    def place_player(self, position):
+    def place_player(self, game_map, position):
         room = self.rooms.pop(random.randint(0, len(self.rooms)))
 
-        position.x = random.randint(room.x, room.x + room.w - 1)
-        position.y = random.randint(room.y, room.y + room.h - 1)
+        success = False
+        while not success:
+            position.x = random.randint(room.x, room.x + room.w - 1)
+            position.y = random.randint(room.y, room.y + room.h - 1)
+
+            _, blocks_path, _ = game_map.tiles[position.x, position.y]
+
+            if not blocks_path:
+                success = True
 
         return position
     

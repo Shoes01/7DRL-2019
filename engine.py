@@ -20,7 +20,7 @@ def main():
         action = handle_keys(key)
 
         # Update game.
-        update(action, entities, game, game_map, player)
+        update(action, entities, fov_map, game, game_map, player)
 
         if game.state == GameStates.EXIT:
                 return True

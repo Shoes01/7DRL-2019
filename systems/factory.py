@@ -1,12 +1,12 @@
 import tcod as libtcod
 
-from components.ai import ZombieAI
+from components.ai import AI, BRAIN
 from components.base import Base
 from components.pos import Position
 from entity import Entity
 
 def create_monster():
-    _ai = ZombieAI()
+    _ai = AI(brain=BRAIN.ZOMBIE)
     _base = Base('Monster', 'M', libtcod.green)
     _pos = Position(0, 0)
 

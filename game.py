@@ -19,6 +19,7 @@ SCREEN_HEIGHT = 60
 class GameStates(Enum):
     EXIT = 0
     PLAYER_TURN = 1
+    ENEMY_TURN = 2
 
 def initialize_new_game():
     # Create player entity.
@@ -44,7 +45,7 @@ def initialize_new_game():
     fov_map = initialize_fov(game_map)
 
     # Place player.
-    player.pos = game_map.place_player(player.pos)
+    player.pos = game_map.place_player(game_map, player.pos)
 
     # Generate monsters.
     game_map.place_monsters(entities, game_map)

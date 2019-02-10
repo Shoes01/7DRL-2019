@@ -1,10 +1,3 @@
-### Monsters
-Create components/systems needed for AI entity
-> AI component
->>> Decide to move toward the player, and send that to the move system
-> Uses the move system to move
-
-
 ### Combat?
 Collisions turn into combat here!
 Revisit monster AI
@@ -25,6 +18,9 @@ Skills and ranged attack systems get done here.
 
 ### Mapgen++
 Move map_gen code into a folder and split into appropriate pieces
+
+### Render++
+Move the Render code out of systems, into its own folder. Maybe.
 
 ### Numpy optmizations
 
