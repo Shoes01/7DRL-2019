@@ -8,7 +8,7 @@ from entity import Entity
 
 def create_monster():
     _ai = AI(brain=BRAIN.ZOMBIE)
-    _base = Base('Monster', 'M', libtcod.green, RenderOrder.ACTOR)
+    _base = Base('Zombie', 'Z', libtcod.green, RenderOrder.ACTOR)
     _pos = Position(0, 0)
     _stats = Stats(attack=5, defense=3, hp=30)
 

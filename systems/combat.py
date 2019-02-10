@@ -1,9 +1,16 @@
 from systems.death import kill
 
 def attack(attacker, defender):
+    turn_results = []
+    turn_results.append({'attacked': True})
+    
     damage = attacker.stats.attack - defender.stats.defense
 
     defender.stats.hp -= damage
 
+    turn_results.append({'message': 'The {0} deals {1} damage to the {2}.'.format(attacker.base.name.capitalize(), damage, defender.base.name.capitalize())})
+
     if defender.stats.hp <= 0:
-        kill(defender)
+        turn_results.extend(kill(defender))
+    
+    return turn_results

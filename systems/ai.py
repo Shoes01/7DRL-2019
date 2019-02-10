@@ -3,11 +3,12 @@ import tcod as libtcod
 from systems.movement import move
 
 def take_turn(entity, entities, game_map, fov_map, player):
+    turn_results = []
     player_spotted = libtcod.map_is_in_fov(fov_map, player.pos.x, player.pos.y)
 
     if player_spotted:
         if entity.ai.awake:
-            hunt_player(entity, entities, game_map, player)
+            turn_results.extend(hunt_player(entity, entities, game_map, player))
         else:
             entity.ai.awake = True
     elif entity.ai.awake:
@@ -15,8 +16,12 @@ def take_turn(entity, entities, game_map, fov_map, player):
 
         if entity.ai.lost > 5:
             entity.ai.awake = False
+    
+    return turn_results
 
 def hunt_player(entity, entities, game_map, player):
+    turn_results = []
+    
     xd, yd = player.pos.x, player.pos.y
     xo, yo = entity.pos.x, entity.pos.y
     
@@ -30,5 +35,7 @@ def hunt_player(entity, entities, game_map, player):
     
     d_move = dx, dy
     
-    move(d_move, entity, entities, game_map)
+    turn_results.extend(move(d_move, entity, entities, game_map))
+
+    return turn_results
     

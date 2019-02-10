@@ -8,23 +8,56 @@ def update(action, entities, fov_map, game, game_map, player):
     _move = action.get('move')
     _wait = action.get('wait')
 
+    turn_results = []
+
+    # Handle the player turn.
     if game.state == GameStates.PLAYER_TURN:
+        # The player may act.
         if _move:
-            move(_move, player, entities, game_map)
-            game.state = GameStates.ENEMY_TURN
+            turn_results.extend(move(_move, player, entities, game_map))
         
         if _wait:
-            game.state = GameStates.ENEMY_TURN
+            turn_results.append({'wait': True})
     
+    # Handle the enemy turn.
     elif game.state == GameStates.ENEMY_TURN:
+        # Each entity gets to take a turn.
         for entity in entities:
             if entity.ai:
-                take_turn(entity, entities, game_map, fov_map, player)
+                turn_results.extend(take_turn(entity, entities, game_map, fov_map, player))
         
-        if player.stats.hp <= 0:
-            game.state = GameStates.PLAYER_DEAD
-        else:
-            game.state = GameStates.PLAYER_TURN
-        
+        turn_results.append({'end_enemy_turn': True})
+    
+    handle_turn_results(game, turn_results)
+
+    # Handle things that may occur at any time.
     if _exit or game.state == GameStates.PLAYER_DEAD:
         game.state = GameStates.EXIT
+
+def handle_turn_results(game, results):
+    for result in results:
+        # Possible results.
+        _attacked = result.get('attacked')
+        _end_enemy_turn = result.get('end_enemy_turn')
+        _message = result.get('message')
+        _moved = result.get('moved')
+        _player_dead = result.get('player_dead')
+        _wait = result.get('wait')
+
+        if _attacked:
+            game.state = GameStates.ENEMY_TURN
+
+        elif _end_enemy_turn:
+            game.state = GameStates.PLAYER_TURN
+
+        elif _message:
+            pass
+
+        elif _moved:
+            game.state = GameStates.ENEMY_TURN
+
+        elif _player_dead:
+            game.state = GameStates.PLAYER_DEAD
+
+        elif _wait:
+            game.state = GameStates.ENEMY_TURN

@@ -1,8 +1,8 @@
-### Combat?
-Collisions turn into combat here!
-Revisit monster AI
->>> Gets caught on things
-Death function
+### Messenger Pattern
+Create Message Log
+Populate Message Log via messenger pattern
+All systems should return results.
+>>> In the old game, I allowed the messenger pattern to run systems...
 
 ### Items
 Start desinging soul numbers and stuff here.
@@ -17,11 +17,10 @@ Python can do this easily?
 ### Character++
 Skills and ranged attack systems get done here.
 
-### Mapgen++
+### Systems++
 Move map_gen code into a folder and split into appropriate pieces
-
-### Render++
 Move the Render code out of systems, into its own folder. Maybe.
+Move FOV code and Factory code out of systems.
 
 ### Numpy optmizations
 
