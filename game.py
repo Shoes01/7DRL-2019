@@ -6,7 +6,7 @@ from components.base import Base, RenderOrder
 from components.pos import Position
 from components.stats import Stats
 from map_functions import GameMap
-from systems.fov import initialize_fov
+from systems.fov import initialize_fov, recompute_fov
 
 COLORS = {  'dark_floor': libtcod.light_blue,
             'dark_wall': libtcod.dark_blue,
@@ -44,14 +44,13 @@ def initialize_new_game():
     # Create a first map.
     game_map.generate_new_map()
 
+    # Place player and monsters.
+    player.pos = game_map.place_player(game_map, player.pos)
+    game_map.place_monsters(entities, game_map)
+
     # Create fov map.
     fov_map = initialize_fov(game_map)
-
-    # Place player.
-    player.pos = game_map.place_player(game_map, player.pos)
-
-    # Generate monsters.
-    game_map.place_monsters(entities, game_map)
+    recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
 
     return con, entities, fov_map, game, game_map, key, mouse, player
 

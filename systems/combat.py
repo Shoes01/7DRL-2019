@@ -2,7 +2,6 @@ from systems.death import kill
 
 def attack(attacker, defender):
     turn_results = []
-    turn_results.append({'attacked': True})
     
     damage = attacker.stats.attack - defender.stats.defense
 

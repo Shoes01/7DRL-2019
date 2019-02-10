@@ -1,9 +1,8 @@
 import tcod as libtcod
 
-from game import FOV_RADIUS, GameStates, GAME_TITLE, SCREEN_HEIGHT, SCREEN_WIDTH, initialize_new_game
+from game import GameStates, GAME_TITLE, SCREEN_HEIGHT, SCREEN_WIDTH, initialize_new_game
 from input_handlers import handle_keys
-from systems.fov import recompute_fov
-from systems.render import clear_all, render_all
+from systems.render import render_all
 from systems.update import update
 
 def main():
@@ -11,8 +10,6 @@ def main():
     libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, title=GAME_TITLE, order='F')
 
     con, entities, fov_map, game, game_map, key, mouse, player = initialize_new_game()
-
-    recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
 
     while not libtcod.console_is_window_closed():
         # Process input.
@@ -26,12 +23,7 @@ def main():
                 return True
 
         # Render results.
-        if action:
-                recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
-
-        render_all(con, entities, fov_map, game_map)
-        libtcod.console_flush()
-        clear_all(con, entities)
+        render_all(action, con, entities, fov_map, game_map, player)
 
 if __name__ == '__main__':
     main()

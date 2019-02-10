@@ -15,9 +15,10 @@ def update(action, entities, fov_map, game, game_map, player):
         # The player may act.
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
+            turn_results.append({'acted': True})
         
         if _wait:
-            turn_results.append({'wait': True})
+            turn_results.append({'acted': True})
     
     # Handle the enemy turn.
     elif game.state == GameStates.ENEMY_TURN:
@@ -37,14 +38,12 @@ def update(action, entities, fov_map, game, game_map, player):
 def handle_turn_results(game, results):
     for result in results:
         # Possible results.
-        _attacked = result.get('attacked')
+        _acted = result.get('acted')
         _end_enemy_turn = result.get('end_enemy_turn')
         _message = result.get('message')
-        _moved = result.get('moved')
         _player_dead = result.get('player_dead')
-        _wait = result.get('wait')
 
-        if _attacked:
+        if _acted:
             game.state = GameStates.ENEMY_TURN
 
         elif _end_enemy_turn:
@@ -53,11 +52,5 @@ def handle_turn_results(game, results):
         elif _message:
             pass
 
-        elif _moved:
-            game.state = GameStates.ENEMY_TURN
-
         elif _player_dead:
             game.state = GameStates.PLAYER_DEAD
-
-        elif _wait:
-            game.state = GameStates.ENEMY_TURN

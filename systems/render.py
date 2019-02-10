@@ -1,10 +1,15 @@
 import numpy as np
 import tcod as libtcod
 
-from game import COLORS, SCREEN_HEIGHT, SCREEN_WIDTH
+from game import COLORS, FOV_RADIUS, SCREEN_HEIGHT, SCREEN_WIDTH
+from systems.fov import recompute_fov
 
-def render_all(con, entities, fov_map, game_map):
+def render_all(action, con, entities, fov_map, game_map, player):
     ' Render all things that appear on the screen. '
+    # Recompute FOV, if needed.
+    if action:
+        recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
+    
     # Draw the game_map tiles that are in the fov.
     for (x, y), _ in np.ndenumerate(game_map.tiles):
             draw_tile(con, fov_map, game_map, x, y)
@@ -17,6 +22,12 @@ def render_all(con, entities, fov_map, game_map):
 
     # Send to console.
     libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
+
+    # Flush console
+    libtcod.console_flush()
+
+    # Clear entities
+    clear_all(con, entities)
 
 def draw_tile(con, fov_map, game_map, x, y):
     visible = libtcod.map_is_in_fov(fov_map, x, y)
