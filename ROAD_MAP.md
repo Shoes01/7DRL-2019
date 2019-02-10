@@ -1,6 +1,7 @@
 ### Combat?
 Collisions turn into combat here!
 Revisit monster AI
+>>> Gets caught on things
 Death function
 
 ### Items

@@ -9,8 +9,10 @@ def render_all(con, entities, fov_map, game_map):
     for (x, y), _ in np.ndenumerate(game_map.tiles):
             draw_tile(con, fov_map, game_map, x, y)
     
-    # Draw the entities.
-    for entity in entities:
+    # Sort the entities, then draw them.
+    entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)
+    
+    for entity in entities_in_render_order:
         draw_entity(con, entity, fov_map)
 
     # Send to console.

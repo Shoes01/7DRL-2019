@@ -4,12 +4,16 @@ from systems.movement import move
 
 def update(action, entities, fov_map, game, game_map, player):
     # Possible actions.
-    _move = action.get('move')
     _exit = action.get('exit')
+    _move = action.get('move')
+    _wait = action.get('wait')
 
     if game.state == GameStates.PLAYER_TURN:
         if _move:
             move(_move, player, entities, game_map)
+            game.state = GameStates.ENEMY_TURN
+        
+        if _wait:
             game.state = GameStates.ENEMY_TURN
     
     elif game.state == GameStates.ENEMY_TURN:

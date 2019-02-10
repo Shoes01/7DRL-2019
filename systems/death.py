@@ -1,4 +1,10 @@
+import tcod as libtcod
+
+from components.base import RenderOrder
+
 def kill(entity):
-    # Change glyphs, name and color
-    # Remove appropriate components
-    pass
+    entity.ai = None
+    entity.base.char = '%'
+    entity.base.color = libtcod.red
+    entity.base.name = 'remains of ' + entity.base.name
+    entity.base.render_order = RenderOrder.CORPSE
