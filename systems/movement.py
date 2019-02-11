@@ -13,7 +13,6 @@ def move(d_move, entity, entities, game_map):
     if not blocks_path and not tile_occupant:
         entity.pos.x += dx
         entity.pos.y += dy
-        turn_results.append({'moved': True})
     
     if tile_occupant:
         turn_results.extend(attack(entity, tile_occupant))

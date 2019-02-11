@@ -3,12 +3,12 @@ from systems.ai import take_turn
 from systems.movement import move
 
 def update(action, entities, fov_map, game, game_map, player):
+    turn_results = []
+    
     # Possible actions.
     _exit = action.get('exit')
     _move = action.get('move')
     _wait = action.get('wait')
-
-    turn_results = []
 
     # Handle the player turn.
     if game.state == GameStates.PLAYER_TURN:

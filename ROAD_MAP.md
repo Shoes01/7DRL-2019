@@ -1,15 +1,15 @@
-### Messenger Pattern
-Create Message Log
-Populate Message Log via messenger pattern
-All systems should return results.
->>> In the old game, I allowed the messenger pattern to run systems...
-
 ### Items
 Start desinging soul numbers and stuff here.
 
 ### GUI
+Create a message log here.
+
+` To organize the GUI, I should have many consoles. `
+Root console: 80 x 60. Already made.
+Map console: 80 x 50. Displays the "game".
+Panel console: 80 x 10. Displays the HUD.
+
 Display player stats, skills, and monster stats+skills
-Create a message log here too.
 
 ### Saving
 Python can do this easily?

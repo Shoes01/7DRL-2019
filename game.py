@@ -14,8 +14,15 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'light_wall': libtcod.dark_yellow}
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
-SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 60
+#SCREEN_WIDTH = 80
+#SCREEN_HEIGHT = 60
+ROOT_WIDTH = 80
+ROOT_HEIGHT = 60
+
+MAP_WIDTH = ROOT_WIDTH
+MAP_HEIGHT = 50
+PANEL_WIDTH = ROOT_WIDTH
+PANEL_HEIGHT = ROOT_HEIGHT - MAP_HEIGHT
 
 class GameStates(Enum):
     EXIT = 0
@@ -35,9 +42,10 @@ def initialize_new_game():
     entities.append(player)
 
     # Create other basic functions.
-    con = libtcod.console.Console(SCREEN_WIDTH, SCREEN_HEIGHT, order='F')
+    consoles = {}
+    consoles['map'] = libtcod.console.Console(MAP_WIDTH, MAP_HEIGHT, order='F')
     game = GameThing()
-    game_map = GameMap(SCREEN_WIDTH, SCREEN_HEIGHT)
+    game_map = GameMap(MAP_WIDTH, MAP_HEIGHT)
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
@@ -52,7 +60,7 @@ def initialize_new_game():
     fov_map = initialize_fov(game_map)
     recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
 
-    return con, entities, fov_map, game, game_map, key, mouse, player
+    return consoles, entities, fov_map, game, game_map, key, mouse, player
 
 class GameThing():
     def __init__(self):
