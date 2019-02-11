@@ -5,9 +5,12 @@ Start desinging soul numbers and stuff here.
 Create a message log here.
 
 ` To organize the GUI, I should have many consoles. `
-Root console: 80 x 60. Already made.
+Root console: 80 x 60. Already made in engine.py
 Map console: 80 x 50. Displays the "game".
 Panel console: 80 x 10. Displays the HUD.
+
+` The render function should render each console separately `
+
 
 Display player stats, skills, and monster stats+skills
 

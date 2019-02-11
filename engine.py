@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import GameStates, GAME_TITLE, ROOT_HEIGHT, ROOT_WIDTH, initialize_new_game
 from input_handlers import handle_keys
-from systems.render import render_all
+from render_functions.render import render_all
 from systems.update import update
 
 def main():
