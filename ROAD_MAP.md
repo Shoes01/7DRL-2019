@@ -1,24 +1,21 @@
+### GUI
+Create a message log.
+Color would be nice on the GUI.
+
 ### Items
 Start desinging soul numbers and stuff here.
-
-### GUI
-Create a message log here.
-
-` To organize the GUI, I should have many consoles. `
-Root console: 80 x 60. Already made in engine.py
-Map console: 80 x 50. Displays the "game".
-Panel console: 80 x 10. Displays the HUD.
-
-` The render function should render each console separately `
-
-
-Display player stats, skills, and monster stats+skills
+>> Update GUI here
 
 ### Saving
 Python can do this easily?
 
 ### Character++
 Skills and ranged attack systems get done here.
+Get a list of "soul sized" "levels" for monsters. Race will determine base stats, soul will determine bonus stats.
+Zombie :: Poor Soul   :: -1
+Thrall :: Common Soul :: +0
+...
+
 
 ### Systems++
 Move map_gen code into a folder and split into appropriate pieces

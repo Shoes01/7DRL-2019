@@ -5,7 +5,7 @@ class RenderOrder(Enum):
     ITEM = auto()
     ACTOR = auto()
 
-class Base():
+class Base:
     def __init__(self, name, char, color, render_order):
         self.name = name
         self.char = char

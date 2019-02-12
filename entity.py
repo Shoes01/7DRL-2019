@@ -1,4 +1,4 @@
-class Entity():
+class Entity:
     def __init__(self, ai=None, base=None, pos=None, stats=None):
         self.ai = ai
         self.base = base

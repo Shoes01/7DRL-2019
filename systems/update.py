@@ -1,8 +1,9 @@
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
+from systems.message_log import Message
 from systems.movement import move
 
-def update(action, entities, fov_map, game, game_map, player):
+def update(action, entities, fov_map, game, game_map, message_log, player):
     turn_results = []
     
     # Possible actions.
@@ -29,13 +30,13 @@ def update(action, entities, fov_map, game, game_map, player):
         
         turn_results.append({'end_enemy_turn': True})
     
-    handle_turn_results(game, turn_results)
+    handle_turn_results(game, message_log, turn_results)
 
     # Handle things that may occur at any time.
-    if _exit or game.state == GameStates.PLAYER_DEAD:
+    if _exit:
         game.state = GameStates.EXIT
 
-def handle_turn_results(game, results):
+def handle_turn_results(game, message_log, results):
     for result in results:
         # Possible results.
         _acted = result.get('acted')
@@ -50,7 +51,9 @@ def handle_turn_results(game, results):
             game.state = GameStates.PLAYER_TURN
 
         elif _message:
-            pass
+            _text, _color = _message
+            message_log.add_message(Message(_text, _color))
 
         elif _player_dead:
             game.state = GameStates.PLAYER_DEAD
+            break

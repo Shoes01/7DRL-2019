@@ -9,7 +9,7 @@ def main():
     libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
     libtcod.console_init_root(ROOT_WIDTH, ROOT_HEIGHT, title=GAME_TITLE, order='F')
 
-    consoles, entities, fov_map, game, game_map, key, mouse, player = initialize_new_game()
+    consoles, entities, fov_map, game, game_map, key, message_log, mouse, player = initialize_new_game()
 
     while not libtcod.console_is_window_closed():
         # Process input.
@@ -17,10 +17,10 @@ def main():
         action = handle_keys(key)
 
         # Update game.
-        update(action, entities, fov_map, game, game_map, player)
+        update(action, entities, fov_map, game, game_map, message_log, player)
 
         # Render results.
-        render_all(action, consoles, entities, fov_map, game_map, player)
+        render_all(action, consoles, entities, fov_map, game_map, message_log, player)
 
         if game.state == GameStates.EXIT:
                 return True

@@ -10,7 +10,7 @@ def create_monster():
     _ai = AI(brain=BRAIN.ZOMBIE)
     _base = Base('Zombie', 'Z', libtcod.green, RenderOrder.ACTOR)
     _pos = Position(0, 0)
-    _stats = Stats(attack=5, defense=3, hp=30)
+    _stats = Stats(attack=5, defense=3, hp_max=30)
 
     monster = Entity(ai=_ai, base=_base, pos=_pos, stats=_stats)
 
