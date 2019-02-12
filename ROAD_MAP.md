@@ -1,6 +1,13 @@
-### Items
-Start desinging soul numbers and stuff here.
->> Update GUI here
+### Items and Inventory
+Create a few basic items
+Create an inventory allowing to store items
+> Create a show inventory state
+> Create pickup/drop commands
+Create an interface to equip items
+> Done via inventory
+Confer bonuses according to equipped items
+Show items on the HUD.
+Killing monsters should spawn items
 
 ### Saving
 Python can do this easily?
@@ -15,14 +22,13 @@ The rank of the soul will determine its net worth. (Example: a rare sould would 
 * The rank of the soul is a prefix to the unit race. A Goblin Zombie is 5+0, whereas a Goblin Hero is 5+5. 
 
 ` Soul ranks `
-Zombie
-Thrull
-
-Adventurer
-
-Hero
-Demigod
-God
+-2 :: Zombie
+-1 :: Thrull
+ 0 :: no name
++1 :: Adventurer
++5 :: Hero
++7 :: Champion
++9 :: Legend
 
 ### Systems++
 Move map_gen code into a folder and split into appropriate pieces
@@ -31,6 +37,13 @@ Move FOV code and Factory code out of systems.
 
 ### Skill System
 Skills and ranged attack systems get done here.
+
+### Items++
+Start desinging soul numbers and stuff here.
+>> Update GUI here
+
+### AI++
+Have the take_turn ai system check to see the kind of AI the entity has, and then ship all the needed info into the appropriate function.
 
 ### Numpy optmizations
 
