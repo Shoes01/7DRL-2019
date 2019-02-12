@@ -4,18 +4,22 @@ from systems.movement import move
 
 def take_turn(entity, entities, game_map, fov_map, player):
     turn_results = []
-    player_spotted = libtcod.map_is_in_fov(fov_map, player.pos.x, player.pos.y)
+    player_spotted = libtcod.map_is_in_fov(fov_map, entity.pos.x, entity.pos.y)
 
     if player_spotted:
+        entity.ai.lost = 0
+        
         if entity.ai.awake:
             turn_results.extend(hunt_player(entity, entities, game_map, player))
         else:
             entity.ai.awake = True
+            turn_results.append({'message': ('The {0} wakes up!'.format(entity.base.name.capitalize()), libtcod.light_grey)})
     elif entity.ai.awake:
         entity.ai.lost += 1
 
         if entity.ai.lost > 5:
             entity.ai.awake = False
+            turn_results.append({'message': ('The {0} falls asleep.'.format(entity.base.name.capitalize()), libtcod.light_grey)})
     
     return turn_results
 

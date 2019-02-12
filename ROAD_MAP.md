@@ -1,7 +1,3 @@
-### GUI
-Create a message log.
-Color would be nice on the GUI.
-
 ### Items
 Start desinging soul numbers and stuff here.
 >> Update GUI here
@@ -9,18 +5,32 @@ Start desinging soul numbers and stuff here.
 ### Saving
 Python can do this easily?
 
-### Character++
-Skills and ranged attack systems get done here.
-Get a list of "soul sized" "levels" for monsters. Race will determine base stats, soul will determine bonus stats.
-Zombie :: Poor Soul   :: -1
-Thrall :: Common Soul :: +0
-...
+### Monsters++
+` Race and Soul mechanic `
+The race of a unit will determine its baseline stat. Example: a rat has a baseline stat of 1. A goblin has a baseline stat of 5.
+The soul of a unit will determine how the stat value determine ATT, DEF, etc.
+The eccentricity of a soul will determine how far apart numbers can be in the soul.
+* Stats can be negative, but will be treated as 0?
+The rank of the soul will determine its net worth. (Example: a rare sould would have a sum of +5) 
+* The rank of the soul is a prefix to the unit race. A Goblin Zombie is 5+0, whereas a Goblin Hero is 5+5. 
 
+` Soul ranks `
+Zombie
+Thrull
+
+Adventurer
+
+Hero
+Demigod
+God
 
 ### Systems++
 Move map_gen code into a folder and split into appropriate pieces
 Move the Render code out of systems, into its own folder. Maybe.
 Move FOV code and Factory code out of systems.
+
+### Skill System
+Skills and ranged attack systems get done here.
 
 ### Numpy optmizations
 
