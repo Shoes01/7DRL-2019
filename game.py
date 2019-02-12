@@ -3,6 +3,7 @@ import tcod as libtcod
 from entity import Entity
 from enum import Enum
 from components.base import Base, RenderOrder
+from components.inventory import Inventory
 from components.pos import Position
 from components.stats import Stats
 from map_functions import GameMap
@@ -37,9 +38,10 @@ class GameStates(Enum):
 def initialize_new_game():
     # Create player entity.
     _base = Base('player', '@', libtcod.white, RenderOrder.ACTOR)
+    _inv = Inventory()
     _pos = Position(15, 15)
     _stats = Stats(attack=8, defense=3, hp_max=50)
-    player = Entity(base=_base, pos=_pos, stats=_stats)
+    player = Entity(base=_base, inv=_inv, pos=_pos, stats=_stats)
 
     # Fill entities list.
     entities = []

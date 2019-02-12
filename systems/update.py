@@ -1,5 +1,6 @@
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
+from systems.inventory import pick_up
 from systems.message_log import Message
 from systems.movement import move
 
@@ -8,12 +9,17 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
     
     # Possible actions.
     _exit = action.get('exit')
+    _grab = action.get('grab')
     _move = action.get('move')
     _wait = action.get('wait')
 
     # Handle the player turn.
     if game.state == GameStates.PLAYER_TURN:
         # The player may act.
+        if _grab:
+            turn_results.extend(pick_up(player, entities))
+            turn_results.append({'acted': True})
+
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
             turn_results.append({'acted': True})
