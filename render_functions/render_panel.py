@@ -14,7 +14,7 @@ def render_panel(consoles, message_log, player):
     console_panel.default_fg = libtcod.light_gray
     console_panel.print_(0, 0, get_stat_string(player), libtcod.BKGND_NONE, libtcod.LEFT)
     
-    ' Message Log '
+    ' Message log. '
     y = 1
     for message in message_log.messages:
         console_panel.default_fg = message.color

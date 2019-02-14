@@ -25,7 +25,7 @@ def render_map(action, consoles, entities, fov_map, game_map, player):
     # Send to console.
     console_map.blit(console_root)
 
-    # Clear entities
+    # Clear entities.
     clear_all(console_map, entities)
 
 def draw_tile(console_map, fov_map, game_map, x, y):
@@ -35,9 +35,11 @@ def draw_tile(console_map, fov_map, game_map, x, y):
     if visible:
         # Visible. Light it up.
         if blocks_path:
-            libtcod.console_set_char_background(console_map, x, y, COLORS['light_wall'], libtcod.BKGND_SET)
+            console_map.default_bg = COLORS['light_wall']
+            console_map.print_(x, y, " ", libtcod.BKGND_SET)
         else:
-            libtcod.console_set_char_background(console_map, x, y, COLORS['light_floor'], libtcod.BKGND_SET)
+            console_map.default_bg = COLORS['light_floor']
+            console_map.print_(x, y, " ", libtcod.BKGND_SET)
         
         if not explored:
             game_map.tiles['explored'][x, y] = True
@@ -45,30 +47,25 @@ def draw_tile(console_map, fov_map, game_map, x, y):
     elif explored:
         # Explored, but not visisble. Use map memory.
         if blocks_path:
-            libtcod.console_set_char_background(console_map, x, y, COLORS['dark_wall'], libtcod.BKGND_SET)
+            console_map.default_bg = COLORS['dark_wall']
+            console_map.print_(x, y, " ", libtcod.BKGND_SET)
         else:
-            libtcod.console_set_char_background(console_map, x, y, COLORS['dark_floor'], libtcod.BKGND_SET)
+            console_map.default_bg = COLORS['dark_floor']
+            console_map.print_(x, y, " ", libtcod.BKGND_SET)
     
     else:
         # If neither visible nor explored, it is just black.
-        libtcod.console_set_char_background(console_map, x, y, libtcod.black, libtcod.BKGND_SET)
+        console_map.default_bg = libtcod.black
+        console_map.print_(x, y, " ", libtcod.BKGND_SET)
 
 def draw_entity(console_map, entity, fov_map):
-    char = entity.base.char
-    color = entity.base.color
-    x = entity.pos.x
-    y = entity.pos.y
-    
-    if libtcod.map_is_in_fov(fov_map, x, y):
-        libtcod.console_set_default_foreground(console_map, color)
-        libtcod.console_put_char(console_map, x, y, char, libtcod.BKGND_NONE)
+    if libtcod.map_is_in_fov(fov_map, entity.pos.x, entity.pos.y):
+        console_map.default_fg = entity.base.color
+        console_map.print_(entity.pos.x, entity.pos.y, entity.base.char, libtcod.BKGND_NONE)
 
 def clear_all(console_map, entities):
     for entity in entities:
         clear(console_map, entity)
 
 def clear(console_map, entity):
-    x = entity.pos.x
-    y = entity.pos.y
-
-    libtcod.console_put_char(console_map, x, y, ' ', libtcod.BKGND_NONE)
+    console_map.print_(entity.pos.x, entity.pos.y, " ", libtcod.BKGND_NONE)
