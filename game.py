@@ -32,13 +32,13 @@ MAP = Console(
 PANEL = Console(
     X=0, 
     Y=MAP.H,            # 50
-    W=ROOT.W,           # 80
+    W=ROOT.W // 4,      # 20
     H=ROOT.H - MAP.H)   # 10
 MESSAGE = Console(
-    X=ROOT.W // 2,  # 40
-    Y=PANEL.Y,      # 50
-    W=ROOT.W // 2,  # 40 
-    H=PANEL.H)      # 10
+    X=PANEL.W,          # 20
+    Y=PANEL.Y,          # 50
+    W=ROOT.W - PANEL.W, # 60 
+    H=PANEL.H)          # 10
 
 INVENTORY = Console(10, 10, 50, 20)
 
@@ -66,12 +66,13 @@ def initialize_new_game():
     consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE)
     consoles['panel'] = libtcod.console.Console(PANEL.W, PANEL.H, order='F')
     consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')
+    consoles['message_log'] = libtcod.console.Console(MESSAGE.W, MESSAGE.H, order='F')
 
     # Create other basic functions.
     game = GameThing()
     game_map = GameMap(MAP.W, MAP.H)
     key = libtcod.Key()
-    message_log = MessageLog(MESSAGE.X, MESSAGE.W, MESSAGE.H)
+    message_log = MessageLog(MESSAGE.W, MESSAGE.H)
     mouse = libtcod.Mouse()
 
     # Create a first map.

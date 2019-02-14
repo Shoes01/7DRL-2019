@@ -23,7 +23,7 @@ def render_map(action, consoles, entities, fov_map, game_map, player):
         draw_entity(console_map, entity, fov_map)
 
     # Send to console.
-    console_map.blit(console_root)
+    console_map.blit(dest=console_root, dest_x=MAP.X, dest_y=MAP.Y, width=MAP.W, height=MAP.H)
 
     # Clear entities.
     clear_all(console_map, entities)

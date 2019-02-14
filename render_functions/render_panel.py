@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import PANEL
 
-def render_panel(consoles, message_log, player):
+def render_panel(consoles, player):
     console_panel = consoles['panel']
     console_root = consoles['root']
     # Reset the console.
@@ -10,19 +10,11 @@ def render_panel(consoles, message_log, player):
     console_panel.clear()
 
     # Print to the console.
-    ' Player stats. '
     console_panel.default_fg = libtcod.light_gray
     console_panel.print_(0, 0, get_stat_string(player), libtcod.BKGND_NONE, libtcod.LEFT)
-    
-    ' Message log. '
-    y = 1
-    for message in message_log.messages:
-        console_panel.default_fg = message.color
-        console_panel.print_(message_log.x, y, message.text, libtcod.BKGND_NONE, libtcod.LEFT)
-        y += 1
 
     # Send to console.
-    console_panel.blit(dest=console_root, dest_x=0, dest_y=PANEL.Y, src_x=0, src_y=0, width=PANEL.W, height=PANEL.H)
+    console_panel.blit(dest=console_root, dest_x=PANEL.X, dest_y=PANEL.Y, width=PANEL.W, height=PANEL.H)
 
 def get_stat_string(player):
     stat_string = ""
