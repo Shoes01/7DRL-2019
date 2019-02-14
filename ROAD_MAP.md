@@ -1,3 +1,10 @@
+## Inventory
+[x] Pressing i opens the inventory
+>>> Restructure the inventory system to be a generic menu system
+[ ] List the items with an index
+[ ] Pressing the item letter selects the item.    
+[ ] Selected items may be dropped, equipped, or other.
+
 ### Items and Inventory
 Create a few basic items
 Create an inventory allowing to store items
@@ -9,11 +16,16 @@ Confer bonuses according to equipped items
 Show items on the HUD.
 Killing monsters should spawn items
 
-### Saving
-Python can do this easily?
-
 ### Organization++
 The Game object holds the game-state. It should also hold a previous game state. Perhaps, changing game states automatically sets the previous state.
+Rename the Inventory console to menu
+> It will be used by more than one menu
+>>> Perhaps make a generic menu console?
+
+### GUI
+Make the consoles look a little better
+Have a menu at the start of the game?
+>>> If so, look into saving the game
 
 ### Monsters++
 ` Race and Soul mechanic `

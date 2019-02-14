@@ -19,6 +19,9 @@ def render_inventory(consoles, player):
 def get_inventory_string(player):
     string = ''
 
+    # Need to make an index
+    # Need to assign each index to an item
+
     for item in player.inv.contents:
         string += item.base.name.capitalize() + ','
     
