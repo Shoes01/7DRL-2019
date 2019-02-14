@@ -24,6 +24,11 @@ ROOT = Console(
     Y=0, 
     W=80, 
     H=60)
+INVENTORY = Console(
+    X=10,           
+    Y=20,           
+    W=ROOT.W - 10,  # 70 
+    H=ROOT.H - 20)  # 40
 MAP = Console(
     X=0, 
     Y=0, 
@@ -40,13 +45,12 @@ MESSAGE = Console(
     W=ROOT.W - PANEL.W, # 60 
     H=PANEL.H)          # 10
 
-INVENTORY = Console(10, 10, 50, 20)
-
 class GameStates(Enum):
     EXIT = 0
     PLAYER_TURN = 1
     ENEMY_TURN = 2
     PLAYER_DEAD = 3
+    OPEN_INVENTORY = 4
 
 def initialize_new_game():
     # Create player entity.
@@ -64,6 +68,7 @@ def initialize_new_game():
     libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
     consoles = {}
     consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE)
+    consoles['inventory'] = libtcod.console.Console(INVENTORY.W, INVENTORY.H, order='F')
     consoles['panel'] = libtcod.console.Console(PANEL.W, PANEL.H, order='F')
     consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')
     consoles['message_log'] = libtcod.console.Console(MESSAGE.W, MESSAGE.H, order='F')

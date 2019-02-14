@@ -11,7 +11,7 @@ class MessageLog:
     def __init__(self, width, height):
         self.messages = []
         self.width = width
-        self.height = height
+        self.height = height - 1
 
     def add_message(self, message):
         # Split the message if necessary, among multiple lines

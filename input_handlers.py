@@ -26,6 +26,8 @@ def handle_keys(key):
     # Inventory keys.
     if key_char == 'g':
         return {'grab': True}
+    if key_char == 'i':
+        return {'inventory': True}
 
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen

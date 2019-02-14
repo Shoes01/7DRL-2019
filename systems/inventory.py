@@ -1,5 +1,7 @@
 import tcod as libtcod
 
+from game import GameStates
+
 def pick_up(player, entities):
     ' Pick up the item found under the player. '
     turn_results = []
@@ -15,4 +17,20 @@ def pick_up(player, entities):
     else:
         turn_results.append({'message': ('There is nothing here to pickup.', libtcod.light_grey)})
 
+    return turn_results
+
+def open_inventory(game):
+    turn_results = []
+
+    if game.state is not GameStates.OPEN_INVENTORY:
+        game.state = GameStates.OPEN_INVENTORY
+        message = 'You open your inventory.'
+        color = libtcod.white
+        turn_results.append({'message': (message, color)})
+    else:
+        game.state = GameStates.PLAYER_TURN
+        message = 'You close your inventory.'
+        color = libtcod.white
+        turn_results.append({'message': (message, color)})
+    
     return turn_results

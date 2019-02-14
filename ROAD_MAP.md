@@ -1,6 +1,3 @@
-### ORGANIZATION
-> Move the message log to its own console.
-
 ### Items and Inventory
 Create a few basic items
 Create an inventory allowing to store items
@@ -14,6 +11,9 @@ Killing monsters should spawn items
 
 ### Saving
 Python can do this easily?
+
+### Organization++
+The Game object holds the game-state. It should also hold a previous game state. Perhaps, changing game states automatically sets the previous state.
 
 ### Monsters++
 ` Race and Soul mechanic `

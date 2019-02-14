@@ -17,7 +17,7 @@ def main():
         update(action, entities, fov_map, game, game_map, message_log, player)
 
         # Render results.
-        render_all(action, consoles, entities, fov_map, game_map, message_log, player)
+        render_all(action, consoles, entities, fov_map, game, game_map, message_log, player)
 
         if game.state == GameStates.EXIT:
                 return True
