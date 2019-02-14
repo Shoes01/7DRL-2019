@@ -1,11 +1,13 @@
 import numpy as np
 import tcod as libtcod
 
-from game import COLORS, FOV_RADIUS, MAP_HEIGHT, MAP_WIDTH
+from game import COLORS, FOV_RADIUS, MAP
 from render_functions.fov import recompute_fov
 
-def render_map(action, console_map, entities, fov_map, game_map, player):
+def render_map(action, consoles, entities, fov_map, game_map, player):
     ' Render all things that appear on the map. '
+    console_map = consoles['map']
+    console_root = consoles['root']
     # Recompute FOV, if needed.
     if action:
         recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
@@ -21,7 +23,7 @@ def render_map(action, console_map, entities, fov_map, game_map, player):
         draw_entity(console_map, entity, fov_map)
 
     # Send to console.
-    libtcod.console_blit(console_map, 0, 0, MAP_WIDTH, MAP_HEIGHT, 0, 0, 0)
+    console_map.blit(console_root)
 
     # Clear entities
     clear_all(console_map, entities)

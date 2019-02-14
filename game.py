@@ -1,5 +1,6 @@
 import tcod as libtcod
 
+from collections import namedtuple
 from entity import Entity
 from enum import Enum
 from components.base import Base, RenderOrder
@@ -17,17 +18,29 @@ COLORS = {  'dark_floor': libtcod.light_blue,
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
 ' Console constants. '
-ROOT_HEIGHT = 60
-ROOT_WIDTH = 80
+Console = namedtuple('Console', ['X', 'Y', 'W', 'H'])
+ROOT = Console(
+    X=0, 
+    Y=0, 
+    W=80, 
+    H=60)
+MAP = Console(
+    X=0, 
+    Y=0, 
+    W=ROOT.W,   # 80
+    H=50)
+PANEL = Console(
+    X=0, 
+    Y=MAP.H,            # 50
+    W=ROOT.W,           # 80
+    H=ROOT.H - MAP.H)   # 10
+MESSAGE = Console(
+    X=ROOT.W // 2,  # 40
+    Y=PANEL.Y,      # 50
+    W=ROOT.W // 2,  # 40 
+    H=PANEL.H)      # 10
 
-MAP_HEIGHT = 50
-MAP_WIDTH = ROOT_WIDTH
-PANEL_HEIGHT = ROOT_HEIGHT - MAP_HEIGHT
-PANEL_WIDTH = ROOT_WIDTH
-
-MESSAGE_HEIGHT = PANEL_HEIGHT - 1
-MESSAGE_WIDTH = 2 * ROOT_WIDTH // 3
-MESSAGE_X = ROOT_WIDTH - MESSAGE_WIDTH
+INVENTORY = Console(10, 10, 50, 20)
 
 class GameStates(Enum):
     EXIT = 0
@@ -47,14 +60,18 @@ def initialize_new_game():
     entities = []
     entities.append(player)
 
-    # Create other basic functions.
+    # Create consoles.
+    libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
     consoles = {}
-    consoles['panel'] = libtcod.console.Console(PANEL_WIDTH, PANEL_HEIGHT, order='F')
-    consoles['map'] = libtcod.console.Console(MAP_WIDTH, MAP_HEIGHT, order='F')
+    consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE)
+    consoles['panel'] = libtcod.console.Console(PANEL.W, PANEL.H, order='F')
+    consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')
+
+    # Create other basic functions.
     game = GameThing()
-    game_map = GameMap(MAP_WIDTH, MAP_HEIGHT)
+    game_map = GameMap(MAP.W, MAP.H)
     key = libtcod.Key()
-    message_log = MessageLog(MESSAGE_X, MESSAGE_WIDTH, MESSAGE_HEIGHT)
+    message_log = MessageLog(MESSAGE.X, MESSAGE.W, MESSAGE.H)
     mouse = libtcod.Mouse()
 
     # Create a first map.

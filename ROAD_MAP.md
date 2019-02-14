@@ -1,3 +1,9 @@
+### ORGANIZATION
+There is an import loop since moving RenderOrder to the render stuff. 
+
+Making consoles:
+make one for the message log, and one for the stat display
+
 ### Items and Inventory
 Create a few basic items
 Create an inventory allowing to store items

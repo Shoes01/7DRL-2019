@@ -1,26 +1,28 @@
 import tcod as libtcod
 
-from game import MAP_HEIGHT, PANEL_HEIGHT, PANEL_WIDTH
+from game import PANEL
 
-def render_panel(console_panel, message_log, player):
+def render_panel(consoles, message_log, player):
+    console_panel = consoles['panel']
+    console_root = consoles['root']
     # Reset the console.
-    libtcod.console_set_default_background(console_panel, libtcod.black)
-    libtcod.console_clear(console_panel)
+    console_panel.default_bg = libtcod.black
+    console_panel.clear()
 
     # Print to the console.
     ' Player stats. '
-    libtcod.console_set_default_foreground(console_panel, libtcod.light_gray)
-    libtcod.console_print_ex(console_panel, 0, 0, libtcod.BKGND_NONE, libtcod.LEFT, get_stat_string(player))
+    console_panel.default_fg = libtcod.light_gray
+    console_panel.print_(0, 0, get_stat_string(player), libtcod.BKGND_NONE, libtcod.LEFT)
     
     ' Message Log '
     y = 1
     for message in message_log.messages:
-        libtcod.console_set_default_foreground(console_panel, message.color)
-        libtcod.console_print_ex(console_panel, message_log.x, y, libtcod.BKGND_NONE, libtcod.LEFT, message.text)
+        console_panel.default_fg = message.color
+        console_panel.print_(message_log.x, y, message.text, libtcod.BKGND_NONE, libtcod.LEFT)
         y += 1
 
     # Send to console.
-    libtcod.console_blit(console_panel, 0, 0, PANEL_WIDTH, PANEL_HEIGHT, 0, 0, MAP_HEIGHT)
+    console_panel.blit(dest=console_root, dest_x=0, dest_y=PANEL.Y, src_x=0, src_y=0, width=PANEL.W, height=PANEL.H)
 
 def get_stat_string(player):
     stat_string = ""

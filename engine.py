@@ -1,14 +1,11 @@
 import tcod as libtcod
 
-from game import GameStates, GAME_TITLE, ROOT_HEIGHT, ROOT_WIDTH, initialize_new_game
+from game import GameStates, initialize_new_game
 from input_handlers import handle_keys
 from render_functions.render import render_all
 from systems.update import update
 
 def main():
-    libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
-    libtcod.console_init_root(ROOT_WIDTH, ROOT_HEIGHT, title=GAME_TITLE, order='F')
-
     consoles, entities, fov_map, game, game_map, key, message_log, mouse, player = initialize_new_game()
 
     while not libtcod.console_is_window_closed():
