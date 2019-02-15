@@ -11,7 +11,7 @@ def main():
     while not libtcod.console_is_window_closed():
         # Process input.
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS | libtcod.EVENT_MOUSE, key, mouse)
-        action = handle_keys(key)
+        action = handle_keys(game, key)
 
         # Update game.
         update(action, entities, fov_map, game, game_map, message_log, player)

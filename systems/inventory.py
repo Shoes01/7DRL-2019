@@ -34,3 +34,37 @@ def open_inventory(game):
         turn_results.append({'message': (message, color)})
     
     return turn_results
+
+def inventory_choice(char, player):
+    turn_results = []
+
+    iter = 0
+    for content in player.inv.contents:
+        order = ord(char) - 97
+        if order == iter:
+            if player.inv.selected == None:
+                # You select an item.
+                player.inv.selected = content
+                player.inv.selected.base.highlighted = True
+                message = 'You select the {0}.'.format(content.base.name.capitalize())
+                color = libtcod.cyan
+                turn_results.append({'message': (message, color)})
+            if player.inv.selected == content:
+                # You deselect the item you already chose.
+                player.inv.selected.base.highlighted = False
+                player.inv.selected = None
+                message = 'You deselect the {0}.'.format(content.base.name.capitalize())
+                color = libtcod.cyan
+                turn_results.append({'message': (message, color)})
+            elif player.inv.selected:
+                # You select a different item, deslecting the one you already chose.
+                player.inv.selected.base.highlighted = False
+                player.inv.selected = content
+                player.inv.selected.base.highlighted = True
+                message = 'You select the {0}.'.format(content.base.name.capitalize())
+                color = libtcod.cyan
+                turn_results.append({'message': (message, color)})
+            break
+        iter += 1
+
+    return turn_results

@@ -24,21 +24,23 @@ ROOT = Console(
     Y=0, 
     W=80, 
     H=60)
-INVENTORY = Console(
-    X=10,           
-    Y=20,           
-    W=ROOT.W - 10,  # 70 
-    H=ROOT.H - 20)  # 40
+
 MAP = Console(
     X=0, 
     Y=0, 
     W=ROOT.W,   # 80
     H=50)
+MENU = Console(
+    X=10,           
+    Y=10,           
+    W=ROOT.W - 2 * 10,  # 60 
+    H=ROOT.H - 3 * 10)  # 40
 PANEL = Console(
     X=0, 
     Y=MAP.H,            # 50
     W=ROOT.W // 4,      # 20
     H=ROOT.H - MAP.H)   # 10
+
 MESSAGE = Console(
     X=PANEL.W,          # 20
     Y=PANEL.Y,          # 50
@@ -59,6 +61,17 @@ def initialize_new_game():
     _pos = Position(15, 15)
     _stats = Stats(attack=8, defense=3, hp_max=50)
     player = Entity(base=_base, inv=_inv, pos=_pos, stats=_stats)
+    
+    # Fill the player's inventory with DEBUG junk
+    _base = Base('debug_junk_1', ',', libtcod.pink, RenderOrder.ITEM)
+    debug_junk_1 = Entity(base=_base)
+    _base = Base('debug_junk_2', ',', libtcod.pink, RenderOrder.ITEM)
+    debug_junk_2 = Entity(base=_base)
+    _base = Base('debug_junk_3', ',', libtcod.pink, RenderOrder.ITEM)
+    debug_junk_3 = Entity(base=_base)
+    player.inv.contents.append(debug_junk_1)
+    player.inv.contents.append(debug_junk_2)
+    player.inv.contents.append(debug_junk_3)
 
     # Fill entities list.
     entities = []
@@ -68,10 +81,10 @@ def initialize_new_game():
     libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
     consoles = {}
     consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE)
-    consoles['inventory'] = libtcod.console.Console(INVENTORY.W, INVENTORY.H, order='F')
-    consoles['panel'] = libtcod.console.Console(PANEL.W, PANEL.H, order='F')
     consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')
+    consoles['menu'] = libtcod.console.Console(MENU.W, MENU.H, order='F')
     consoles['message_log'] = libtcod.console.Console(MESSAGE.W, MESSAGE.H, order='F')
+    consoles['panel'] = libtcod.console.Console(PANEL.W, PANEL.H, order='F')
 
     # Create other basic functions.
     game = GameThing()

@@ -1,6 +1,6 @@
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
-from systems.inventory import open_inventory, pick_up
+from systems.inventory import inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
 from systems.movement import move
 
@@ -11,6 +11,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
     _exit = action.get('exit')
     _grab = action.get('grab')
     _inventory = action.get('inventory')
+    _inventory_choice = action.get('inventory_choice')
     _move = action.get('move')
     _wait = action.get('wait')
 
@@ -41,8 +42,11 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         turn_results.append({'end_enemy_turn': True})
     
     elif game.state == GameStates.OPEN_INVENTORY:
-        if _inventory:
+        if _exit:
             turn_results.extend(open_inventory(game))
+            _exit = None
+        if _inventory_choice:
+            turn_results.extend(inventory_choice(_inventory_choice, player))
 
     handle_turn_results(game, message_log, turn_results)
 

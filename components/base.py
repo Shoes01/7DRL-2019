@@ -11,3 +11,4 @@ class Base:
         self.char = char
         self.color = color
         self.render_order = render_order
+        self.highlighted = False

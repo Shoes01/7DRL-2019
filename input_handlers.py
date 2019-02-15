@@ -1,6 +1,14 @@
 import tcod as libtcod
 
-def handle_keys(key):
+from game import GameStates
+
+def handle_keys(game, key):
+    if game.state == GameStates.OPEN_INVENTORY:
+        return handle_inventory_keys(key)
+    else:
+        return handle_general_keys(key)
+
+def handle_general_keys(key):
     key_char = chr(key.c)
 
     # Movement keys
@@ -23,7 +31,7 @@ def handle_keys(key):
     elif key_char == '.' or key.vk == libtcod.KEY_KP5:
         return {'wait': True}
 
-    # Inventory keys.
+    # Inventory related keys.
     if key_char == 'g':
         return {'grab': True}
     if key_char == 'i':
@@ -37,4 +45,23 @@ def handle_keys(key):
         return {'exit': True}
 
     # No key was pressed
+    return {}
+
+def handle_inventory_keys(key):
+    key_char = chr(key.c)
+
+    if key_char == 'a':
+        return {'inventory_choice': 'a'}
+    if key_char == 'b':
+        return {'inventory_choice': 'b'}
+    if key_char == 'c':
+        return {'inventory_choice': 'c'}
+
+    if key.vk == libtcod.KEY_ENTER and key.lalt:
+        # Alt+Enter: toggle full screen
+        return {'fullscreen': True}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        # Exit the game
+        return {'exit': True}
+
     return {}
