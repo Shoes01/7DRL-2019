@@ -57,6 +57,9 @@ def handle_inventory_keys(key):
     if key_char == 'c':
         return {'inventory_choice': 'c'}
 
+    if key_char == 'd' and key.shift:
+        return {'drop': True}
+
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}

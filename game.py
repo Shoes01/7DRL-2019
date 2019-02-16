@@ -64,11 +64,14 @@ def initialize_new_game():
     
     # Fill the player's inventory with DEBUG junk
     _base = Base('debug_junk_1', ',', libtcod.pink, RenderOrder.ITEM)
-    debug_junk_1 = Entity(base=_base)
+    _pos = Position(-1, -1)
+    debug_junk_1 = Entity(base=_base, pos=_pos)
     _base = Base('debug_junk_2', ',', libtcod.pink, RenderOrder.ITEM)
-    debug_junk_2 = Entity(base=_base)
+    _pos = Position(-1, -1)
+    debug_junk_2 = Entity(base=_base, pos=_pos)
     _base = Base('debug_junk_3', ',', libtcod.pink, RenderOrder.ITEM)
-    debug_junk_3 = Entity(base=_base)
+    _pos = Position(-1, -1)
+    debug_junk_3 = Entity(base=_base, pos=_pos)
     player.inv.contents.append(debug_junk_1)
     player.inv.contents.append(debug_junk_2)
     player.inv.contents.append(debug_junk_3)

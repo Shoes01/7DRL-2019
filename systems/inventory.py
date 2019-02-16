@@ -19,7 +19,7 @@ def pick_up(player, entities):
 
     return turn_results
 
-def open_inventory(game):
+def open_inventory(game, player):
     turn_results = []
 
     if game.state is not GameStates.OPEN_INVENTORY:
@@ -28,6 +28,9 @@ def open_inventory(game):
         color = libtcod.white
         turn_results.append({'message': (message, color)})
     else:
+        if player.inv.selected:
+            player.inv.selected.base.highlighted = False # TODO: It's bad that I have to touch two pieces of code for this to work...
+            player.inv.selected = None
         game.state = GameStates.PLAYER_TURN
         message = 'You close your inventory.'
         color = libtcod.white
@@ -49,7 +52,7 @@ def inventory_choice(char, player):
                 message = 'You select the {0}.'.format(content.base.name.capitalize())
                 color = libtcod.cyan
                 turn_results.append({'message': (message, color)})
-            if player.inv.selected == content:
+            elif player.inv.selected == content:
                 # You deselect the item you already chose.
                 player.inv.selected.base.highlighted = False
                 player.inv.selected = None
@@ -67,4 +70,19 @@ def inventory_choice(char, player):
             break
         iter += 1
 
+    return turn_results
+
+def drop_item(entities, player):
+    turn_results = []
+    
+    item = player.inv.selected
+
+    if item:
+        item.pos.x, item.pos.y = player.pos.x, player.pos.y
+        entities.append(item)
+        player.inv.contents.remove(item)
+        message = 'You drop the {0}'.format(player.inv.selected.base.name.capitalize())
+        color = libtcod.light_blue
+        turn_results.append({'message': (message, color)})
+    
     return turn_results
