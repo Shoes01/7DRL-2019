@@ -38,13 +38,12 @@ def open_inventory(game, player):
     
     return turn_results
 
-def inventory_choice(char, player):
+def inventory_choice(index, player):
     turn_results = []
 
     iter = 0
     for content in player.inv.contents:
-        order = ord(char) - 97
-        if order == iter:
+        if index == iter:
             if player.inv.selected == None:
                 # You select an item.
                 player.inv.selected = content

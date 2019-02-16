@@ -50,7 +50,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
             turn_results.extend(open_inventory(game, player))
             _exit = None
 
-        if _inventory_choice:
+        if _inventory_choice is not None:
             turn_results.extend(inventory_choice(_inventory_choice, player))
 
     handle_turn_results(game, message_log, turn_results)

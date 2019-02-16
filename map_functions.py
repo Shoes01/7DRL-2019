@@ -76,7 +76,7 @@ class GameMap:
                 self.tiles[x, y1c] = False, False, False
         
     def place_player(self, game_map, position):
-        room = self.rooms.pop(random.randint(0, len(self.rooms)))
+        room = self.rooms.pop(random.randint(0, len(self.rooms) - 1))
 
         success = False
         while not success:

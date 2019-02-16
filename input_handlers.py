@@ -48,17 +48,14 @@ def handle_general_keys(key):
     return {}
 
 def handle_inventory_keys(key):
+    index = key.c - ord('a')
     key_char = chr(key.c)
-
-    if key_char == 'a':
-        return {'inventory_choice': 'a'}
-    if key_char == 'b':
-        return {'inventory_choice': 'b'}
-    if key_char == 'c':
-        return {'inventory_choice': 'c'}
 
     if key_char == 'd' and key.shift:
         return {'drop': True}
+
+    if index >= 0:
+        return {'inventory_choice': index}
 
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen
