@@ -1,7 +1,3 @@
-### Progression
-Allow the player to interact with the level up menu
-Clean up the "names" of the stats.
-
 ### Items and Inventory
 Create a few basic items
 Monsters drop loot
@@ -10,17 +6,11 @@ Create an interface to equip items
 Confer bonuses according to equipped items
 Show items on the HUD.
 
-### Organization++
-<urgent> only change game.state in the turn results. Make use of prev game state
-The Game object holds the game-state. It should also hold a previous game state. Perhaps, changing game states automatically sets the previous state.
-Rename the Inventory console to menu
-> It will be used by more than one menu
->>> Perhaps make a generic menu console?
-
 ### GUI
 Make the consoles look a little better
 Have a menu at the start of the game?
 >>> If so, look into saving the game
+Clean up the "names" of the stats in the level up menu.
 
 ### Monsters++
 ` Race and Soul mechanic `
@@ -42,8 +32,7 @@ The rank of the soul will determine its net worth. (Example: a rare sould would 
 
 ### Systems++
 Move map_gen code into a folder and split into appropriate pieces
-Move the Render code out of systems, into its own folder. Maybe.
-Move FOV code and Factory code out of systems.
+Move Factory code out of systems.
 
 ### Skill System
 Skills and ranged attack systems get done here.
