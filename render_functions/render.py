@@ -14,5 +14,8 @@ def render_all(action, consoles, entities, fov_map, game, game_map, message_log,
     
     if game.state == GameStates.OPEN_INVENTORY:
         render_menu(consoles, player, type_='inventory')
+    
+    if game.state == GameStates.LEVEL_UP:
+        render_menu(consoles, player, type_='level_up')
 
     libtcod.console_flush()

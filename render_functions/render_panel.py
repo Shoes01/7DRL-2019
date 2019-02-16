@@ -25,6 +25,8 @@ def get_stat_string(player):
 
     defense_string = "DEF: " + str(player.stats.defense)
 
-    stat_string += hp_string + "\n" + attack_string + "\n" + defense_string
+    level_string = "LVL: " + str(player.stats.level) + " (" + str(player.stats.exp) + "/" + str(player.stats.exp_needed_for_next_level) + ")"
+
+    stat_string += hp_string + "\n" + attack_string + "\n" + defense_string + "\n" + level_string
 
     return stat_string

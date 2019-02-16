@@ -29,20 +29,18 @@ def open_inventory(game):
     
     return turn_results
 
-def close_inventory(game, player):
+def close_inventory(player):
     turn_results = []
 
     if player.inv.selected:
         player.inv.selected = None
-    game.state = GameStates.PLAYER_TURN
     message = 'You close your inventory.'
     color = libtcod.white
     turn_results.append({'message': (message, color)})
-
-    game.redraw_map = True
+    turn_results.append({'previous_state': True})
+    turn_results.append({'redraw_map': True})
 
     return turn_results
-
 
 def inventory_choice(index, player):
     turn_results = []

@@ -53,13 +53,14 @@ class GameStates(Enum):
     ENEMY_TURN = 2
     PLAYER_DEAD = 3
     OPEN_INVENTORY = 4
+    LEVEL_UP = 5
 
 def initialize_new_game():
     # Create player entity.
     _base = Base('player', '@', libtcod.white, RenderOrder.ACTOR)
     _inv = Inventory()
     _pos = Position(15, 15)
-    _stats = Stats(attack=8, defense=3, hp_max=50)
+    _stats = Stats(attack=8, defense=3, hp_max=50, exp=0)
     player = Entity(base=_base, inv=_inv, pos=_pos, stats=_stats)
     
     # Fill the player's inventory with DEBUG junk
@@ -112,4 +113,5 @@ def initialize_new_game():
 class GameThing:
     def __init__(self):
         self.state = GameStates.PLAYER_TURN
+        self.previous_state = GameStates.PLAYER_TURN
         self.redraw_map = False

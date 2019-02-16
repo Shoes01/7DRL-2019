@@ -1,23 +1,17 @@
-## Inventory
->>> Need to create a Menu class that stores all the info that can be passed to the render function
-[x] Pressing i opens the inventory
->>> Restructure the inventory system to be a generic menu system
-[x] List the items with an index
-[x] Pressing the item letter selects the item.    
-[x] Selected items may be dropped, equipped, or other.
+### Progression
+Allow the player to interact with the level up menu
+Clean up the "names" of the stats.
 
 ### Items and Inventory
 Create a few basic items
-Create an inventory allowing to store items
-> Create a show inventory state
-> Create pickup/drop commands
+Monsters drop loot
 Create an interface to equip items
 > Done via inventory
 Confer bonuses according to equipped items
 Show items on the HUD.
-Killing monsters should spawn items
 
 ### Organization++
+<urgent> only change game.state in the turn results. Make use of prev game state
 The Game object holds the game-state. It should also hold a previous game state. Perhaps, changing game states automatically sets the previous state.
 Rename the Inventory console to menu
 > It will be used by more than one menu

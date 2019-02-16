@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from systems.death import kill
+from systems.progression import gain_exp
 
 def attack(attacker, defender):
     turn_results = []
@@ -13,5 +14,7 @@ def attack(attacker, defender):
 
     if defender.stats.hp <= 0:
         turn_results.extend(kill(defender))
+        if not attacker.ai:
+            turn_results.extend(gain_exp(defender.stats.exp, attacker))
     
     return turn_results

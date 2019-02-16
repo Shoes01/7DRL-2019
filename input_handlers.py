@@ -5,6 +5,8 @@ from game import GameStates
 def handle_keys(game, key):
     if game.state == GameStates.OPEN_INVENTORY:
         return handle_inventory_keys(key)
+    elif game.state == GameStates.LEVEL_UP:
+        return handle_level_up_keys(key)
     else:
         return handle_general_keys(key)
 
@@ -56,6 +58,24 @@ def handle_inventory_keys(key):
 
     if index >= 0:
         return {'inventory_choice': index}
+
+    if key.vk == libtcod.KEY_ENTER and key.lalt:
+        # Alt+Enter: toggle full screen
+        return {'fullscreen': True}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        # Exit the game
+        return {'exit': True}
+
+    return {}
+
+def handle_level_up_keys(key):
+    index = key.c - ord('a')
+
+    if key.vk == libtcod.KEY_ENTER:
+        return {'confirm': True}
+
+    if index >= 0:
+        return {'level_up_choice': index}
 
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen
