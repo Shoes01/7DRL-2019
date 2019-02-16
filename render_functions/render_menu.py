@@ -14,7 +14,7 @@ def render_menu(consoles, player, type_):
     console_menu.clear()
 
     if type_ == 'inventory':
-        header, options = render_inventory_menu(header, options, player.inv.contents)
+        header, options = render_inventory_menu(header, options, player.inv)
 
     # Print to console.
     console_menu.print_(0, 0, header, libtcod.BKGND_NONE, libtcod.LEFT)
@@ -28,13 +28,13 @@ def render_menu(consoles, player, type_):
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)
 
-def render_inventory_menu(header, options, contents):
+def render_inventory_menu(header, options, inventory):
     header = "Inventory"
 
     letter_index = ord('a')
-    for content in contents:
+    for content in inventory.contents:
         text = '(' + chr(letter_index) + ') ' + content.base.name.capitalize()
-        if content.base.highlighted:
+        if content == inventory.selected:
             color = libtcod.green
         else:
             color = libtcod.white

@@ -19,24 +19,30 @@ def pick_up(player, entities):
 
     return turn_results
 
-def open_inventory(game, player):
+def open_inventory(game):
     turn_results = []
 
-    if game.state is not GameStates.OPEN_INVENTORY:
-        game.state = GameStates.OPEN_INVENTORY
-        message = 'You open your inventory.'
-        color = libtcod.white
-        turn_results.append({'message': (message, color)})
-    else:
-        if player.inv.selected:
-            player.inv.selected.base.highlighted = False # TODO: It's bad that I have to touch two pieces of code for this to work...
-            player.inv.selected = None
-        game.state = GameStates.PLAYER_TURN
-        message = 'You close your inventory.'
-        color = libtcod.white
-        turn_results.append({'message': (message, color)})
+    game.state = GameStates.OPEN_INVENTORY
+    message = 'You open your inventory.'
+    color = libtcod.white
+    turn_results.append({'message': (message, color)})
     
     return turn_results
+
+def close_inventory(game, player):
+    turn_results = []
+
+    if player.inv.selected:
+        player.inv.selected = None
+    game.state = GameStates.PLAYER_TURN
+    message = 'You close your inventory.'
+    color = libtcod.white
+    turn_results.append({'message': (message, color)})
+
+    game.redraw_map = True
+
+    return turn_results
+
 
 def inventory_choice(index, player):
     turn_results = []
@@ -47,22 +53,18 @@ def inventory_choice(index, player):
             if player.inv.selected == None:
                 # You select an item.
                 player.inv.selected = content
-                player.inv.selected.base.highlighted = True
                 message = 'You select the {0}.'.format(content.base.name.capitalize())
                 color = libtcod.cyan
                 turn_results.append({'message': (message, color)})
             elif player.inv.selected == content:
                 # You deselect the item you already chose.
-                player.inv.selected.base.highlighted = False
                 player.inv.selected = None
                 message = 'You deselect the {0}.'.format(content.base.name.capitalize())
                 color = libtcod.cyan
                 turn_results.append({'message': (message, color)})
             elif player.inv.selected:
                 # You select a different item, deslecting the one you already chose.
-                player.inv.selected.base.highlighted = False
                 player.inv.selected = content
-                player.inv.selected.base.highlighted = True
                 message = 'You select the {0}.'.format(content.base.name.capitalize())
                 color = libtcod.cyan
                 turn_results.append({'message': (message, color)})
@@ -80,8 +82,9 @@ def drop_item(entities, player):
         item.pos.x, item.pos.y = player.pos.x, player.pos.y
         entities.append(item)
         player.inv.contents.remove(item)
-        message = 'You drop the {0}'.format(player.inv.selected.base.name.capitalize())
+        message = 'You drop the {0}'.format(item.base.name.capitalize())
         color = libtcod.light_blue
         turn_results.append({'message': (message, color)})
+        player.inv.selected = None
     
     return turn_results

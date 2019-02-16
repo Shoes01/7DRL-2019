@@ -1,3 +1,4 @@
+import cProfile
 import tcod as libtcod
 
 from game import GameStates, initialize_new_game
@@ -24,3 +25,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # icProfile.run('main()') # This runs the profiler

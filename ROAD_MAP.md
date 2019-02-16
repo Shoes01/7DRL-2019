@@ -37,7 +37,7 @@ The menu system would flag an item as chosen, and then the rendering system woul
 >>> Restructure the inventory system to be a generic menu system
 [x] List the items with an index
 [x] Pressing the item letter selects the item.    
-[ ] Selected items may be dropped, equipped, or other.
+[x] Selected items may be dropped, equipped, or other.
 
 ### Items and Inventory
 Create a few basic items

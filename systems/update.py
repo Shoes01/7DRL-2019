@@ -1,6 +1,6 @@
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
-from systems.inventory import drop_item, inventory_choice, open_inventory, pick_up
+from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
 from systems.movement import move
 
@@ -20,7 +20,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
     if game.state == GameStates.PLAYER_TURN:
         # The player may act.
         if _inventory:
-            turn_results.extend(open_inventory(game, player))
+            turn_results.extend(open_inventory(game))
 
         if _grab:
             turn_results.extend(pick_up(player, entities))
@@ -47,7 +47,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
             turn_results.extend(drop_item(entities, player))
         
         if _exit:
-            turn_results.extend(open_inventory(game, player))
+            turn_results.extend(close_inventory(game, player))
             _exit = None
 
         if _inventory_choice is not None:

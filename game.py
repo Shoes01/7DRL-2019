@@ -112,3 +112,4 @@ def initialize_new_game():
 class GameThing:
     def __init__(self):
         self.state = GameStates.PLAYER_TURN
+        self.redraw_map = False

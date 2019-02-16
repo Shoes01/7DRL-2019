@@ -4,7 +4,7 @@ import tcod as libtcod
 from game import COLORS, FOV_RADIUS, MAP
 from render_functions.fov import recompute_fov
 
-def render_map(action, consoles, entities, fov_map, game_map, player):
+def render_map(action, consoles, entities, fov_map, game, game_map, player):
     ' Render all things that appear on the map. '
     console_map = consoles['map']
     console_root = consoles['root']
@@ -14,7 +14,8 @@ def render_map(action, consoles, entities, fov_map, game_map, player):
     
     # Draw the game_map tiles that are in the fov.
     for (x, y), _ in np.ndenumerate(game_map.tiles):
-            draw_tile(console_map, fov_map, game_map, x, y)
+            draw_tile(console_map, fov_map, game, game_map, x, y)
+    game.redraw_map = False
     
     # Sort the entities, then draw them.
     entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)
@@ -28,7 +29,7 @@ def render_map(action, consoles, entities, fov_map, game_map, player):
     # Clear entities.
     clear_all(console_map, entities)
 
-def draw_tile(console_map, fov_map, game_map, x, y):
+def draw_tile(console_map, fov_map, game, game_map, x, y):
     visible = libtcod.map_is_in_fov(fov_map, x, y)
     _, blocks_path, explored = game_map.tiles[x, y]
     
@@ -53,7 +54,7 @@ def draw_tile(console_map, fov_map, game_map, x, y):
             console_map.default_bg = COLORS['dark_floor']
             console_map.print_(x, y, " ", libtcod.BKGND_SET)
     
-    else:
+    elif game.redraw_map:
         # If neither visible nor explored, it is just black.
         console_map.default_bg = libtcod.black
         console_map.print_(x, y, " ", libtcod.BKGND_SET)
