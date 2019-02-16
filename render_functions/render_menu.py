@@ -7,6 +7,7 @@ def render_menu(consoles, player, type_):
     console_root = consoles['root']
     header = ""
     options = []
+    reminder_text = ""
     
     # Reset the console.
     console_menu.default_fg = libtcod.white
@@ -14,7 +15,7 @@ def render_menu(consoles, player, type_):
     console_menu.clear()
 
     if type_ == 'inventory':
-        header, options = render_inventory_menu(header, options, player.inv)
+        header, options, reminder_text = render_inventory_menu(player.inv)
 
     # Print to console.
     console_menu.print_(0, 0, header, libtcod.BKGND_NONE, libtcod.LEFT)
@@ -24,12 +25,18 @@ def render_menu(consoles, player, type_):
         console_menu.default_fg = color
         console_menu.print_(0, y, text, libtcod.BKGND_NONE, libtcod.LEFT)
         y += 1
+    
+    
+    console_menu.default_fg = libtcod.white
+    console_menu.print_(MENU.W // 2, MENU.H - 1, reminder_text, libtcod.BKGND_NONE, libtcod.CENTER)
 
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)
 
-def render_inventory_menu(header, options, inventory):
+def render_inventory_menu(inventory):
     header = "Inventory"
+    options = []
+    reminder_text = "To drop an item, select it from the menu and press D."
 
     letter_index = ord('a')
     for content in inventory.contents:
@@ -41,4 +48,4 @@ def render_inventory_menu(header, options, inventory):
         options.append((text, color))
         letter_index += 1
     
-    return header, options
+    return header, options, reminder_text
