@@ -1,5 +1,6 @@
 import tcod as libtcod
 
+from components.base import RenderOrder
 from game import GameStates
 
 def pick_up(player, entities):
@@ -9,7 +10,7 @@ def pick_up(player, entities):
     x, y = player.pos.x, player.pos.y
 
     for entity in entities:
-        if entity.pos.x == x and entity.pos.y == y and entity.base.name is not 'player' and entity.ai is None:
+        if entity.pos.x == x and entity.pos.y == y and entity.base.render_order == RenderOrder.ITEM:
             player.inv.contents.append(entity)
             entities.remove(entity)
             turn_results.append({'message': ('The {0} picks up the {1}.'.format(player.base.name.capitalize(), entity.base.name.capitalize()), libtcod.light_blue)})
@@ -85,4 +86,45 @@ def drop_item(entities, player):
         turn_results.append({'message': (message, color)})
         player.inv.selected = None
     
+    return turn_results
+
+def equip_item(player):
+    turn_results = []
+
+    item = player.inv.selected
+
+    if item and item.base.slot:
+        if player.base.body[item.base.slot] == None:
+            player.base.body[item.base.slot] = item
+            _message = 'You equip your {0} to your {1}.'.format(item.base.name, item.base.slot)
+            _color = libtcod.blue
+            turn_results.append({'message': (_message, _color)})
+        else:
+            _message = 'You must unequip your {0} before equipping your {1}.'.format(player.base.body[item.base.slot].base.name, item.base.name)
+            _color = libtcod.red
+            turn_results.append({'message': (_message, _color)})
+    else:
+        _message = 'You do not know how to equip a {0}.'.format(item.base.name)
+        _color = libtcod.red
+        turn_results.append({'message': (_message, _color)})
+
+
+    return turn_results
+
+def unequip_item(player):
+    turn_results = []
+
+    item = player.inv.selected
+
+    if item and item.base.slot:
+        if player.base.body[item.base.slot] == item:
+            player.base.body[item.base.slot] = None
+            _message = 'You unequip your {0}.'.format(item.base.name)
+            _color = libtcod.blue
+            turn_results.append({'message': (_message, _color)})
+        else:
+            _message = 'You are not wielding the {0}.'.format(item.base.name)
+            _color = libtcod.grey
+            turn_results.append({'message': (_message, _color)})
+
     return turn_results

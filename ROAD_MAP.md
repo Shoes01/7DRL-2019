@@ -1,6 +1,24 @@
-### Items and Inventory
+### Equipment
+
+> Move the body subcomponent to its own component
+
+### Loot
 Create a few basic items
 Monsters drop loot
+
+<monster_loot_algo>
+```py
+# In the death system:
+
+turn_results.extend({'drop_loot': monster_level})
+
+# In update.py:
+
+if _drop_loot:
+    drop_loot()
+
+```
+
 Create an interface to equip items
 > Done via inventory
 Confer bonuses according to equipped items
@@ -33,6 +51,22 @@ The rank of the soul will determine its net worth. (Example: a rare sould would 
 ### Systems++
 Move map_gen code into a folder and split into appropriate pieces
 Move Factory code out of systems.
+
+According to ECS, systems should be run in a specific order, every tick. 
+Don't know if I want to do that...
+
+Example
+
+[InputSystem]
+Write the Input to the InputComponents of entities that have one but don't have an AIComponent. (Should only be the player.) Example: {'move': (+1, 0)}
+[AIInputSystem]
+Write the Input to the InputComponents of entitiesthat have one _and_ have an AIComponent.
+[MovementSystem]
+Read the InputComponent.
+Write the new position of the PositionComponent of the entity.
+[CollisionSystem]
+Read the PositionComponent of the entity. Read the Map?.
+Write collision, if there are any. Does the PositionComponent have a rewind?
 
 ### Skill System
 Skills and ranged attack systems get done here.

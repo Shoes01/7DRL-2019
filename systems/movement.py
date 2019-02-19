@@ -15,6 +15,6 @@ def move(d_move, entity, entities, game_map):
         entity.pos.y += dy
     
     if tile_occupant:
-        turn_results.extend(attack(entity, tile_occupant))
+        turn_results.extend(attack(entity, tile_occupant, entities))
     
     return turn_results

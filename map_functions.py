@@ -96,7 +96,7 @@ class GameMap:
             number_of_monsters = size // 5  # This controls monster density
 
             while number_of_monsters > 0:
-                monster = create_monster()
+                monster = create_monster('zombie')
 
                 x = random.randint(room.x, room.x + room.w - 1)
                 y = random.randint(room.y, room.y + room.h - 1)

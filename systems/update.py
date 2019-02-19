@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
-from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
+from systems.inventory import close_inventory, drop_item, equip_item, inventory_choice, open_inventory, pick_up, unequip_item
 from systems.message_log import Message
 from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
@@ -13,12 +13,14 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
     # Possible actions.
     _confirm = action.get('confirm')
     _drop = action.get('drop')
+    _equip = action.get('equip')
     _exit = action.get('exit')
     _grab = action.get('grab')
     _inventory = action.get('inventory')
     _inventory_choice = action.get('inventory_choice')
     _level_up_choice = action.get('level_up_choice')
     _move = action.get('move')
+    _unequip = action.get('unequip')
     _wait = action.get('wait')
 
     # Handle the player turn.
@@ -51,21 +53,27 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         if _drop:
             turn_results.extend(drop_item(entities, player))
         
+        if _equip:
+            turn_results.extend(equip_item(player))
+
         if _exit:
             turn_results.extend(close_inventory(player))
             _exit = None
 
         if _inventory_choice is not None:
             turn_results.extend(inventory_choice(_inventory_choice, player))
+        
+        if _unequip:
+            turn_results.extend(unequip_item(player))
     
     elif game.state == GameStates.LEVEL_UP:
         if _confirm:
             turn_results.extend(confirm_stat_gain(player))
         if _exit:
             # TODO: Maybe this should be moved into the system...
-            __message = 'You have to select a stat to increase!'
-            __color = libtcod.light_purple
-            turn_results.append({'message': (__message, __color)})
+            _message = 'You have to select a stat to increase!'
+            _color = libtcod.light_purple
+            turn_results.append({'message': (_message, _color)})
             _exit = None
         
         if _level_up_choice is not None:

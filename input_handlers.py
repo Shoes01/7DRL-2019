@@ -56,6 +56,12 @@ def handle_inventory_keys(key):
     if key_char == 'd' and key.shift:
         return {'drop': True}
 
+    if key_char == 'e' and key.shift:
+        return {'equip': True}
+
+    if key_char == 'u' and key.shift:
+        return {'unequip': True}
+
     if index >= 0:
         return {'inventory_choice': index}
 

@@ -30,7 +30,7 @@ def render_menu(consoles, player, type_):
     
     
     console_menu.default_fg = libtcod.white
-    console_menu.print_(MENU.W // 2, MENU.H - 1, reminder_text, libtcod.BKGND_NONE, libtcod.CENTER)
+    console_menu.print_(0, MENU.H - 3, reminder_text, libtcod.BKGND_NONE, libtcod.LEFT)
 
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)
@@ -38,11 +38,16 @@ def render_menu(consoles, player, type_):
 def render_inventory_menu(inventory):
     header = "Inventory"
     options = []
-    reminder_text = "To drop an item, select it from the menu and press D."
+    reminder_text = "To drop an item, select it from the menu and press D.\n"
+    reminder_text += "To equip an item, select it from the menu and press E.\n"
+    reminder_text += "To unequip an item, select it from the menu and press U."
 
     letter_index = ord('a')
     for content in inventory.contents:
         text = '(' + chr(letter_index) + ') ' + content.base.name.capitalize()
+        if content == inventory.owner.base.body.get(content.base.slot):
+            text += ' (equipped)'
+        
         if content == inventory.selected:
             color = libtcod.green
             text = '  ' + text
