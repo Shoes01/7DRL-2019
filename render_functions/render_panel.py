@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from game import PANEL
+from systems.helper_stats import get_stats
 
 def render_panel(consoles, player):
     console_panel = consoles['panel']
@@ -21,11 +22,11 @@ def render_panel(consoles, player):
 def get_stat_string(player):
     stat_string = ""
     
-    hp_string = str(player.stats.hp) + "/" + str(player.stats.hp_max)
+    hp_string = str(player.stats.hp) + "/" + str(get_stats(player, 'hp_max'))
     
-    attack_string = "ATT: " + str(player.stats.attack)
+    attack_string = "ATT: " + str(get_stats(player, 'attack'))
 
-    defense_string = "DEF: " + str(player.stats.defense)
+    defense_string = "DEF: " + str(get_stats(player, 'defense'))
 
     level_string = "LVL: " + str(player.stats.level) + " (" + str(player.stats.exp) + "/" + str(player.stats.exp_needed_for_next_level) + ")"
 

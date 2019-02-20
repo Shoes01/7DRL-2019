@@ -1,9 +1,3 @@
-### Todo
-
-Create a new system for equipping
-Move equip and unequip there
-Update the render_menu to use the new bodyparts code
-
 ### Equipment
 
 Move the body subcomponent to its own component

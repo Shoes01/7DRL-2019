@@ -57,13 +57,13 @@ def level_up_choice(index, player):
 def confirm_stat_gain(player):
     turn_results = []
 
-    if player.stats.selected == 'base_attack':
-        player.stats.base_attack += 2
-    elif player.stats.selected == 'base_defense':
-        player.stats.base_defense += 2
-    elif player.stats.selected == 'base_hp_max':
+    if player.stats.selected == 'attack':
+        player.stats.attack += 2
+    elif player.stats.selected == 'defense':
+        player.stats.defense += 2
+    elif player.stats.selected == 'hp_max':
         player.stats.hp += 10
-        player.stats.base_hp_max += 10
+        player.stats.hp_max += 10
     else:
         _message = 'You must pick a stat to upgrade.'
         _color = libtcod.red
