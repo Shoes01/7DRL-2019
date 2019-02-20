@@ -2,7 +2,8 @@ import tcod as libtcod
 
 from game import GameStates, FOV_RADIUS
 from systems.ai import take_turn
-from systems.inventory import close_inventory, drop_item, equip_item, inventory_choice, open_inventory, pick_up, unequip_item
+from systems.equip import equip, unequip
+from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
 from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
@@ -54,7 +55,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
             turn_results.extend(drop_item(entities, player))
         
         if _equip:
-            turn_results.extend(equip_item(player))
+            turn_results.extend(equip(player))
 
         if _exit:
             turn_results.extend(close_inventory(player))
@@ -64,7 +65,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
             turn_results.extend(inventory_choice(_inventory_choice, player))
         
         if _unequip:
-            turn_results.extend(unequip_item(player))
+            turn_results.extend(unequip(player))
     
     elif game.state == GameStates.LEVEL_UP:
         if _confirm:

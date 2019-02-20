@@ -24,5 +24,5 @@ def main():
                 return True
 
 if __name__ == '__main__':
-    main()
     # icProfile.run('main()') # This runs the profiler
+    main()

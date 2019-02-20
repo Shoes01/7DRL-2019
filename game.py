@@ -4,6 +4,7 @@ from collections import namedtuple
 from entity import Entity
 from enum import Enum
 from components.base import Base, RenderOrder
+from components.body import Body
 from components.inventory import Inventory
 from components.pos import Position
 from components.stats import Stats
@@ -57,21 +58,22 @@ class GameStates(Enum):
 
 def initialize_new_game():
     # Create player entity.
-    _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR, body=True)
+    _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
+    _body = Body()
     _inv = Inventory()
     _pos = Position(15, 15)
     _stats = Stats(attack=8, defense=3, hp_max=50, exp=0)
-    player = Entity(base=_base, inv=_inv, pos=_pos, stats=_stats)
+    player = Entity(base=_base, body=_body, inv=_inv, pos=_pos, stats=_stats)
     
     # Fill the player's inventory with DEBUG junk
     _base = Base('debug_junk_1', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position(-1, -1)
+    _pos = Position()
     debug_junk_1 = Entity(base=_base, pos=_pos)
     _base = Base('debug_junk_2', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position(-1, -1)
+    _pos = Position()
     debug_junk_2 = Entity(base=_base, pos=_pos)
     _base = Base('debug_junk_3', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position(-1, -1)
+    _pos = Position()
     debug_junk_3 = Entity(base=_base, pos=_pos)
     player.inv.contents.append(debug_junk_1)
     player.inv.contents.append(debug_junk_2)

@@ -77,54 +77,20 @@ def drop_item(entities, player):
     
     item = player.inv.selected
 
+    for name, equipped_item in player.body.parts.items():
+        if item == equipped_item:
+            _message = 'You must unequip your {0} from your {1} first.'.format(item.base.name.capitalize(), name.capitalize())
+            _color = libtcod.red
+            turn_results.append({'message': (_message, _color)})
+            return turn_results
+
     if item:
         item.pos.x, item.pos.y = player.pos.x, player.pos.y
         entities.append(item)
         player.inv.contents.remove(item)
-        message = 'You drop the {0}'.format(item.base.name.capitalize())
-        color = libtcod.light_blue
-        turn_results.append({'message': (message, color)})
+        _message = 'You drop the {0}'.format(item.base.name.capitalize())
+        _color = libtcod.light_blue
+        turn_results.append({'message': (_message, _color)})
         player.inv.selected = None
     
-    return turn_results
-
-def equip_item(player):
-    turn_results = []
-
-    item = player.inv.selected
-
-    if item and item.base.slot:
-        if player.base.body[item.base.slot] == None:
-            player.base.body[item.base.slot] = item
-            _message = 'You equip your {0} to your {1}.'.format(item.base.name, item.base.slot)
-            _color = libtcod.blue
-            turn_results.append({'message': (_message, _color)})
-        else:
-            _message = 'You must unequip your {0} before equipping your {1}.'.format(player.base.body[item.base.slot].base.name, item.base.name)
-            _color = libtcod.red
-            turn_results.append({'message': (_message, _color)})
-    else:
-        _message = 'You do not know how to equip a {0}.'.format(item.base.name)
-        _color = libtcod.red
-        turn_results.append({'message': (_message, _color)})
-
-
-    return turn_results
-
-def unequip_item(player):
-    turn_results = []
-
-    item = player.inv.selected
-
-    if item and item.base.slot:
-        if player.base.body[item.base.slot] == item:
-            player.base.body[item.base.slot] = None
-            _message = 'You unequip your {0}.'.format(item.base.name)
-            _color = libtcod.blue
-            turn_results.append({'message': (_message, _color)})
-        else:
-            _message = 'You are not wielding the {0}.'.format(item.base.name)
-            _color = libtcod.grey
-            turn_results.append({'message': (_message, _color)})
-
     return turn_results

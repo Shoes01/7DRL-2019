@@ -1,32 +1,23 @@
+### Todo
+
+Create a new system for equipping
+Move equip and unequip there
+Update the render_menu to use the new bodyparts code
+
 ### Equipment
 
-> Move the body subcomponent to its own component
-
-### Loot
+Move the body subcomponent to its own component
+> Name it something else?
+Create an equipment component
+Attach a skill to an equipment
 Create a few basic items
 Monsters drop loot
-
-<monster_loot_algo>
-```py
-# In the death system:
-
-turn_results.extend({'drop_loot': monster_level})
-
-# In update.py:
-
-if _drop_loot:
-    drop_loot()
-
-```
-
-Create an interface to equip items
-> Done via inventory
-Confer bonuses according to equipped items
 Show items on the HUD.
+There needs a stats system in order to fetch base_attack from stats comp and bonus_attack from item comp
 
 ### GUI
 Make the consoles look a little better
-Have a menu at the start of the game?
+Have a menu at the start of the game? (maybe not for 7DRL)
 >>> If so, look into saving the game
 Clean up the "names" of the stats in the level up menu.
 

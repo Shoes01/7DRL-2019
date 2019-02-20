@@ -64,6 +64,12 @@ def confirm_stat_gain(player):
     elif player.stats.selected == 'base_hp_max':
         player.stats.hp += 10
         player.stats.base_hp_max += 10
+    else:
+        _message = 'You must pick a stat to upgrade.'
+        _color = libtcod.red
+        turn_results.append({'message': (_message, _color)})
+        return turn_results
+
     
     _message = 'You feel stronger!'
     _color = libtcod.purple

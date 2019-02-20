@@ -18,7 +18,7 @@ class Stats:
     def attack(self):
         attack = self.base_attack
         
-        for _, item in self.owner.base.body.items():
+        for _, item in self.owner.body.parts.items():
             if item:
                 attack += item.stats.base_attack
         
@@ -28,7 +28,7 @@ class Stats:
     def defense(self):
         defense = self.base_defense
         
-        for _, item in self.owner.base.body.items():
+        for _, item in self.owner.body.parts.items():
             if item:
                 defense += item.stats.base_defense
         
@@ -38,7 +38,7 @@ class Stats:
     def hp_max(self):
         hp_max = self.base_hp_max
         
-        for _, item in self.owner.base.body.items():
+        for _, item in self.owner.body.parts.items():
             if item:
                 hp_max += item.stats.base_hp_max
         

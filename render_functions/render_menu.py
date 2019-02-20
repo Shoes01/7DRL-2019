@@ -15,7 +15,7 @@ def render_menu(consoles, player, type_):
     console_menu.clear()
 
     if type_ == 'inventory':
-        header, options, reminder_text = render_inventory_menu(player.inv)
+        header, options, reminder_text = render_inventory_menu(player)
     elif type_ == 'level_up':
         header, options, reminder_text = render_level_up(player.stats)
 
@@ -35,18 +35,21 @@ def render_menu(consoles, player, type_):
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)
 
-def render_inventory_menu(inventory):
+def render_inventory_menu(player):
     header = "Inventory"
     options = []
     reminder_text = "To drop an item, select it from the menu and press D.\n"
     reminder_text += "To equip an item, select it from the menu and press E.\n"
     reminder_text += "To unequip an item, select it from the menu and press U."
 
+    inventory = player.inv
+
     letter_index = ord('a')
     for content in inventory.contents:
         text = '(' + chr(letter_index) + ') ' + content.base.name.capitalize()
-        if content == inventory.owner.base.body.get(content.base.slot):
-            text += ' (equipped)'
+        for _, item in player.body.parts.items():
+            if item == content:
+                text += ' (equipped)'
         
         if content == inventory.selected:
             color = libtcod.green

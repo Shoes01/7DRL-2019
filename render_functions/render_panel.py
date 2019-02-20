@@ -10,6 +10,8 @@ def render_panel(consoles, player):
     console_panel.clear()
 
     # Print to the console.
+    # TODO: This is a singlue-use function, so I don't need to try to generalize it. I can be as messy as I want.
+    # It should read "ATT: {0} + {1}", where 0: base_attack, 1:bonus_attack, and bonus is green
     console_panel.default_fg = libtcod.light_gray
     console_panel.print_(0, 0, get_stat_string(player), libtcod.BKGND_NONE, libtcod.LEFT)
 
