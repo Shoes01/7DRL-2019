@@ -55,6 +55,7 @@ class GameStates(Enum):
     PLAYER_DEAD = 3
     OPEN_INVENTORY = 4
     LEVEL_UP = 5
+    TARGETING_STATE = 6
 
 def initialize_new_game():
     # Create player entity.

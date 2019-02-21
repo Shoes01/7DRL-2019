@@ -1,13 +1,33 @@
 ### Equipment
 
-Move the body subcomponent to its own component
-> Name it something else?
-Create an equipment component
 Attach a skill to an equipment
-Create a few basic items
-Monsters drop loot
 Show items on the HUD.
-There needs a stats system in order to fetch base_attack from stats comp and bonus_attack from item comp
+
+The entity body is made up of five parts
+head :: W
+torso :: S
+LH :: A
+RH :: D
+feet :: C
+
+pressing the hotkey selects the weapon, activiating it's skill display.
+when the skill is active, it should change the game.state to being "attack_mode" or something
+when in this mode, movement triggers an attack. 
+
+### Skills
+
+Sequence for using a skill:
+[select_skill] > the game displays legal tiles of all possible chosen directions > [choose_direction]
+There would be an issue when skills overlap, but I could just... not design skills that overlap.
+So near-cleave effects would not be a thing... unless overlapping changes colors or something. Gets darker...
+> Certain skills trigger adjacent directions as well!
+
+>>> update input for new game.state
+
+### Loot
+
+Create more lootable items
+Expand the monster dropping loot logic
 
 ### GUI
 Make the consoles look a little better
@@ -40,7 +60,14 @@ Move Factory code out of systems.
 According to ECS, systems should be run in a specific order, every tick. 
 Don't know if I want to do that...
 
+[NAIVE_ECS]
+Each system iterates over all entities every time. Systems don't talk to each other. They are fed components and change them. 
+Systems are processed in a specific order, so that in one tick a multi-system action may be done.
+
 Example
+
+Note: the way I am using the "messenger" pattern now has only one flaw in reagrds to systems: I process the results after all the systems have been read.
+Instead, the result of each system should be fed into the next relevant system.
 
 [InputSystem]
 Write the Input to the InputComponents of entities that have one but don't have an AIComponent. (Should only be the player.) Example: {'move': (+1, 0)}

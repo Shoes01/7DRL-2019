@@ -1,11 +1,12 @@
 class Entity:
-    def __init__(self, ai=None, base=None, body=None, equip=None, inv=None, pos=None, stats=None):
+    def __init__(self, ai=None, base=None, body=None, equip=None, inv=None, pos=None, skill=None, stats=None):
         self.ai = ai
         self.base = base
         self.body = body
         self.equip = equip
         self.inv = inv
         self.pos = pos
+        self.skill = skill
         self.stats = stats
 
         if self.ai:
@@ -20,5 +21,7 @@ class Entity:
             self.inv.owner = self
         if self.pos:
             self.pos.owner = self
+        if self.skill:
+            self.skill.owner = self
         if self.stats:
             self.stats.owner = self
