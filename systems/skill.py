@@ -4,13 +4,38 @@ from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
 from systems.helper_stats import get_stats
 
-def skill_choice(body_part, player):
+def generate_targeting_array(game_map, player, skill):
+    skill.legal_targeting_arrays['E'] = skill.template_E
+    skill.legal_targeting_arrays['NE'] = skill.template_NE
+
+    skill.legal_targeting_arrays['N'] = np.rot90(skill.legal_targeting_arrays['E'])
+    skill.legal_targeting_arrays['W'] = np.rot90(skill.legal_targeting_arrays['N'])
+    skill.legal_targeting_arrays['S'] = np.rot90(skill.legal_targeting_arrays['W'])
+    skill.legal_targeting_arrays['NW'] = np.rot90(skill.legal_targeting_arrays['NE'])
+    skill.legal_targeting_arrays['SW'] = np.rot90(skill.legal_targeting_arrays['NW'])
+    skill.legal_targeting_arrays['SE'] = np.rot90(skill.legal_targeting_arrays['SW'])
+
+    xo = player.pos.x - skill.array_size // 2
+    yo = player.pos.y - skill.array_size // 2
+
+    if skill.nature == 'direct':
+        for direction, array in skill.legal_targeting_arrays.items():
+            for (x, y), value in np.ndenumerate(array):
+                _, blocks_path, _ = game_map.tiles[xo + x][yo + y]
+
+                if blocks_path and value:
+                    # Zero the array
+                    skill.legal_targeting_arrays[direction] = None
+                    break
+
+def skill_choice(body_part, game_map, player):
     turn_results = []
 
     item = player.body.parts[body_part]
 
     if item and item.skill:
         item.skill.selected = True
+        generate_targeting_array(game_map, player, item.skill)
         turn_results.append({'targeting_state': True})
 
     return turn_results

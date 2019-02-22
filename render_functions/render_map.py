@@ -21,10 +21,11 @@ def render_map(action, consoles, entities, fov_map, game, game_map, player):
     # Draw the skill arrays onto the map.
     skill = chosen_skill(player)
     if skill:
-        for _, array in skill.targeting_arrays.items():
+        for _, array in skill.legal_targeting_arrays.items():
             center = skill.array_size // 2
             xo, yo = player.pos.x - center, player.pos.y - center
-            highlight_tiles(console_map, array, xo, yo)
+            if array is not None:
+                highlight_tiles(console_map, array, xo, yo)
     
     # Sort the entities, then draw them.
     entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)

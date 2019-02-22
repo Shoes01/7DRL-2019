@@ -5,13 +5,15 @@ class Skill():
         self.skill = skill
         self.nature = nature
 
-        self.selected = False
+        self.selected = False        
+        self.legal_targeting_arrays = {}
 
-        self.targeting_arrays = {}
+        self.template_E = np.array([])
+        self.template_NE = np.array([])
         self.array_size = 0
 
         if self.skill == 'pierce':
-            self.targeting_arrays['E'] = np.array(
+            self.template_E = np.array(
                 [   [0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0],
@@ -20,7 +22,7 @@ class Skill():
                     [0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0]]
             )
-            self.targeting_arrays['NE'] = np.array(
+            self.template_NE = np.array(
                 [   [0, 0, 0, 0, 0, 0, 1],
                     [0, 0, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 1, 0, 0],
@@ -29,13 +31,4 @@ class Skill():
                     [0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0]]
             )
-            self.array_size, _ = self.targeting_arrays['E'].shape
-            self.generate_other_arrays()
-    
-    def generate_other_arrays(self):
-        self.targeting_arrays['N'] = np.rot90(self.targeting_arrays['E'])
-        self.targeting_arrays['W'] = np.rot90(self.targeting_arrays['N'])
-        self.targeting_arrays['S'] = np.rot90(self.targeting_arrays['W'])
-        self.targeting_arrays['NW'] = np.rot90(self.targeting_arrays['NE'])
-        self.targeting_arrays['SW'] = np.rot90(self.targeting_arrays['NW'])
-        self.targeting_arrays['SE'] = np.rot90(self.targeting_arrays['SW'])
+            self.array_size, _ = self.template_E.shape

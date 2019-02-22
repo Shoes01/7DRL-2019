@@ -42,7 +42,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         
         if _skill_choice:
             _bodypart = _skill_choice
-            turn_results.extend(skill_choice(_bodypart, player))
+            turn_results.extend(skill_choice(_bodypart, game_map, player))
 
         if _wait:
             turn_results.append({'acted': True})
