@@ -94,7 +94,9 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
             _exit = None
         
         if _move:
-            turn_results.extend(execute_skill())
+            _direction = _move
+            turn_results.extend(execute_skill(_direction, entities, player))
+            turn_results.append({'acted': True})
 
     handle_turn_results(game, message_log, turn_results)
 

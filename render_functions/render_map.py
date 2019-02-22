@@ -25,7 +25,9 @@ def render_map(action, consoles, entities, fov_map, game, game_map, player):
     # Color de default bg of that tile red
     tiles_to_highlight = get_targeting_array(player)
     if tiles_to_highlight.any():
-        xo, yo = player.pos.x - 2, player.pos.y - 2
+        center, _ = tiles_to_highlight.shape
+        center = center // 2
+        xo, yo = player.pos.x - center, player.pos.y - center
         highlight_tiles(console_map, game_map, tiles_to_highlight, xo, yo)
 
     
@@ -95,6 +97,7 @@ def highlight_tiles(console_map, game_map, tiles_to_highlight, xo, yo):
         elif 1 < value <= 3:
             console_map.default_bg = libtcod.red
             console_map.print_(xo + x, yo + y, " ", libtcod.BKGND_SET)
-        elif value > 3:
+        elif value > 5:
+            # The only tile that this should apply to is the player's tile.
             console_map.default_bg = libtcod.green
             console_map.print_(xo + x, yo + y, " ", libtcod.BKGND_SET)
