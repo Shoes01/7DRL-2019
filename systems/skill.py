@@ -15,30 +15,6 @@ def skill_choice(body_part, player):
 
     return turn_results
 
-def get_targeting_array(player):
-    east = np.zeros((5, 5), dtype=int, order='F')
-
-    for _, item in player.body.parts.items():
-        if item and item.skill and item.skill.selected:
-            east = item.skill.targeting_array_E
-            north_east = item.skill.targeting_array_NE
-
-    if not east.any():
-        #print('ERROR: The selected item has no skill.')
-        return east
-
-    north = np.rot90(east)
-    west = np.rot90(north)
-    south = np.rot90(west)
-
-    north_west = np.rot90(north_east)
-    south_west = np.rot90(north_west)
-    south_east = np.rot90(south_west)
-
-    targeting_array = east + north + west + south + north_east + north_west + south_west + south_east
-
-    return targeting_array
-
 def get_single_targeting_array(direction, player):
     east = np.zeros((5, 5), dtype=int, order='F')
 
