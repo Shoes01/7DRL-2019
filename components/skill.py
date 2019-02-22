@@ -1,8 +1,9 @@
 import numpy as np
 
 class Skill():
-    def __init__(self, skill):
+    def __init__(self, nature, skill):
         self.skill = skill
+        self.nature = nature
 
         self.selected = False
 
