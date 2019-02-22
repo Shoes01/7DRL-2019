@@ -3,16 +3,6 @@
 Show items on the HUD.
 
 BUG: out of bounds stuff
-BUG: There is a disconnect between the tiles rendered and the combat stuff... this should be coupled. It's the same.
-
-[Design_Decision]
-A skill has a targeting array. What if a tile is blocked in the array? Does the skill fail?
-I think that's more interesting.
-> Each quadrant of a skill needs to be tested against the game_map to find "flaws". 
-> Afterwards, the remaining quadrants are cached and may be acted on.
-> This can probably be achieved with a dict of directions.
->>> When a skill is activated, the dict of targeting arrays is populated. If an array has a flaw, the dict entry is None (or simply doesn't have one)
->>> This dict is used by the render map, and also checked when the skill is given a dircetion
 
 ### Loot
 
