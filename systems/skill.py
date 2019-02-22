@@ -1,6 +1,6 @@
 import numpy as np
 
-from map_functions import tile_occupied
+from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
 from systems.helper_stats import get_stats
 
@@ -87,19 +87,27 @@ def cancel_skill(player):
 
     return turn_results
 
-def execute_skill(direction, entities, player):
+def execute_skill(direction, entities, game_map, player):
     turn_results = []    
 
     target_array = get_single_targeting_array(direction, player)
+
     if target_array.any():
         center, _ = target_array.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
+
         for (x, y), value in np.ndenumerate(target_array):
             if value:
-                # Greater than 10 probably means the center tile...
                 entity = tile_occupied(entities, xo + x, yo + y)
-                if entity and entity is not player:
+                
+                skill = chosen_skill(player)
+
+                if skill.nature == 'direct':
+                    _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
+                
+
+                if entity and entity is not player and _path_unblocked:
                     turn_results.extend(attack(player, entity, entities))
 
     turn_results.extend(cancel_skill(player))

@@ -19,17 +19,12 @@ def render_map(action, consoles, entities, fov_map, game, game_map, player):
     game.redraw_map = False
 
     # Draw the skill arrays onto the map.
-    #
-    # Get the skill targeting array
-    # Lay it over the player, with them in the center
-    # Color de default bg of that tile red
     tiles_to_highlight = get_targeting_array(player)
     if tiles_to_highlight.any():
         center, _ = tiles_to_highlight.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
-        highlight_tiles(console_map, game_map, tiles_to_highlight, xo, yo)
-
+        highlight_tiles(console_map, fov_map, game_map, tiles_to_highlight, xo, yo)
     
     # Sort the entities, then draw them.
     entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)
@@ -85,10 +80,11 @@ def clear_all(console_map, entities):
 def clear(console_map, entity):
     console_map.print_(entity.pos.x, entity.pos.y, " ", libtcod.BKGND_NONE)
 
-def highlight_tiles(console_map, game_map, tiles_to_highlight, xo, yo):
+def highlight_tiles(console_map, fov_map, game_map, tiles_to_highlight, xo, yo):
     for (x, y), value in np.ndenumerate(tiles_to_highlight):
         blocks_sight, blocks_path, explored = game_map.tiles[xo + x, yo + y]
-        if blocks_path or blocks_sight or not explored:
+        visible = libtcod.map_is_in_fov(fov_map, x, y)
+        if blocks_path or blocks_sight or not explored or not visible:
             continue
 
         if value == 1:

@@ -1,28 +1,11 @@
 ### Equipment
 
-Attach a skill to an equipment
 Show items on the HUD.
 
-The entity body is made up of five parts
-head :: W
-torso :: S
-LH :: A
-RH :: D
-feet :: C
+BUG: out of bounds stuff
+BUG: There is a disconnect between the tiles rendered and the combat stuff... this should be coupled. It's the same.
 
-pressing the hotkey selects the weapon, activiating it's skill display.
-when the skill is active, it should change the game.state to being "attack_mode" or something
-when in this mode, movement triggers an attack. 
-
-### Skills
-
-Sequence for using a skill:
-[select_skill] > the game displays legal tiles of all possible chosen directions > [choose_direction]
-There would be an issue when skills overlap, but I could just... not design skills that overlap.
-So near-cleave effects would not be a thing... unless overlapping changes colors or something. Gets darker...
-> Certain skills trigger adjacent directions as well!
-
->>> update input for new game.state
+BREADTH FIRST SEARCH via numpy. Start in the middle. Only go where the tiles are not 0 and are not walls.
 
 ### Loot
 
