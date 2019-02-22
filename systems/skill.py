@@ -105,3 +105,10 @@ def execute_skill(direction, entities, player):
     turn_results.extend(cancel_skill(player))
 
     return turn_results
+
+def chosen_skill(player):
+    for _, item in player.body.parts.items():
+        if item and item.skill and item.skill.selected:
+            return item.skill
+    else:
+        return None
