@@ -96,7 +96,8 @@ def execute_skill(direction, entities, game_map, player):
                 if entity and entity is not player and _path_unblocked:
                     turn_results.extend(attack(player, entity, entities))
 
-    turn_results.extend(cancel_skill(player))
+    else:
+        turn_results.extend(cancel_skill(player))
 
     return turn_results
 

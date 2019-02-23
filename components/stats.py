@@ -7,9 +7,6 @@ class Stats:
         self.exp = exp
         self.level = 1
         self.leveling_factor = 1.1
+        self.exp_needed_for_next_level = 1
 
         self.selected = None
-    
-    @property
-    def exp_needed_for_next_level(self):
-        return int(100 * (1 - self.leveling_factor ** self.level) / (1 - self.leveling_factor))

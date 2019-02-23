@@ -46,6 +46,10 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
 
         if _wait:
             turn_results.append({'acted': True})
+
+        # Check to see if the player has leveled up. This is a persistent event.
+        if player.stats.exp > player.stats.exp_needed_for_next_level:
+            turn_results.append({'level_up': True})
     
     # Handle the enemy turn.
     elif game.state == GameStates.ENEMY_TURN:
@@ -122,8 +126,8 @@ def handle_turn_results(game, message_log, results):
         _targeting_state = result.get('targeting_state')
         _redraw_map = result.get('redraw_map')
 
-        if _acted and game.state == GameStates.PLAYER_TURN:
-            game.previous_state = game.state
+        if _acted:
+            game.previous_state = GameStates.PLAYER_TURN
             game.state = GameStates.ENEMY_TURN
 
         elif _end_enemy_turn:

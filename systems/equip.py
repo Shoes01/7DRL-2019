@@ -7,6 +7,9 @@ def equip(player):
 
     item = player.inv.selected
 
+    if item is None:
+        return
+
     if not item.equip:
         _message = 'You cannot equip your {0}.'.format(item.base.name.capitalize())
         _color = libtcod.red
