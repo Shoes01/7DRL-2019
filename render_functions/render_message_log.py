@@ -6,14 +6,12 @@ def render_message_log(consoles, message_log):
     console_message_log = consoles['message_log']
     console_root = consoles['root']
     # Reset the console.
-    console_message_log.default_bg = libtcod.black
     console_message_log.clear()
 
     # Print to the console.
     y = 1
     for message in message_log.messages:
-        console_message_log.default_fg = message.color
-        console_message_log.print_(0, y, message.text, libtcod.BKGND_NONE, libtcod.LEFT)
+        console_message_log.print(0, y, message.text, fg=message.color, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
         y += 1
 
     # Send to console.

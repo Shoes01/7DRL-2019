@@ -125,7 +125,7 @@ def handle_turn_results(game, message_log, results):
             game.state = GameStates.PLAYER_TURN
  
         elif _level_up:
-            game.previous_state = game.state
+            game.previous_state = GameStates.PLAYER_TURN
             game.state = GameStates.LEVEL_UP
 
         elif _message:
@@ -141,7 +141,7 @@ def handle_turn_results(game, message_log, results):
             game.state = game.previous_state
         
         elif _targeting_state:
-            game.previous_state = game.state
+            game.previous_state = GameStates.PLAYER_TURN # This is probably not clean... but it should be fine...
             game.state = GameStates.TARGETING_STATE
 
         elif _redraw_map:

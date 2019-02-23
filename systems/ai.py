@@ -4,7 +4,7 @@ from systems.movement import move
 
 def take_turn(entity, entities, game_map, fov_map, player):
     turn_results = []
-    player_spotted = libtcod.map_is_in_fov(fov_map, entity.pos.x, entity.pos.y)
+    player_spotted = fov_map.fov[entity.pos.x, entity.pos.y]
 
     if player_spotted:
         entity.ai.lost = 0

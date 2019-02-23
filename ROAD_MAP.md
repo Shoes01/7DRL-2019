@@ -1,13 +1,9 @@
-### Equipment
+### BUGS
+The targeting logic may reach outside the game_map index
 
-Show items on the HUD.
-
-BUG: out of bounds stuff
-
-### Loot
-
-Create more lootable items
-Expand the monster dropping loot logic
+Gaining a level while in the Targeting State sends conflicing messages to the game.state manager
+> I have used a skill, so it wants the state to be PLAYER_TURN
+> I have gained a level, so it wants the state to be LEVEL_UP
 
 ### GUI
 Make the consoles look a little better
@@ -15,7 +11,12 @@ Have a menu at the start of the game? (maybe not for 7DRL)
 >>> If so, look into saving the game
 Clean up the "names" of the stats in the level up menu.
 
-### Monsters++
+### CONTENT - Loot
+
+Create more lootable items
+Expand the monster dropping loot logic
+
+### CONTENT - Monsters
 ` Race and Soul mechanic `
 The race of a unit will determine its baseline stat. Example: a rat has a baseline stat of 1. A goblin has a baseline stat of 5.
 The soul of a unit will determine how the stat value determine ATT, DEF, etc.
@@ -60,14 +61,23 @@ Write the new position of the PositionComponent of the entity.
 Read the PositionComponent of the entity. Read the Map?.
 Write collision, if there are any. Does the PositionComponent have a rewind?
 
-### Skill System
+### SKILLS++
 Skills and ranged attack systems get done here.
 
-### Items++
+> More offensive skills
+> Skills that use a different nature
+    > Indirect
+> Skills that move the player
+> Skills that buff defense
+
+### ITEMS++
 Start desinging soul numbers and stuff here.
 >> Update GUI here
 
 ### AI++
+Make use of the Dijkstra features of libtcod
+> Need to generate a Dijkstra map.
+> When that is made, I can use it to build a path using libtocd.path.Dijkstra()
 Have the take_turn ai system check to see the kind of AI the entity has, and then ship all the needed info into the appropriate function.
 
 ### Numpy optmizations

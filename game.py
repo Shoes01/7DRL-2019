@@ -85,7 +85,7 @@ def initialize_new_game():
     entities.append(player)
 
     # Create consoles.
-    libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW)
+    libtcod.console_set_custom_font('rexpaint_cp437_10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_CP437)
     consoles = {}
     consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE)
     consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')

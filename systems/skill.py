@@ -41,41 +41,26 @@ def skill_choice(body_part, game_map, player):
     return turn_results
 
 def get_single_targeting_array(direction, player):
-    east = np.zeros((5, 5), dtype=int, order='F')
-
-    for _, item in player.body.parts.items():
-        if item and item.skill and item.skill.selected:
-            east = item.skill.targeting_array_E
-            north_east = item.skill.targeting_array_NE
-
-    if not east.any():
-        #print('ERROR: The selected item has no skill.')
-        return east
-
-    north = np.rot90(east)
-    west = np.rot90(north)
-    south = np.rot90(west)
-
-    north_west = np.rot90(north_east)
-    south_west = np.rot90(north_west)
-    south_east = np.rot90(south_west)
-
+    skill = chosen_skill(player)
+    
+    if direction is None or skill is None:
+        return None
     if direction == (0, 1):
-        return east
+        return skill.legal_targeting_arrays['E']
     if direction == (-1, 1):
-        return north_east
+        return skill.legal_targeting_arrays['NE']
     if direction == (-1, 0):
-        return north
+        return skill.legal_targeting_arrays['N']
     if direction == (-1, -1):
-        return north_west
+        return skill.legal_targeting_arrays['NW']
     if direction == (0, -1):
-        return west
+        return skill.legal_targeting_arrays['W']
     if direction == (1, -1):
-        return south_west
+        return skill.legal_targeting_arrays['SW']
     if direction == (1, 0):
-        return south
+        return skill.legal_targeting_arrays['S']
     if direction == (1, 1):
-        return south_east
+        return skill.legal_targeting_arrays['SE']
 
 def cancel_skill(player):
     turn_results = []
@@ -93,7 +78,7 @@ def execute_skill(direction, entities, game_map, player):
 
     target_array = get_single_targeting_array(direction, player)
 
-    if target_array.any():
+    if target_array is not None:
         center, _ = target_array.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center

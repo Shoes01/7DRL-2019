@@ -10,9 +10,7 @@ def render_menu(consoles, player, type_):
     reminder_text = ""
     
     # Reset the console.
-    console_menu.default_fg = libtcod.white
-    console_menu.default_bg = libtcod.dark_gray
-    console_menu.clear()
+    console_menu.clear(fg=libtcod.white, bg=libtcod.dark_gray)
 
     if type_ == 'inventory':
         header, options, reminder_text = render_inventory_menu(player)
@@ -20,17 +18,14 @@ def render_menu(consoles, player, type_):
         header, options, reminder_text = render_level_up(player.stats)
 
     # Print to console.
-    console_menu.print_(0, 0, header, libtcod.BKGND_NONE, libtcod.LEFT)
+    console_menu.print(0, 0, header, fg=libtcod.white, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
     y = 1
     for option in options:
         text, color = option
-        console_menu.default_fg = color
-        console_menu.print_(0, y, text, libtcod.BKGND_NONE, libtcod.LEFT)
+        console_menu.print(0, y, text, fg=color, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
         y += 1
     
-    
-    console_menu.default_fg = libtcod.white
-    console_menu.print_(0, MENU.H - 3, reminder_text, libtcod.BKGND_NONE, libtcod.LEFT)
+    console_menu.print(0, MENU.H - 3, reminder_text, fg=libtcod.white, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
 
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)

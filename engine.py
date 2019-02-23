@@ -1,5 +1,6 @@
 import cProfile
 import tcod as libtcod
+import warnings
 
 from game import GameStates, initialize_new_game
 from input_handlers import handle_keys
@@ -8,6 +9,9 @@ from systems.update import update
 
 def main():
     consoles, entities, fov_map, game, game_map, key, message_log, mouse, player = initialize_new_game()
+
+    action = True
+    render_all(action, consoles, entities, fov_map, game, game_map, message_log, player)
 
     while not libtcod.console_is_window_closed():
         # Process input.
@@ -22,7 +26,9 @@ def main():
 
         if game.state == GameStates.EXIT:
                 return True
+        
+        warnings.simplefilter("default")
 
 if __name__ == '__main__':
-    # icProfile.run('main()') # This runs the profiler
+    # cProfile.run('main()') # This runs the profiler
     main()
