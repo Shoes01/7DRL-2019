@@ -14,7 +14,14 @@ Gaining a level while in the Targeting State sends conflicing messages to the ga
                 >>> attacks     >>> [Enemy_Turn]        >>> ai.take_turn()  >>> [Player_Turn]
                 >>> opens inv   >>> [Open_Inveotry]     >>> close inv       >>> [Player_Turn]
                 >>> levels up   >>> [Level_Up]          >>> chooses stat    >>> [Player_Turn]
-                >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Enemy_Turn]
+                >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Enemy_Turn] <bug>
+<bug>: Because the GSM goes straight to enemy, there is no chance to level up. 
+If the event queue were a persistent object, it would persist between updates.
+
+The event queue is loaded with events.
+The events are taken from the queue and fed to the state machine.
+If the machine accepts the queue, the event is removed from the queue.
+Otherwise, the event stays in.
 
 Some events need to be pinged every tick, until they get resolved. They are persistent.
 Example: Leveling up.

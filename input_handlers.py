@@ -3,12 +3,14 @@ import tcod as libtcod
 from components.body import Bodyparts
 from game import GameStates
 
-def handle_keys(game, key):
-    if game.state == GameStates.OPEN_INVENTORY:
+def handle_keys(game_state_machine, key):
+    _game_state = game_state_machine.state.__str__()
+
+    if _game_state == 'OpenInventory':
         return handle_inventory_keys(key)
-    elif game.state == GameStates.LEVEL_UP:
+    elif _game_state == 'LeveledUp':
         return handle_level_up_keys(key)
-    elif game.state == GameStates.TARGETING_STATE:
+    elif _game_state == 'TargetingState':
         return handle_targeting_state_keys(key)
     else:
         return handle_general_keys(key)

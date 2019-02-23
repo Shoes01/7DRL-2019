@@ -8,6 +8,7 @@ from components.body import Body
 from components.inventory import Inventory
 from components.pos import Position
 from components.stats import Stats
+from game_state_machine import GameStateMachine
 from map_functions import GameMap
 from render_functions.fov import initialize_fov, recompute_fov
 from systems.message_log import MessageLog
@@ -111,7 +112,10 @@ def initialize_new_game():
     fov_map = initialize_fov(game_map)
     recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
 
-    return consoles, entities, fov_map, game, game_map, key, message_log, mouse, player
+    # Create game state machine
+    game_state_machine = GameStateMachine()
+
+    return consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, player
 
 class GameThing:
     def __init__(self):

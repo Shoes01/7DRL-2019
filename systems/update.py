@@ -9,9 +9,12 @@ from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
 from systems.skill import cancel_skill, execute_skill, skill_choice
 
-def update(action, entities, fov_map, game, game_map, message_log, player):
+def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player):
     turn_results = []
     
+    # Game state.
+    _game_state = game_state_machine.state.__str__()
+
     # Possible actions.
     _confirm = action.get('confirm')
     _drop = action.get('drop')
@@ -27,40 +30,50 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
     _wait = action.get('wait')
 
     # Handle the player turn.
-    if game.state == GameStates.PLAYER_TURN:
+    if _game_state == 'PlayerTurn':
         # The player may act.
         if _inventory:
             turn_results.extend(open_inventory(game))
+            event_queue.append('open_inventory')
 
         if _grab:
             turn_results.extend(pick_up(player, entities))
             turn_results.append({'acted': True})
+            event_queue.append('player_acted')
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
             turn_results.append({'acted': True})
+            event_queue.append('player_acted')
         
         if _skill_choice:
             _bodypart = _skill_choice
             turn_results.extend(skill_choice(_bodypart, game_map, player))
+            event_queue.append('skill_selected')
 
         if _wait:
             turn_results.append({'acted': True})
+            event_queue.append('player_acted')
 
         # Check to see if the player has leveled up. This is a persistent event.
         if player.stats.exp > player.stats.exp_needed_for_next_level:
             turn_results.append({'level_up': True})
+            if event_queue.count('leveled_up') == 0:
+                event_queue.insert(0, 'leveled_up')
     
     # Handle the enemy turn.
-    elif game.state == GameStates.ENEMY_TURN:
+    elif _game_state == 'EnemyTurn':
         # Each entity gets to take a turn.
         for entity in entities:
             if entity.ai:
                 turn_results.extend(take_turn(entity, entities, game_map, fov_map, player))
         
         turn_results.append({'end_enemy_turn': True})
+        event_queue.append('enemies_acted')
+        if player.stats.hp <= 0:
+            event_queue.append('player_dead')
     
-    elif game.state == GameStates.OPEN_INVENTORY:
+    elif _game_state == 'OpenInventory':
         if _drop:
             turn_results.extend(drop_item(entities, player))
         
@@ -69,6 +82,7 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
 
         if _exit:
             turn_results.extend(close_inventory(player))
+            event_queue.append('close_inventory')
             _exit = None
 
         if _inventory_choice is not None:
@@ -77,9 +91,11 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         if _unequip:
             turn_results.extend(unequip(player))
     
-    elif game.state == GameStates.LEVEL_UP:
+    elif _game_state == 'LeveledUp':
         if _confirm:
             turn_results.extend(confirm_stat_gain(player))
+            event_queue.append('chose_stat')
+
         if _exit:
             # TODO: Maybe this should be moved into the system...
             _message = 'You have to select a stat to increase!'
@@ -90,23 +106,54 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         if _level_up_choice is not None:
             turn_results.extend(level_up_choice(_level_up_choice, player))
     
-    elif game.state == GameStates.TARGETING_STATE:
+    elif _game_state == 'TargetingState':
         # _previous_state is how to get out of this state.
         # Any button other than a directional should trigger it.
         if _exit:
             turn_results.extend(cancel_skill(player))
+            event_queue.append('cancel_targeting')
             _exit = None
         
         if _move:
             _direction = _move
             turn_results.extend(execute_skill(_direction, entities, game_map, player))
             turn_results.append({'acted': True})
+            event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
+            event_queue.append('chose_direction')
 
     handle_turn_results(game, message_log, turn_results)
+
+    if event_queue:
+        handle_events(event_queue, game_state_machine)
 
     # Handle things that may occur at any time.
     if _exit:
         game.state = GameStates.EXIT
+        event_queue.append('exit')
+
+def handle_events(event_queue, game_state_machine):
+    # TODO
+    # There may be events in the queue that don't get processed this turn. 
+    # Find a way to loop through the events, removing the ones that succeeded.
+    temp_event_queue = event_queue.copy()
+    for event in temp_event_queue:
+        _old_state = game_state_machine.state
+        if _old_state != game_state_machine.on_event(event):
+            # The state has changed!
+            event_queue.remove(event)
+    """
+    new_state = False
+    while not new_state:
+        event = event_queue.pop()
+        _old_state = game_state_machine.state
+        game_state_machine.on_event(event)
+        _new_state = game_state_machine.state
+        if _old_state is not _new_state:
+            new_state = True
+        else:
+            event_queue.append(event)
+    """
+
 
 def handle_turn_results(game, message_log, results):
     while True:
