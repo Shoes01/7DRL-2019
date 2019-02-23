@@ -4,6 +4,15 @@ The targeting logic may reach outside the game_map index
 Gaining a level while in the Targeting State sends conflicing messages to the game.state manager
 > I have used a skill, so it wants the state to be PLAYER_TURN
 > I have gained a level, so it wants the state to be LEVEL_UP
+>>> This will be fixed my using a FSM, or GSM
+
+### GAME STATE MACHINE
+
+[Player_Turn]   >>> is killed   >>> [Player_Dead]
+                >>> attacks     >>> [Enemy_Turn]        >>> ai.take_turn()  >>> [Player_Turn]
+                >>> opens inv   >>> [Open_Inveotry]     >>> close inv       >>> [Player_Turn]
+                >>> levels up   >>> [Level_Up]          >>> chooses stat    >>> [Player_Turn]
+                >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Player_Turn]
 
 ### GUI
 Make the consoles look a little better

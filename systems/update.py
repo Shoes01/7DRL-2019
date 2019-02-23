@@ -105,9 +105,15 @@ def update(action, entities, fov_map, game, game_map, message_log, player):
         game.state = GameStates.EXIT
 
 def handle_turn_results(game, message_log, results):
-    for result in results:
+    while True:
+        if len(results) == 0:
+            return False
+        
+        result = results.pop()
+    
         # Possible results.
         _acted = result.get('acted')
+        _damage = result.get('damage')
         _end_enemy_turn = result.get('end_enemy_turn')
         _level_up = result.get('level_up')
         _message = result.get('message')
@@ -125,7 +131,7 @@ def handle_turn_results(game, message_log, results):
             game.state = GameStates.PLAYER_TURN
  
         elif _level_up:
-            game.previous_state = GameStates.PLAYER_TURN
+            game.previous_state = game.state
             game.state = GameStates.LEVEL_UP
 
         elif _message:
@@ -141,7 +147,7 @@ def handle_turn_results(game, message_log, results):
             game.state = game.previous_state
         
         elif _targeting_state:
-            game.previous_state = GameStates.PLAYER_TURN # This is probably not clean... but it should be fine...
+            game.previous_state = game.state
             game.state = GameStates.TARGETING_STATE
 
         elif _redraw_map:
