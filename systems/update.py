@@ -125,28 +125,12 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         handle_events(event_queue, game_state_machine)
 
 def handle_events(event_queue, game_state_machine):
-    # TODO
-    # There may be events in the queue that don't get processed this turn. 
-    # Find a way to loop through the events, removing the ones that succeeded.
     temp_event_queue = event_queue.copy()
     for event in temp_event_queue:
         _old_state = game_state_machine.state
         if _old_state != game_state_machine.on_event(event):
             # The state has changed!
             event_queue.remove(event)
-    """
-    new_state = False
-    while not new_state:
-        event = event_queue.pop()
-        _old_state = game_state_machine.state
-        game_state_machine.on_event(event)
-        _new_state = game_state_machine.state
-        if _old_state is not _new_state:
-            new_state = True
-        else:
-            event_queue.append(event)
-    """
-
 
 def handle_turn_results(game, message_log, results):
     while True:
