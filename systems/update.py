@@ -1,6 +1,6 @@
 import tcod as libtcod
 
-from game import GameStates, FOV_RADIUS
+from game import FOV_RADIUS
 from systems.ai import take_turn
 from systems.equip import equip, unequip
 from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up

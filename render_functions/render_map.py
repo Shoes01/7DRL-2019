@@ -1,7 +1,7 @@
 import numpy as np
 import tcod as libtcod
 
-from game import COLORS, FOV_RADIUS, GameStates, MAP
+from game import COLORS, FOV_RADIUS, MAP
 from render_functions.fov import recompute_fov
 from systems.skill import chosen_skill
 

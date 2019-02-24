@@ -1,7 +1,6 @@
 import tcod as libtcod
 
 from components.base import RenderOrder
-from game import GameStates
 
 def pick_up(player, entities):
     ' Pick up the item found under the player. '

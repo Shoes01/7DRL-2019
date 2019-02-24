@@ -2,7 +2,7 @@ import cProfile
 import tcod as libtcod
 import warnings
 
-from game import GameStates, initialize_new_game
+from game import initialize_new_game
 from input_handlers import handle_keys
 from render_functions.render import render_all
 from systems.update import update

@@ -1,7 +1,6 @@
 import tcod as libtcod
 
 from components.body import Bodyparts
-from game import GameStates
 
 def handle_keys(game_state_machine, key):
     _game_state = game_state_machine.state.__str__()

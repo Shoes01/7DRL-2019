@@ -1,6 +1,5 @@
 import tcod as libtcod
 
-from game import GameStates
 from render_functions.render_map import render_map
 from render_functions.render_menu import render_menu
 from render_functions.render_message_log import render_message_log

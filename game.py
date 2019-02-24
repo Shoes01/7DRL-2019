@@ -2,7 +2,6 @@ import tcod as libtcod
 
 from collections import namedtuple
 from entity import Entity
-from enum import Enum
 from components.base import Base, RenderOrder
 from components.body import Body
 from components.inventory import Inventory
@@ -48,15 +47,6 @@ MESSAGE = Console(
     Y=PANEL.Y,          # 50
     W=ROOT.W - PANEL.W, # 60 
     H=PANEL.H)          # 10
-
-class GameStates(Enum):
-    EXIT = 0
-    PLAYER_TURN = 1
-    ENEMY_TURN = 2
-    PLAYER_DEAD = 3
-    OPEN_INVENTORY = 4
-    LEVEL_UP = 5
-    TARGETING_STATE = 6
 
 def initialize_new_game():
     # Create player entity.
@@ -119,6 +109,4 @@ def initialize_new_game():
 
 class GameThing:
     def __init__(self):
-        self.state = GameStates.PLAYER_TURN
-        self.previous_state = GameStates.PLAYER_TURN
         self.redraw_map = False
