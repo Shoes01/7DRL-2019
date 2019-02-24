@@ -33,7 +33,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     if _game_state == 'PlayerTurn':
         # The player may act.
         if _inventory:
-            turn_results.extend(open_inventory(game))
+            turn_results.extend(open_inventory())
             event_queue.append('open_inventory')
 
         if _grab:
@@ -121,15 +121,14 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
             event_queue.append('chose_direction')
 
+    # Handle things that may occur at any time.
+    if _exit:
+        event_queue.append('exit')
+
     handle_turn_results(game, message_log, turn_results)
 
     if event_queue:
         handle_events(event_queue, game_state_machine)
-
-    # Handle things that may occur at any time.
-    if _exit:
-        game.state = GameStates.EXIT
-        event_queue.append('exit')
 
 def handle_events(event_queue, game_state_machine):
     # TODO
@@ -163,43 +162,12 @@ def handle_turn_results(game, message_log, results):
         result = results.pop()
     
         # Possible results.
-        _acted = result.get('acted')
-        _damage = result.get('damage')
-        _end_enemy_turn = result.get('end_enemy_turn')
-        _level_up = result.get('level_up')
         _message = result.get('message')
-        _player_dead = result.get('player_dead')
-        _previous_state = result.get('previous_state')
-        _targeting_state = result.get('targeting_state')
         _redraw_map = result.get('redraw_map')
 
-        if _acted:
-            game.previous_state = GameStates.PLAYER_TURN
-            game.state = GameStates.ENEMY_TURN
-
-        elif _end_enemy_turn:
-            game.previous_state = game.state
-            game.state = GameStates.PLAYER_TURN
- 
-        elif _level_up:
-            game.previous_state = game.state
-            game.state = GameStates.LEVEL_UP
-
-        elif _message:
+        if _message:
             _text, _color = _message
             message_log.add_message(Message(_text, _color))
-
-        elif _player_dead:
-            game.previous_state = game.state
-            game.state = GameStates.PLAYER_DEAD
-            break
-
-        elif _previous_state:
-            game.state = game.previous_state
-        
-        elif _targeting_state:
-            game.previous_state = game.state
-            game.state = GameStates.TARGETING_STATE
 
         elif _redraw_map:
             game.redraw_map = True

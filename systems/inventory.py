@@ -20,10 +20,9 @@ def pick_up(player, entities):
 
     return turn_results
 
-def open_inventory(game):
+def open_inventory():
     turn_results = []
 
-    game.state = GameStates.OPEN_INVENTORY
     message = 'You open your inventory.'
     color = libtcod.white
     turn_results.append({'message': (message, color)})

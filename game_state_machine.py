@@ -4,7 +4,8 @@ class State:
     individual states within the state machine.
     """
     def __init__(self):
-        print('Processing current state:', str(self))
+        # print('Processing current state:', str(self)) # This is printed every time a State is changed.
+        pass
 
     def on_event(self, event):
         """
@@ -46,13 +47,17 @@ class Exit(State):
 
 class OpenInventory(State):
     def on_event(self, event):
-        if event == 'close_inventory':
+        if event == 'exit':
+            return Exit()
+        elif event == 'close_inventory':
             return PlayerTurn()
         return self
 
 class TargetingState(State):
     def on_event(self, event):
-        if event == 'chose_direction':
+        if event == 'exit':
+            return Exit()
+        elif event == 'chose_direction':
             return PlayerTurn()
         elif event == 'cancel_targeting':
             return PlayerTurn()
@@ -60,18 +65,23 @@ class TargetingState(State):
 
 class LeveledUp(State):
     def on_event(self, event):
-        if event == 'chose_stat':
+        if event == 'exit':
+            return Exit()
+        elif event == 'chose_stat':
             return PlayerTurn()
         return self
 
 class PlayerDead(State):
     def on_event(self, event):
-        # Stuck here forever!
+        if event == 'exit':
+            return Exit()
         return self
 
 class EnemyTurn(State):
     def on_event(self, event):
-        if event == 'enemies_acted':
+        if event == 'exit':
+            return Exit()
+        elif event == 'enemies_acted':
             return PlayerTurn()
         return self
 

@@ -5,7 +5,7 @@ from game import COLORS, FOV_RADIUS, GameStates, MAP
 from render_functions.fov import recompute_fov
 from systems.skill import chosen_skill
 
-def render_map(action, consoles, entities, fov_map, game, game_map, player):
+def render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player):
     ' Render all things that appear on the map. '
     console_map = consoles['map']
     console_root = consoles['root']
@@ -20,7 +20,7 @@ def render_map(action, consoles, entities, fov_map, game, game_map, player):
 
     # Draw the skill arrays onto the map.
     skill = chosen_skill(player)
-    if skill and game.state == GameStates.TARGETING_STATE:
+    if skill and game_state_machine.state.__str__() == 'TargetingState':
         for _, array in skill.legal_targeting_arrays.items():
             center = skill.array_size // 2
             xo, yo = player.pos.x - center, player.pos.y - center
