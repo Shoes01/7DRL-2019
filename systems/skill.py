@@ -36,7 +36,6 @@ def skill_choice(body_part, game_map, player):
     if item and item.skill:
         item.skill.selected = True
         generate_targeting_array(game_map, player, item.skill)
-        turn_results.append({'targeting_state': True})
 
     return turn_results
 
@@ -68,8 +67,6 @@ def cancel_skill(player):
     for _, item in player.body.parts.items():
         if item and item.skill:
             item.skill.selected = False
-    
-    turn_results.append({'previous_state': True})
 
     return turn_results
 

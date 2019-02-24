@@ -38,12 +38,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
         if _grab:
             turn_results.extend(pick_up(player, entities))
-            turn_results.append({'acted': True})
             event_queue.append('player_acted')
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
-            turn_results.append({'acted': True})
             event_queue.append('player_acted')
         
         if _skill_choice:
@@ -52,12 +50,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             event_queue.append('skill_selected')
 
         if _wait:
-            turn_results.append({'acted': True})
             event_queue.append('player_acted')
 
         # Check to see if the player has leveled up. This is a persistent event.
         if player.stats.exp > player.stats.exp_needed_for_next_level:
-            turn_results.append({'level_up': True})
             if event_queue.count('leveled_up') == 0:
                 event_queue.insert(0, 'leveled_up')
     
@@ -68,7 +64,6 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             if entity.ai:
                 turn_results.extend(take_turn(entity, entities, game_map, fov_map, player))
         
-        turn_results.append({'end_enemy_turn': True})
         event_queue.append('enemies_acted')
         if player.stats.hp <= 0:
             event_queue.append('player_dead')
@@ -117,7 +112,6 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         if _move:
             _direction = _move
             turn_results.extend(execute_skill(_direction, entities, game_map, player))
-            turn_results.append({'acted': True})
             event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
             event_queue.append('chose_direction')
 

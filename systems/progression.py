@@ -16,7 +16,6 @@ def gain_exp(exp, player):
 
     if player.stats.exp >= player.stats.exp_needed_for_next_level:
         player.stats.level += 1
-        #turn_results.append({'level_up': True})
         message = 'You are now level {0}.'.format(player.stats.level)
         color = libtcod.purple
         turn_results.append({'message': (message, color)})
@@ -75,7 +74,6 @@ def confirm_stat_gain(player):
     _message = 'You feel stronger!'
     _color = libtcod.purple
     turn_results.append({'message': (_message, _color)})
-    turn_results.append({'previous_state': True})
 
     player.stats.selected = None
 

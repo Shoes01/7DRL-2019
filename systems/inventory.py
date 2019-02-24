@@ -37,7 +37,6 @@ def close_inventory(player):
     message = 'You close your inventory.'
     color = libtcod.white
     turn_results.append({'message': (message, color)})
-    turn_results.append({'previous_state': True})
     turn_results.append({'redraw_map': True})
 
     return turn_results
