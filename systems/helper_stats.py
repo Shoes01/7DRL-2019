@@ -30,3 +30,39 @@ def get_stats(player, stat):
         hp = player.stats.hp
 
         return hp
+    
+    elif stat == 'magic':
+        magic = player.stats.magic
+        
+        for _, item in player.body.parts.items():
+            if item:
+                magic += item.stats.magic
+        
+        return magic
+
+    elif stat == 'resistance':
+        resistance = player.stats.resistance
+        
+        for _, item in player.body.parts.items():
+            if item:
+                resistance += item.stats.resistance
+        
+        return resistance
+
+    elif stat == 'speed':
+        speed = player.stats.speed
+        
+        for _, item in player.body.parts.items():
+            if item:
+                speed += item.stats.speed
+        
+        return speed
+
+    elif stat == 'level':
+        level = player.stats.level
+        
+        for _, item in player.body.parts.items():
+            if item:
+                level += item.stats.level
+        
+        return level

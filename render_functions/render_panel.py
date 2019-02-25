@@ -10,12 +10,20 @@ def render_panel(consoles, player):
     console_panel.clear()
 
     # Print to the console.
+    LVL = 'LVL: {:>2}'.format(str(get_stats(player, 'level')))
     HP = 'HP : {:>3}/{:>3}'.format(str(get_stats(player, 'hp')), str(get_stats(player, 'hp_max')))
     ATT = 'ATT: {:>2}'.format(str(get_stats(player, 'attack')))
     DEF = 'DEF: {:>2}'.format(str(get_stats(player, 'defense')))
-    console_panel.print(0, 1, HP , fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 2, ATT, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 3, DEF, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    MAG = 'MAG: {:>2}'.format(str(get_stats(player, 'magic')))
+    RES = 'RES: {:>2}'.format(str(get_stats(player, 'resistance')))
+    SPD = 'SPD: {:>2}'.format(str(get_stats(player, 'speed')))
+    console_panel.print(0, 1, LVL, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)    
+    console_panel.print(0, 3, HP , fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 4, ATT, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 5, DEF, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 6, MAG, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 7, RES, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 8, SPD, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
 
     # Send to console.
     console_panel.blit(dest=console_root, dest_x=INFO.X, dest_y=INFO.Y, width=INFO.W, height=INFO.H)

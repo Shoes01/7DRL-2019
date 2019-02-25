@@ -76,7 +76,7 @@ def initialize_new_game():
     _body = Body()
     _inv = Inventory()
     _pos = Position(15, 15)
-    _stats = Stats(attack=8, defense=3, hp_max=50, exp=0)
+    _stats = Stats(attack=8, defense=3, exp=0, hp_max=50, magic=0, resistance=0, speed=0)
     player = Entity(base=_base, body=_body, inv=_inv, pos=_pos, stats=_stats)
     
     # Fill the player's inventory with DEBUG junk

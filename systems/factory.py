@@ -15,7 +15,7 @@ def create_monster(name):
         _base = Base(name='zombie', char='Z', color=libtcod.green, render_order=RenderOrder.ACTOR)
         _body = Body()
         _pos = Position()
-        _stats = Stats(attack=5, defense=3, hp_max=30, exp=101)
+        _stats = Stats(attack=5, defense=3,  exp=101, hp_max=30, magic=0, resistance=0, speed=0)
 
         monster = Entity(ai=_ai, base=_base, body=_body, pos=_pos, stats=_stats)
 
@@ -27,7 +27,7 @@ def create_item(name):
         _equip = Equippable(slot=Bodyparts.LeftHand.name)
         _pos = Position()
         _skill = Skill(nature='direct', skill='pierce')
-        _stats = Stats(attack=1, defense=0, hp_max=0, exp=0)
+        _stats = Stats(1, 0, 0, 0, 0, 0, 0)
 
         item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill, stats=_stats)
     
