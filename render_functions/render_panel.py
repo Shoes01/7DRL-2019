@@ -1,10 +1,10 @@
 import tcod as libtcod
 
-from game import PANEL
+from game import INFO
 from systems.helper_stats import get_stats
 
 def render_panel(consoles, player):
-    console_panel = consoles['panel']
+    console_panel = consoles['info']
     console_root = consoles['root']
     # Reset the console.
     console_panel.clear()
@@ -15,7 +15,7 @@ def render_panel(consoles, player):
     console_panel.print(0, 0, get_stat_string(player), fg=libtcod.light_gray, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
 
     # Send to console.
-    console_panel.blit(dest=console_root, dest_x=PANEL.X, dest_y=PANEL.Y, width=PANEL.W, height=PANEL.H)
+    console_panel.blit(dest=console_root, dest_x=INFO.X, dest_y=INFO.Y, width=INFO.W, height=INFO.H)
 
 def get_stat_string(player):
     stat_string = ""

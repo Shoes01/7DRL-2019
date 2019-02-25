@@ -4,7 +4,7 @@ import warnings
 
 from game import initialize_new_game
 from input_handlers import handle_keys
-from render_functions.render import render_all
+from render_functions.render import render_all, render_borders
 from systems.update import update
 
 def main():
@@ -13,6 +13,7 @@ def main():
     event_queue = []
 
     action = True
+    render_borders(consoles)
     render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
 
     while not libtcod.console_is_window_closed():

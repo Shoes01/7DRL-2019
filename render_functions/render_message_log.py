@@ -9,7 +9,7 @@ def render_message_log(consoles, message_log):
     console_message_log.clear()
 
     # Print to the console.
-    y = 1
+    y = 0
     for message in message_log.messages:
         console_message_log.print(0, y, message.text, fg=message.color, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
         y += 1
