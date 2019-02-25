@@ -1,6 +1,6 @@
 import tcod as libtcod
 
-from game import MENU
+from game import COLORS, MENU
 
 def render_menu(consoles, player, type_):
     console_menu = consoles['menu']
@@ -25,7 +25,7 @@ def render_menu(consoles, player, type_):
         console_menu.print(0, y, text, fg=color, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
         y += 1
     
-    console_menu.print(0, MENU.H - 3, reminder_text, fg=libtcod.white, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_menu.print(0, MENU.H - 3, reminder_text, fg=COLORS['hud_text'], bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
 
     # Send to console.
     console_menu.blit(dest=console_root, dest_x=MENU.X, dest_y=MENU.Y, width=MENU.W, height=MENU.H)

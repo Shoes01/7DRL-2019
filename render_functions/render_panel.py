@@ -10,24 +10,12 @@ def render_panel(consoles, player):
     console_panel.clear()
 
     # Print to the console.
-    # TODO: This is a singlue-use function, so I don't need to try to generalize it. I can be as messy as I want.
-    # It should read "ATT: {0} + {1}", where 0: base_attack, 1:bonus_attack, and bonus is green
-    console_panel.print(0, 0, get_stat_string(player), fg=libtcod.light_gray, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    HP = 'HP : {:>3}/{:>3}'.format(str(get_stats(player, 'hp')), str(get_stats(player, 'hp_max')))
+    ATT = 'ATT: {:>2}'.format(str(get_stats(player, 'attack')))
+    DEF = 'DEF: {:>2}'.format(str(get_stats(player, 'defense')))
+    console_panel.print(0, 1, HP , fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 2, ATT, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console_panel.print(0, 3, DEF, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
 
     # Send to console.
     console_panel.blit(dest=console_root, dest_x=INFO.X, dest_y=INFO.Y, width=INFO.W, height=INFO.H)
-
-def get_stat_string(player):
-    stat_string = ""
-    
-    hp_string = str(player.stats.hp) + "/" + str(get_stats(player, 'hp_max'))
-    
-    attack_string = "ATT: " + str(get_stats(player, 'attack'))
-
-    defense_string = "DEF: " + str(get_stats(player, 'defense'))
-
-    level_string = "LVL: " + str(player.stats.level) + " (" + str(player.stats.exp) + "/" + str(player.stats.exp_needed_for_next_level) + ")"
-
-    stat_string += hp_string + "\n" + attack_string + "\n" + defense_string + "\n" + level_string
-
-    return stat_string

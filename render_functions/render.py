@@ -22,9 +22,8 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
 
     libtcod.console_flush()
 
-def render_borders(consoles):
+def render_borders(console):
     ' This function renders the borders of the HUD. It should only need to be done once. '
-    console = consoles['root']
 
     _column_1 = ROOT.X
     _column_2 = ROOT.X + INFO.W + 1

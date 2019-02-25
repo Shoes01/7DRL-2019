@@ -13,7 +13,7 @@ def main():
     event_queue = []
 
     action = True
-    render_borders(consoles)
+    render_borders(consoles['root'])
     render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
 
     while not libtcod.console_is_window_closed():

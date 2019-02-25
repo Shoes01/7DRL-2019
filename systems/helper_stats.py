@@ -25,3 +25,8 @@ def get_stats(player, stat):
                 hp_max += item.stats.hp_max
         
         return hp_max
+    
+    elif stat == 'hp':
+        hp = player.stats.hp
+
+        return hp
