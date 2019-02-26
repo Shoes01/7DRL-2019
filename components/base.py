@@ -1,9 +1,9 @@
-from enum import auto, Enum
+from enum import Enum
 
 class RenderOrder(Enum):
-    CORPSE = auto()
-    ITEM = auto()
-    ACTOR = auto()
+    CORPSE = 0
+    ITEM = 1
+    ACTOR = 2
 
 class Base:
     def __init__(self, name, char, color, render_order):

@@ -5,6 +5,7 @@ from render_functions.render_inventory import render_inventory
 from render_functions.render_map import render_map
 from render_functions.render_menu import render_menu
 from render_functions.render_message_log import render_message_log
+from render_functions.render_monster_list import render_monster_list
 from render_functions.render_panel import render_panel
 
 def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player):
@@ -14,6 +15,7 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
     if action:
         render_inventory(consoles, player)
         render_message_log(consoles, message_log)
+        render_monster_list(consoles, entities, fov_map)
         render_panel(consoles, player)
     
     _game_state = game_state_machine.state.__str__()
