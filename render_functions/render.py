@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from game import COLORS, INFO, INVENTORY, ITEMDESC, MESSAGE, MONSTERS, ROOT
+from render_functions.render_inventory import render_inventory
 from render_functions.render_map import render_map
 from render_functions.render_menu import render_menu
 from render_functions.render_message_log import render_message_log
@@ -9,10 +10,11 @@ from render_functions.render_panel import render_panel
 def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player):
     ' Render all things that appear on the screen. '
     render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player)
-    
+
     if action:
-        render_panel(consoles, player)
+        render_inventory(consoles, player)
         render_message_log(consoles, message_log)
+        render_panel(consoles, player)
     
     _game_state = game_state_machine.state.__str__()
 

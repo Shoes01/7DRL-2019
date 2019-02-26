@@ -2,8 +2,8 @@ class Stats:
     def __init__(self, attack, defense, exp, hp_max, magic, resistance, speed):
         self.attack = attack
         self.defense = defense
-        self.exp = exp
         self.hp_max = hp_max
+        self.exp = exp
         self.magic = magic
         self.resistance = resistance
         self.speed = speed
