@@ -16,7 +16,7 @@ def main():
     render_borders(consoles['root'])
     render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
 
-    while not libtcod.console_is_window_closed():
+    while True:
         # Process input.
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS | libtcod.EVENT_MOUSE, key, mouse)
         action = handle_keys(game_state_machine, key)
@@ -28,7 +28,8 @@ def main():
         render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
 
         if game_state_machine.state.__str__() == 'Exit':
-            return True
+            consoles['root'].__exit__()
+            return False
         
         warnings.simplefilter("default")
 
