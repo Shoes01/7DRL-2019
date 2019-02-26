@@ -25,7 +25,7 @@ def handle_general_keys(key):
     # Item related keys.
     if key_char == 'w':
         return {'skill_choice': Bodyparts.Head.name}
-    if key_char == 'a':
+    if key_char == 'd':
         return {'skill_choice': Bodyparts.MainHand.name}
 
     # Inventory related keys.

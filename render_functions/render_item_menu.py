@@ -46,6 +46,10 @@ def render_item_menu(consoles, player):
 
     ' Print the D square. '
     _color = libtcod.grey
+    if player.body.main_hand is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 8, 4)
     console.print(9, 5, 'D', fg=_color)
 
