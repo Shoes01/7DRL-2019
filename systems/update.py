@@ -7,7 +7,7 @@ from systems.inventory import close_inventory, drop_item, inventory_choice, open
 from systems.message_log import Message
 from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
-from systems.skill import cancel_skill, execute_skill, skill_choice
+from systems.skill import cancel_skill, reduce_cooldown_timer, execute_skill, skill_choice
 
 def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player):
     turn_results = []
@@ -122,14 +122,16 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     handle_turn_results(game, message_log, turn_results)
 
     if event_queue:
-        handle_events(event_queue, game_state_machine)
+        handle_events(event_queue, game_state_machine, player)
 
-def handle_events(event_queue, game_state_machine):
+def handle_events(event_queue, game_state_machine, player):
     temp_event_queue = event_queue.copy()
     for event in temp_event_queue:
         _old_state = game_state_machine.state
         if _old_state != game_state_machine.on_event(event):
             # The state has changed!
+            if event == 'player_acted':
+                reduce_cooldown_timer(player)
             event_queue.remove(event)
 
 def handle_turn_results(game, message_log, results):

@@ -76,7 +76,9 @@ def execute_skill(direction, entities, game_map, player):
 
     target_array = get_single_targeting_array(direction, player)
 
-    if target_array is not None:
+    skill = chosen_skill(player)
+
+    if target_array is not None and skill is not None and skill.cooldown_timer == 0:
         center, _ = target_array.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
@@ -85,7 +87,6 @@ def execute_skill(direction, entities, game_map, player):
             if value:
                 entity = tile_occupied(entities, xo + x, yo + y)
                 
-                skill = chosen_skill(player)
                 skill.cooldown_timer = skill.cooldown
 
                 if skill.nature == 'direct':
@@ -109,3 +110,8 @@ def chosen_skill(player):
             return item.skill
     else:
         return None
+
+def reduce_cooldown_timer(player):
+    for _, item in player.body.parts.items():
+        if item and item.skill and item.skill.cooldown_timer > 0:
+            item.skill.cooldown_timer -= 1
