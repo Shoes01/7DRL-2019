@@ -1,12 +1,14 @@
 import numpy as np
 
 class Skill():
-    def __init__(self, nature, skill):
+    def __init__(self, cooldown, nature, skill):
+        self.cooldown = cooldown
         self.skill = skill
         self.nature = nature
 
         self.selected = False        
         self.legal_targeting_arrays = {}
+        self.cooldown_timer = 0
 
         self.template_E = np.array([])
         self.template_NE = np.array([])

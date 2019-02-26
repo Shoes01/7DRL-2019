@@ -1,4 +1,18 @@
+### BRANCHES
+master
+    > hud
+        >hud-cooldown
+
+[hud-cooldown]
+Add a cooldown to skills after use.
+> ticks down every action
+Reflect this cooldown in the hud
+> color red
+> show timer
+
+
 ### BUGS
+What happens when a skill is selected and has no legal targets?
 The targeting logic may reach outside the game_map index
 
 ### GAME STATE MACHINE

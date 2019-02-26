@@ -1,4 +1,5 @@
 import numpy as np
+import tcod as libtcod
 
 from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
@@ -85,6 +86,7 @@ def execute_skill(direction, entities, game_map, player):
                 entity = tile_occupied(entities, xo + x, yo + y)
                 
                 skill = chosen_skill(player)
+                skill.cooldown_timer = skill.cooldown
 
                 if skill.nature == 'direct':
                     _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
@@ -92,6 +94,10 @@ def execute_skill(direction, entities, game_map, player):
 
                 if entity and entity is not player and _path_unblocked:
                     turn_results.extend(attack(player, entity, entities))
+    else:
+        _message = "You can't use that here!"
+        _color = libtcod.red
+        turn_results.append({'message': (_message, _color)})
 
     turn_results.extend(cancel_skill(player))
 
