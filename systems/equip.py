@@ -20,10 +20,10 @@ def equip(player):
         player.body.head = item
     elif item.equip.slot == Bodyparts.Torso.name and player.body.torso is None:
         player.body.torso = item
-    elif item.equip.slot == Bodyparts.LeftHand.name and player.body.left_hand is None:
-        player.body.left_hand = item
-    elif item.equip.slot == Bodyparts.RightHand.name and player.body.right_hand is None:
-        player.body.right_hand = item
+    elif item.equip.slot == Bodyparts.MainHand.name and player.body.main_hand is None:
+        player.body.main_hand = item
+    elif item.equip.slot == Bodyparts.OffHand.name and player.body.off_hand is None:
+        player.body.off_hand = item
     elif item.equip.slot == Bodyparts.Feet.name and player.body.feet is None:
         player.body.feet = item
     else:
@@ -55,10 +55,10 @@ def unequip(player):
         player.body.head = None
     elif item.equip.slot == Bodyparts.Torso.name:
         player.body.torso = None
-    elif item.equip.slot == Bodyparts.LeftHand.name:
-        player.body.left_hand = None
-    elif item.equip.slot == Bodyparts.RightHand.name:
-        player.body.right_hand = None
+    elif item.equip.slot == Bodyparts.MainHand.name:
+        player.body.main_hand = None
+    elif item.equip.slot == Bodyparts.OffHand.name:
+        player.body.off_hand = None
     elif item.equip.slot == Bodyparts.Feet.name:
         player.body.feet = None
     else:

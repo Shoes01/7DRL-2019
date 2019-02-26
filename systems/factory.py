@@ -24,7 +24,7 @@ def create_monster(name):
 def create_item(name):
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _equip = Equippable(slot=Bodyparts.LeftHand.name)
+        _equip = Equippable(slot=Bodyparts.MainHand.name)
         _pos = Position()
         _skill = Skill(nature='direct', skill='pierce')
         _stats = Stats(1, 0, 0, 0, 0, 0, 0)
