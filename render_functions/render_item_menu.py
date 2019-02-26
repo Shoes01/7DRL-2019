@@ -1,3 +1,5 @@
+import tcod as libtcod
+
 from game import ITEMMENU
 
 def render_item_menu(consoles, player):
@@ -8,8 +10,69 @@ def render_item_menu(consoles, player):
     console.clear()
 
     # Print to console.
-    ' Print the A square first. '
+    """
+    Q: Ring Finger
+    W: Helmet
+    E: Feet
+    A: Main Hand
+    S: Torso
+    D: Off Hand
+    """
     
+    ' Print the Q square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 0, 0)
+    console.print(1, 1, 'Q', fg=_color)
+
+    ' Print the W square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 4, 0)
+    console.print(5, 1, 'W', fg=_color)
+
+    ' Print the E square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 8, 0)
+    console.print(9, 1, 'E', fg=_color)
+
+    ' Print the A square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 0, 4)
+    console.print(1, 5, 'A', fg=_color)
+
+    ' Print the S square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 4, 4)
+    console.print(5, 5, 'S', fg=_color)
+
+    ' Print the D square. '
+    _color = libtcod.grey
+    draw_box(_color, console, 8, 4)
+    console.print(9, 5, 'D', fg=_color)
 
     # Send to console.
     console.blit(console_root, ITEMMENU.X, ITEMMENU.Y, 0, 0, ITEMMENU.W, ITEMMENU.H)
+
+def draw_box(color, console, x, y):
+    # Unicode charcaters.
+    SE = u'\u250c'
+    NS = u'\u2502'
+    NE = u'\u2510'
+    WS = u'\u2514'
+    EW = u'\u2500'
+    NW = u'\u2518'
+
+    # Corners.
+    console.print(x, y, SE, fg=color)
+    console.print(x, y + 3, WS, fg=color)
+    console.print(x + 3, y, NE, fg=color)
+    console.print(x + 3, y + 3, NW, fg=color)
+
+    # Lines
+    console.print(x, y + 1, NS, fg=color)
+    console.print(x, y + 2, NS, fg=color)
+    console.print(x + 3, y + 1, NS, fg=color)
+    console.print(x + 3, y + 2, NS, fg=color)
+    console.print(x + 1, y, EW, fg=color)
+    console.print(x + 2, y, EW, fg=color)
+    console.print(x + 1, y + 3, EW, fg=color)
+    console.print(x + 2, y + 3, EW, fg=color)
