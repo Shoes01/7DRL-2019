@@ -29,14 +29,23 @@ def generate_targeting_array(game_map, player, skill):
                     skill.legal_targeting_arrays[direction] = None
                     break
 
-def skill_choice(body_part, game_map, player):
+def skill_choice(body_part, event_queue, game_map, player):
     turn_results = []
 
     item = player.body.parts[body_part]
 
-    if item and item.skill:
+    if item and item.skill and item.skill.cooldown_timer == 0:
         item.skill.selected = True
         generate_targeting_array(game_map, player, item.skill)
+        event_queue.append('skill_selected')
+    elif item and item.skill and item.skill.cooldown_timer > 0:
+        _message = 'This skill is still on cooldown.'
+        _color = libtcod.red
+        turn_results.append({'message': (_message, _color)})
+    else:
+        _message = 'There is no item equipped in this slot.'
+        _color = libtcod.red
+        turn_results.append({'message': (_message, _color)})
 
     return turn_results
 
@@ -71,17 +80,18 @@ def cancel_skill(player):
 
     return turn_results
 
-def execute_skill(direction, entities, game_map, player):
+def execute_skill(direction, entities, event_queue, game_map, player):
     turn_results = []    
 
     target_array = get_single_targeting_array(direction, player)
 
     skill = chosen_skill(player)
 
-    if target_array is not None and skill is not None and skill.cooldown_timer == 0:
+    if target_array is not None and skill is not None:
         center, _ = target_array.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
+        event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
 
         for (x, y), value in np.ndenumerate(target_array):
             if value:
@@ -99,7 +109,9 @@ def execute_skill(direction, entities, game_map, player):
         _message = "You can't use that here!"
         _color = libtcod.red
         turn_results.append({'message': (_message, _color)})
+        turn_results.append({'skill_failed': True})
 
+    event_queue.append('chose_direction')
     turn_results.extend(cancel_skill(player))
 
     return turn_results

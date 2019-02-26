@@ -46,8 +46,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         
         if _skill_choice:
             _bodypart = _skill_choice
-            turn_results.extend(skill_choice(_bodypart, game_map, player))
-            event_queue.append('skill_selected')
+            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player))
 
         if _wait:
             event_queue.append('player_acted')
@@ -67,6 +66,8 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         event_queue.append('enemies_acted')
         if player.stats.hp <= 0:
             event_queue.append('player_dead')
+        reduce_cooldown_timer(player)
+        game.redraw_map = True
     
     elif _game_state == 'OpenInventory':
         if _drop:
@@ -111,9 +112,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         
         if _move:
             _direction = _move
-            turn_results.extend(execute_skill(_direction, entities, game_map, player))
-            event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
-            event_queue.append('chose_direction')
+            turn_results.extend(execute_skill(_direction, entities, event_queue, game_map, player))
 
     # Handle things that may occur at any time.
     if _exit:
@@ -130,8 +129,6 @@ def handle_events(event_queue, game_state_machine, player):
         _old_state = game_state_machine.state
         if _old_state != game_state_machine.on_event(event):
             # The state has changed!
-            if event == 'player_acted':
-                reduce_cooldown_timer(player)
             event_queue.remove(event)
 
 def handle_turn_results(game, message_log, results):
