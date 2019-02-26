@@ -21,26 +21,46 @@ def render_item_menu(consoles, player):
     
     ' Print the Q square. '
     _color = libtcod.grey
+    if player.body.ring_finger is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 0, 0)
     console.print(1, 1, 'Q', fg=_color)
 
     ' Print the W square. '
     _color = libtcod.grey
+    if player.body.head is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 4, 0)
     console.print(5, 1, 'W', fg=_color)
 
     ' Print the E square. '
     _color = libtcod.grey
+    if player.body.feet is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 8, 0)
     console.print(9, 1, 'E', fg=_color)
 
     ' Print the A square. '
     _color = libtcod.grey
+    if player.body.off_hand is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 0, 4)
     console.print(1, 5, 'A', fg=_color)
 
     ' Print the S square. '
     _color = libtcod.grey
+    if player.body.torso is not None:
+        _color = libtcod.white
+        if player.body.main_hand.skill.selected:
+            _color = libtcod.green
     draw_box(_color, console, 4, 4)
     console.print(5, 5, 'S', fg=_color)
 
