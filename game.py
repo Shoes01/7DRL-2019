@@ -17,7 +17,8 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'light_floor': libtcod.light_yellow,
             'light_wall': libtcod.dark_yellow,
             'hud_border_fg': libtcod.light_grey,
-            'hud_text': libtcod.white}
+            'hud_text': libtcod.white,
+            'hud_skill_description': libtcod.lime}
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
 ' Console constants. '

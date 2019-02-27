@@ -2,6 +2,7 @@ import tcod as libtcod
 
 from game import COLORS, INFO, INVENTORY, ITEMDESC, MESSAGE, MONSTERS, ROOT
 from render_functions.render_inventory import render_inventory
+from render_functions.render_item_description import render_item_description
 from render_functions.render_item_menu import render_item_menu
 from render_functions.render_map import render_map
 from render_functions.render_menu import render_menu
@@ -15,6 +16,7 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
 
     if action or game.redraw_map:
         render_inventory(consoles, player)
+        render_item_description(consoles, player)
         render_item_menu(consoles, player)
         render_message_log(consoles, message_log)
         render_monster_list(consoles, entities, fov_map)

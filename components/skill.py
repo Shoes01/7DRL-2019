@@ -1,20 +1,28 @@
 import numpy as np
 
 class Skill():
-    def __init__(self, cooldown, nature, skill):
+    def __init__(self, cooldown, name, nature):
+        ' Skill essential data. '
         self.cooldown = cooldown
-        self.skill = skill
+        self.name = name
         self.nature = nature
-
-        self.selected = False        
-        self.legal_targeting_arrays = {}
+        
+        ' Skill data that changes with use. '
         self.cooldown_timer = 0
-
+        self.selected = False
+        
+        ' Skill data that is generated from its name. '
+        self.description = 'There is no description.'
+        self.legal_targeting_arrays = {}
         self.template_E = np.array([])
         self.template_NE = np.array([])
         self.array_size = 0
 
-        if self.skill == 'pierce':
+        self.initialize_data()
+    
+    def initialize_data(self):
+        if self.name == 'pierce':
+            self.description = 'This skill deals full damage in a straight line.'
             self.template_E = np.array(
                 [   [0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0],
