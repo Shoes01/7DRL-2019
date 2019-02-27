@@ -5,8 +5,6 @@ What happens when a skill is selected and has no legal targets?
 > What about when the direction chosen is not legal?
 > Still on cooldown?
 
-The targeting logic may reach outside the game_map index
-
 ### GAME STATE MACHINE
 
 [Player_Turn]   >>> is killed   >>> [Player_Dead]
@@ -16,9 +14,7 @@ The targeting logic may reach outside the game_map index
                 >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Player_Turn] >>> acts
 
 ### GUI
-Have a menu at the start of the game? (maybe not for 7DRL)
->>> If so, look into saving the game
-Clean up the "names" of the stats in the level up menu.
+Exit confirmation
 
 ### CONTENT - Loot
 
@@ -28,7 +24,7 @@ Expand the monster dropping loot logic
 ### CONTENT - Monsters
 ` Race and Soul mechanic `
 The race of a unit will determine its baseline stat. Example: a rat has a baseline stat of 1. A goblin has a baseline stat of 5.
-The soul of a unit will determine how the stat value determine ATT, DEF, etc.
+The soul of a unit will determine how the stat value determine ATK, DEF, etc.
 The eccentricity of a soul will determine how far apart numbers can be in the soul.
 * Stats can be negative, but will be treated as 0?
 The rank of the soul will determine its net worth. (Example: a rare sould would have a sum of +5) 
