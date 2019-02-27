@@ -22,9 +22,14 @@ def generate_targeting_array(game_map, player, skill):
     if skill.nature == 'direct':
         for direction, array in skill.legal_targeting_arrays.items():
             for (x, y), value in np.ndenumerate(array):
-                _, blocks_path, _ = game_map.tiles[xo + x][yo + y]
+                if 0 < xo + x < game_map.width and 0 < yo + y < game_map.height:
+                    _, blocks_path, _ = game_map.tiles[xo + x][yo + y]
 
-                if blocks_path and value:
+                    if blocks_path and value:
+                        # Zero the array
+                        skill.legal_targeting_arrays[direction] = None
+                        break
+                elif value:
                     # Zero the array
                     skill.legal_targeting_arrays[direction] = None
                     break

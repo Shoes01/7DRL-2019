@@ -1,14 +1,10 @@
-### BRANCHES
-master
-    > hud
-
 ### BUGS
 What happens when a skill is selected and has no legal targets?
 > What about when there is no equipment?
 > What about when there are no legal targets?
 > What about when the direction chosen is not legal?
 > Still on cooldown?
->>> Need a way to try and fail, and return the the PlayerTurn state
+
 The targeting logic may reach outside the game_map index
 
 ### GAME STATE MACHINE
@@ -20,7 +16,6 @@ The targeting logic may reach outside the game_map index
                 >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Player_Turn] >>> acts
 
 ### GUI
-Make the consoles look a little better
 Have a menu at the start of the game? (maybe not for 7DRL)
 >>> If so, look into saving the game
 Clean up the "names" of the stats in the level up menu.
@@ -88,6 +83,19 @@ Skills do not affect stats, but rather attack as a multiple of stats.
 A sword slash may do 0.9xATK to the targeted tiles.
 A fireball may do 1.1xMAG.
 A staff may do 0.4xATK + 0.6xMAG
+
+MainHand skills are offensive
+OffHand skills are active defensive
+Head skills are ... 
+    debuff skills? (intimidation, confuse) 
+    perception skills? (see through walls, detect all monsters on map)? 
+    useless, choose a different slot? (amulet, left ring finger, )
+RingFinger skills are indirect offensive
+Torso skills are passive defensive
+Feet skills are movement
+
+Items are static. They grant the same skills all the time. A sword has a lunge attack, an axe a cleave attack. A great sword has a different skill. The Sword of Greatness has another skill.
+Is this too much content to make?
 
 ### ITEMS++
 Start desinging soul numbers and stuff here.
