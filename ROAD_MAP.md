@@ -84,6 +84,11 @@ Skills and ranged attack systems get done here.
 > Skills that move the player
 > Skills that buff defense
 
+Skills do not affect stats, but rather attack as a multiple of stats.
+A sword slash may do 0.9xATK to the targeted tiles.
+A fireball may do 1.1xMAG.
+A staff may do 0.4xATK + 0.6xMAG
+
 ### ITEMS++
 Start desinging soul numbers and stuff here.
 >> Update GUI here
