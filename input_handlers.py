@@ -23,8 +23,16 @@ def handle_general_keys(key):
         return movement
 
     # Item related keys.
+    if key_char == 'q':
+        return {'skill_choice': Bodyparts.RingFinger.name}
     if key_char == 'w':
         return {'skill_choice': Bodyparts.Head.name}
+    if key_char == 'e':
+        return {'skill_choice': Bodyparts.Feet.name}
+    if key_char == 'a':
+        return {'skill_choice': Bodyparts.OffHand.name}
+    if key_char == 's':
+        return {'skill_choice': Bodyparts.Torso.name}
     if key_char == 'd':
         return {'skill_choice': Bodyparts.MainHand.name}
 

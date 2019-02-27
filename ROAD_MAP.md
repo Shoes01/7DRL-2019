@@ -1,41 +1,6 @@
 ### BRANCHES
 master
     > hud
-        >hud-cooldown
-
-<todo> 
-BUG: When the player "activates" a skill, the cooldown ticks down. When they fail to use a skill, the enemies get a turn.
->>> Solution is probably to sever the inter-system communication and force them to use the messenger pattern.
-
-___ Messenger Pattern with Event Queue ___
-Update(action) should feed that action to each system, getting results. Then the results should be processed.
-While results are being processed, events are extracted and fed to the event queue.
-
-Example:
-```py
-def update(action):
-    turn_results = []
-
-    if game.state == 'EnemyTurn':
-        action = ai_turn()
-    
-    turn_results.extend(move_system(action))
-    turn_results.extend(skill_system(action))
-    #etc
-
-    for result in turn_results:
-        _this = result.get('this')
-
-        if _this:
-            # process event
-    
-    for event in event_queue
-
-
-```
-
-[hud-cooldown]
-Fix bug related above
 
 ### BUGS
 What happens when a skill is selected and has no legal targets?
