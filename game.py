@@ -136,6 +136,8 @@ def initialize_new_game():
     # Create a neighborhood.
     neighborhood = Neighborhood(game_map)
 
+    neighborhood.update_dijkstra_map((player.pos.x, player.pos.y))
+
     return consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, neighborhood, player
 
 class GameThing:
