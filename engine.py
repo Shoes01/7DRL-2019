@@ -8,7 +8,7 @@ from render_functions.render import render_all, render_borders
 from systems.update import update
 
 def main():
-    consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, player = initialize_new_game()
+    consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, neighborhood, player = initialize_new_game()
 
     event_queue = []
 

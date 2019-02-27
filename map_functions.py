@@ -19,7 +19,7 @@ class GameMap:
         tiles['explored'] = np.zeros([self.width, self.height], dtype=int)
 
         return tiles
-    
+
     def generate_new_map(self):
         bsp = libtcod.bsp.BSP(x=0, y=0, width=self.width, height=self.height)
         bsp.split_recursive(

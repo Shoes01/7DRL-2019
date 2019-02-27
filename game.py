@@ -7,6 +7,7 @@ from components.body import Body
 from components.inventory import Inventory
 from components.pos import Position
 from components.stats import Stats
+from dijkstra import Neighborhood
 from game_state_machine import GameStateMachine
 from map_functions import GameMap
 from render_functions.fov import initialize_fov, recompute_fov
@@ -132,7 +133,10 @@ def initialize_new_game():
     # Create game state machine.
     game_state_machine = GameStateMachine()
 
-    return consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, player
+    # Create a neighborhood.
+    neighborhood = Neighborhood(game_map)
+
+    return consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, neighborhood, player
 
 class GameThing:
     def __init__(self):
