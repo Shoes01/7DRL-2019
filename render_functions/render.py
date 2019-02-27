@@ -13,7 +13,7 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
     ' Render all things that appear on the screen. '
     render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player)
 
-    if action:
+    if action or game.redraw_map:
         render_inventory(consoles, player)
         render_item_menu(consoles, player)
         render_message_log(consoles, message_log)

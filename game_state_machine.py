@@ -106,4 +106,6 @@ class GameStateMachine:
 
         # The next state will be the result of the on_event function.
         self.state = self.state.on_event(event)
+        # print('Current event:', str(event)) # This is printed every time a State is changed.
+        # print('Current state:', str(self.state)) # This is printed every time a State is changed.
         return self.state
