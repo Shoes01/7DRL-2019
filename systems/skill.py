@@ -99,10 +99,10 @@ def execute_skill(direction, entities, event_queue, game_map, player):
         event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
 
         for (x, y), value in np.ndenumerate(target_array):
-            if value % 19:
+            if value and value % 19 == 0:
                 # This is a special value that represents where the player is sitting.
                 continue
-            elif value % 23:
+            elif value and value % 23 == 0:
                 # This is a special value that represents where the player will land.
                 player.pos.x, player.pos.y = xo + x, yo + y
             elif value:

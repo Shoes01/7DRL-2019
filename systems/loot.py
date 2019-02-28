@@ -11,4 +11,10 @@ def drop_loot(entity, entities):
 
     entities.append(item)
 
+    item = create_item('boots')
+
+    item.pos.x, item.pos.y = x, y
+
+    entities.append(item)
+
     return turn_results

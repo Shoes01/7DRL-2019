@@ -89,9 +89,12 @@ def highlight_tiles(console_map, tiles_to_highlight, xo, yo):
             console_map.print(xo + x, yo + y, " ", bg=libtcod.light_red, bg_blend=libtcod.BKGND_SET)
         elif 1 < value <= 3:
             console_map.print(xo + x, yo + y, " ", bg=libtcod.red, bg_blend=libtcod.BKGND_SET)
-        elif value > 5:
+        elif value and value % 19 == 0:
             # The only tile that this should apply to is the player's tile.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.green, bg_blend=libtcod.BKGND_SET)
+        elif value and value % 23 == 0:
+            # The only tile that this should apply to is the player's destination tile.
+            console_map.print(xo + x, yo + y, " ", bg=libtcod.pink, bg_blend=libtcod.BKGND_SET)
 
 def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
     return ((num == 0) and numerals[0]) or (baseN(num // b, b, numerals).lstrip(numerals[0]) + numerals[num % b])
