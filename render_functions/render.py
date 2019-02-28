@@ -41,7 +41,7 @@ def get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse):
     console = consoles['map']
     console_root = consoles['root']
 
-    string = 'Coordinate: ({0}, {1}).\n'.format(mouse.cx, mouse.cy)
+    string = 'Coordinate: ({:>2}, {:>2}). '.format(mouse.cx, mouse.cy)
 
     map_x = mouse.cx - MAP.X
     map_y = mouse.cy - MAP.Y
@@ -50,8 +50,9 @@ def get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse):
         # We are inside the game_map. Print things!
         blocks_sight, blocks_path, explored = game_map.tiles[map_x, map_y]
         
+        string += 'Map coordinate: ({:>2}, {:>2}).\n'.format(map_x, map_y)
         string += 'Dijkstra value: {0}.\n'.format(neighborhood.dijkstra_map[map_y, map_x])
-        string += 'Blocks sight: {0}. Blocks path: {1}. Explored: {2}.'.format(blocks_sight, blocks_path, explored)
+        string += 'Blocks sight: {:>1}. Blocks path: {:>1}. Explored: {:>1}.'.format(blocks_sight, blocks_path, explored)
 
         for entity in entities:
             if entity.pos.x == map_x and entity.pos.y == map_y:

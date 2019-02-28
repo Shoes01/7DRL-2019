@@ -104,7 +104,7 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 continue
             elif value and value % 23 == 0:
                 # This is a special value that represents where the player will land.
-                player.pos.x, player.pos.y = xo + x, yo + y
+                player.pos.x, player.pos.y = xo, yo
             elif value:
                 entity = tile_occupied(entities, xo + x, yo + y)
                 
