@@ -33,7 +33,7 @@ def handle_general_keys(key):
         return {'skill_choice': Bodyparts.OffHand.name}
     if key_char == 's':
         return {'skill_choice': Bodyparts.Torso.name}
-    if key_char == 'd':
+    if key_char == 'd' and not key.lctrl:
         return {'skill_choice': Bodyparts.MainHand.name}
 
     # Inventory related keys.
@@ -42,6 +42,9 @@ def handle_general_keys(key):
     if key_char == 'i':
         return {'inventory': True}
 
+    # Other keys
+    if key_char == 'd' and key.lctrl:
+        return {'debug_toggle': True}
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}

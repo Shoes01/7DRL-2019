@@ -17,6 +17,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
     # Possible actions.
     _confirm = action.get('confirm')
+    _debug_toggle = action.get('debug_toggle')
     _drop = action.get('drop')
     _equip = action.get('equip')
     _exit = action.get('exit')
@@ -32,6 +33,9 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     # Should the following be in a better place?
     if _move: 
         neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
+    if _debug_toggle:
+        game.debug_mode = not game.debug_mode
+        game.redraw_map = True
 
     # Handle the player turn.
     if _game_state == 'PlayerTurn':
