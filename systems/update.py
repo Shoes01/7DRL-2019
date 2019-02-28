@@ -29,6 +29,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     _unequip = action.get('unequip')
     _wait = action.get('wait')
 
+    # Should the following be in a better place?
+    if _move: 
+        neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
+
     # Handle the player turn.
     if _game_state == 'PlayerTurn':
         # The player may act.
