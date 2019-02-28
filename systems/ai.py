@@ -30,17 +30,16 @@ def hunt_player(entity, entities, game_map, player, neighborhood):
     
     x, y = entity.pos.x, entity.pos.y
 
-    directions = [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, 1), (1, -1), (1, 1), (-1, -1)]
+    directions = [(-1, 1), (1, -1), (1, 1), (-1, -1), (0, -1), (0, 1), (-1, 0), (1, 0)]
 
     lowest_value = neighborhood.dijkstra_map[y, x]
     best_direction = (0, 0)
     for direction in directions:
         new_value = neighborhood.dijkstra_map[y + direction[1], x + direction[0]]
-        if new_value <= lowest_value and not tile_occupied(entities, direction[0], direction[1]):
+        if new_value <= lowest_value and tile_occupied(entities, direction[0], direction[1]) is None:
             lowest_value = new_value
             best_direction = direction
 
-    print('{0} is moving in the direction {1}'.format(entity.base.name, best_direction))
     turn_results.extend(move(best_direction, entity, entities, game_map))
 
     return turn_results

@@ -25,7 +25,7 @@ def main():
         update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
 
         if action:
-            neighborhood.update_dijkstra_map((player.pos.x, player.pos.y))
+            neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
 
         # Render results.
         render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)

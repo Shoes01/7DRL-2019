@@ -1,6 +1,7 @@
 import numpy as np
 
 from collections import deque
+from map_functions import tile_occupied
 
 class Neighborhood():
     def __init__ (self, game_map):
@@ -23,7 +24,7 @@ class Neighborhood():
             
             self.directory[(x, y)] = results
     
-    def update_dijkstra_map(self, start):
+    def update_dijkstra_map(self, entities, start):
         self.dijkstra_map = (self.dijkstra_map * 0 + 1) * 999
         frontier = deque()
         frontier.append(start)
@@ -36,6 +37,9 @@ class Neighborhood():
             current = frontier.popleft()
             for neighbor in self.neighbors(current):
                 if neighbor not in visited:
+                    if tile_occupied(entities, neighbor[0], neighbor[1]):
+                        self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 5
+                    else:
+                        self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 1
                     frontier.append(neighbor)
-                    self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 1
                     visited[neighbor] = True
