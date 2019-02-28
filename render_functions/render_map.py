@@ -18,20 +18,21 @@ def render_map(action, consoles, entities, fov_map, game, game_map, game_state_m
                 draw_tile(console_map, fov_map, game, game_map, neighborhood, x, y)
         game.redraw_map = False
 
-    # Draw the skill arrays onto the map.
-    skill = chosen_skill(player)
-    if skill and game_state_machine.state.__str__() == 'TargetingState':
-        for _, array in skill.legal_targeting_arrays.items():
-            center = skill.array_size // 2
-            xo, yo = player.pos.x - center, player.pos.y - center
-            if array is not None:
-                highlight_tiles(console_map, array, xo, yo)
-    
-    # Sort the entities, then draw them.
-    entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)
-    
-    for entity in entities_in_render_order:
-        draw_entity(console_map, entity, fov_map)
+    if game.debug_mode == False:
+        # Draw the skill arrays onto the map.
+        skill = chosen_skill(player)
+        if skill and game_state_machine.state.__str__() == 'TargetingState':
+            for _, array in skill.legal_targeting_arrays.items():
+                center = skill.array_size // 2
+                xo, yo = player.pos.x - center, player.pos.y - center
+                if array is not None:
+                    highlight_tiles(console_map, array, xo, yo)
+        
+        # Sort the entities, then draw them.
+        entities_in_render_order = sorted(entities, key=lambda x: x.base.render_order.value)
+        
+        for entity in entities_in_render_order:
+            draw_entity(console_map, entity, fov_map)
 
     # Send to console.
     console_map.blit(dest=console_root, dest_x=MAP.X, dest_y=MAP.Y, width=MAP.W, height=MAP.H)
