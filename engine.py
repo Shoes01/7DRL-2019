@@ -14,7 +14,7 @@ def main():
 
     action = True
     render_borders(consoles['root'])
-    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
+    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, mouse, neighborhood, player)
 
     while True:
         # Process input.
@@ -25,7 +25,7 @@ def main():
         update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
 
         # Render results.
-        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
+        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, mouse, neighborhood, player)
 
         if game_state_machine.state.__str__() == 'Exit':
             consoles['root'].__exit__()

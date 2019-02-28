@@ -1,6 +1,6 @@
 import tcod as libtcod
 
-from game import COLORS, INFO, INVENTORY, ITEMDESC, MESSAGE, MONSTERS, ROOT
+from game import COLORS, INFO, INVENTORY, ITEMDESC, MAP, MESSAGE, MONSTERS, ROOT
 from render_functions.render_inventory import render_inventory
 from render_functions.render_item_description import render_item_description
 from render_functions.render_item_menu import render_item_menu
@@ -10,8 +10,10 @@ from render_functions.render_message_log import render_message_log
 from render_functions.render_monster_list import render_monster_list
 from render_functions.render_panel import render_panel
 
-def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player):
+def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, mouse, neighborhood, player):
     ' Render all things that appear on the screen. '
+    if game.debug_mode and not action:
+        action = True
     render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, neighborhood, player)
 
     if action or game.redraw_map:
@@ -30,7 +32,33 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
     if _game_state == 'LeveledUp':
         render_menu(consoles, player, type_='level_up')
 
+    if game.debug_mode == True:
+        get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse)
+
     libtcod.console_flush()
+
+def get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse):
+    console = consoles['map']
+    console_root = consoles['root']
+
+    string = 'Coordinate: ({0}, {1}).\n'.format(mouse.cx, mouse.cy)
+
+    map_x = mouse.cx - MAP.X
+    map_y = mouse.cy - MAP.Y
+
+    if 0 <= map_x < MAP.W and 0 <= map_y < MAP.H:
+        # We are inside the game_map. Print things!
+        blocks_sight, blocks_path, explored = game_map.tiles[map_x, map_y]
+        
+        string += 'Dijkstra value: {0}.\n'.format(neighborhood.dijkstra_map[map_y, map_x])
+        string += 'Blocks sight: {0}. Blocks path: {1}. Explored: {2}.'.format(blocks_sight, blocks_path, explored)
+
+        for entity in entities:
+            if entity.pos.x == map_x and entity.pos.y == map_y:
+                string += '\nEntity: {0}.'.format(entity.base.name.capitalize())
+
+    console.print(0, 0, string, fg=libtcod.white, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.blit(dest=console_root, dest_x=MAP.X, dest_y=MAP.Y, width=MAP.W, height=MAP.H)
 
 def render_borders(console):
     ' This function renders the borders of the HUD. It should only need to be done once. '
