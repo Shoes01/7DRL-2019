@@ -14,7 +14,7 @@ def main():
 
     action = True
     render_borders(consoles['root'])
-    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
+    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
 
     while True:
         # Process input.
@@ -22,13 +22,13 @@ def main():
         action = handle_keys(game_state_machine, key)
 
         # Update game.
-        update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
+        update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
 
         if action:
             neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
 
         # Render results.
-        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
+        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player)
 
         if game_state_machine.state.__str__() == 'Exit':
             consoles['root'].__exit__()

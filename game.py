@@ -142,4 +142,5 @@ def initialize_new_game():
 
 class GameThing:
     def __init__(self):
+        self.debug_mode = False
         self.redraw_map = False

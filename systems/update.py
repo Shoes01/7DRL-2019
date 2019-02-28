@@ -9,7 +9,7 @@ from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
 from systems.skill import cancel_skill, reduce_cooldown_timer, execute_skill, skill_choice
 
-def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood):
+def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player):
     turn_results = []
     
     # Game state.
@@ -61,7 +61,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         # Each entity gets to take a turn.
         for entity in entities:
             if entity.ai:
-                turn_results.extend(take_turn(entity, entities, game_map, fov_map, player, neighborhood))
+                turn_results.extend(take_turn(entity, entities, game_map, fov_map, neighborhood, player))
         
         event_queue.append('enemies_acted')
         if player.stats.hp <= 0:

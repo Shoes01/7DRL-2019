@@ -98,9 +98,6 @@ Start desinging soul numbers and stuff here.
 >> Update GUI here
 
 ### AI++
-Make use of the Dijkstra features of libtcod
-> Need to generate a Dijkstra map.
-> When that is made, I can use it to build a path using libtocd.path.Dijkstra()
 Have the take_turn ai system check to see the kind of AI the entity has, and then ship all the needed info into the appropriate function.
 
 ### Numpy optmizations

@@ -5,7 +5,7 @@ from game import COLORS, FOV_RADIUS, MAP
 from render_functions.fov import recompute_fov
 from systems.skill import chosen_skill
 
-def render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player, neighborhood):
+def render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, neighborhood, player):
     ' Render all things that appear on the map. '
     console_map = consoles['map']
     console_root = consoles['root']
@@ -15,7 +15,7 @@ def render_map(action, consoles, entities, fov_map, game, game_map, game_state_m
     
         # Draw the game_map tiles that are in the fov.
         for (x, y), _ in np.ndenumerate(game_map.tiles):
-                draw_tile(console_map, fov_map, game, game_map, x, y, neighborhood)
+                draw_tile(console_map, fov_map, game, game_map, neighborhood, x, y)
         game.redraw_map = False
 
     # Draw the skill arrays onto the map.
@@ -39,10 +39,9 @@ def render_map(action, consoles, entities, fov_map, game, game_map, game_state_m
     # Clear entities.
     clear_all(console_map, entities)
 
-def draw_tile(console_map, fov_map, game, game_map, x, y, neighborhood):
+def draw_tile(console_map, fov_map, game, game_map, neighborhood, x, y):
     visible = fov_map.fov[x, y]
     _, blocks_path, explored = game_map.tiles[x, y]
-    value = neighborhood.dijkstra_map[y, x]
     
     if visible:
         # Visible. Light it up.
@@ -65,11 +64,12 @@ def draw_tile(console_map, fov_map, game, game_map, x, y, neighborhood):
         # If neither visible nor explored, it is just black.
         console_map.print(x, y, " ", bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
-    # DEBUG
-    if value == 999:
-        console_map.print(x, y, '#', fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)    
-    else:
-        console_map.print(x, y, baseN(value, 35), fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)
+    if game.debug_mode:
+        value = neighborhood.dijkstra_map[y, x]
+        if value == 999:
+            console_map.print(x, y, '#', fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)    
+        else:
+            console_map.print(x, y, baseN(value, 35), fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)
 
 def draw_entity(console_map, entity, fov_map):
     if fov_map.fov[entity.pos.x, entity.pos.y]:

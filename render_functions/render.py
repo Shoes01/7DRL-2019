@@ -10,9 +10,9 @@ from render_functions.render_message_log import render_message_log
 from render_functions.render_monster_list import render_monster_list
 from render_functions.render_panel import render_panel
 
-def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood):
+def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player):
     ' Render all things that appear on the screen. '
-    render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player, neighborhood)
+    render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, neighborhood, player)
 
     if action or game.redraw_map:
         render_inventory(consoles, player)
