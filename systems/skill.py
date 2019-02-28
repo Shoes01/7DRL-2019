@@ -106,6 +106,8 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 # This is a special value that represents where the player will land.
                 player.pos.x += x - center
                 player.pos.y += y - center
+
+                skill.cooldown_timer = skill.cooldown
             elif value:
                 entity = tile_occupied(entities, xo + x, yo + y)
                 
