@@ -41,5 +41,7 @@ class Neighborhood():
                         self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 5
                     else:
                         self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 1
-                    frontier.append(neighbor)
+                    
+                    if not self.dijkstra_map[neighbor[1], neighbor[0]] > 20: # Cheap optimization.
+                        frontier.append(neighbor)
                     visited[neighbor] = True

@@ -33,8 +33,6 @@ def main():
         
         warnings.simplefilter("default")
 
-
-
 if __name__ == '__main__':
     # cProfile.run('main()') # This runs the profiler
     main()
