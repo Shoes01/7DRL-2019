@@ -9,6 +9,42 @@ from components.skill import Skill
 from components.stats import Stats
 from entity import Entity
 
+item_list = [
+    # Main hand items
+    'sword',
+    'dagger',
+    'hatchet',
+    'knife',
+    'longsword',
+    'axe',
+    'wand',
+    'mystic wand',
+    'staff',
+    'mystic staff',
+    'cudgel',
+    'club',
+    # Off hand items
+    'shield',
+    'buckler',
+    'tower shield',
+    # Head items
+    'helm',
+    'great helm',
+    'hood',
+    # Ring finger items
+    'ring',
+    # Feet items
+    'greaves',
+    'sabatons',
+    'boots',
+    'crakows',
+    # Torso items
+    'chainmail',
+    'tunic',
+    'robe',
+    'platemail'
+]
+
 def create_monster(name):
     if name == 'zombie':
         _ai = AI(brain=BRAIN.ZOMBIE)
