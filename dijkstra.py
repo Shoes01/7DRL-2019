@@ -35,13 +35,16 @@ class Neighborhood():
 
         while len(frontier):
             current = frontier.popleft()
+
             for neighbor in self.neighbors(current):
                 if neighbor not in visited:
+
                     if tile_occupied(entities, neighbor[0], neighbor[1]):
-                        self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 5
+                        self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 15
+                        
                     else:
                         self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 1
                     
-                    if not self.dijkstra_map[neighbor[1], neighbor[0]] > 50: # Cheap optimization.
-                        frontier.append(neighbor)
+                        if not self.dijkstra_map[neighbor[1], neighbor[0]] > 50: # Cheap optimization.
+                            frontier.append(neighbor)
                     visited[neighbor] = True

@@ -129,7 +129,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     if event_queue:
         handle_events(event_queue, game_state_machine, player)
 
-    if _move: 
+    if _move or _wait: 
         neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
 
 def handle_events(event_queue, game_state_machine, player):
