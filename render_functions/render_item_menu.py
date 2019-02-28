@@ -24,7 +24,12 @@ def render_item_menu(consoles, player):
     if player.body.ring_finger is not None:
         _color = libtcod.white
         if player.body.ring_finger.skill.selected:
-            _color = libtcod.green        
+            _color = libtcod.green
+
+        if player.body.ring_finger.skill.cooldown_timer:
+            _string = '{:>2}'.format(player.body.ring_finger.skill.cooldown_timer)
+            _color = libtcod.light_red
+            console.print(1, 2, _string, fg=_color)
     draw_box(_color, console, 0, 0)
     console.print(1, 1, 'Q', fg=_color)
 
@@ -34,6 +39,11 @@ def render_item_menu(consoles, player):
         _color = libtcod.white
         if player.body.head.skill.selected:
             _color = libtcod.green
+
+        if player.body.head.skill.cooldown_timer:
+            _string = '{:>2}'.format(player.body.head.skill.cooldown_timer)
+            _color = libtcod.light_red
+            console.print(5, 2, _string, fg=_color)
     draw_box(_color, console, 4, 0)
     console.print(5, 1, 'W', fg=_color)
 
@@ -43,6 +53,11 @@ def render_item_menu(consoles, player):
         _color = libtcod.white
         if player.body.feet.skill.selected:
             _color = libtcod.green
+
+        if player.body.feet.skill.cooldown_timer:
+            _string = '{:>2}'.format(player.body.feet.skill.cooldown_timer)
+            _color = libtcod.light_red
+            console.print(9, 2, _string, fg=_color)
     draw_box(_color, console, 8, 0)
     console.print(9, 1, 'E', fg=_color)
 
@@ -52,6 +67,11 @@ def render_item_menu(consoles, player):
         _color = libtcod.white
         if player.body.off_hand.skill.selected:
             _color = libtcod.green
+
+        if player.body.off_hand.skill.cooldown_timer:
+            _string = '{:>2}'.format(player.body.off_hand.skill.cooldown_timer)
+            _color = libtcod.light_red
+            console.print(1, 6, _string, fg=_color)
     draw_box(_color, console, 0, 4)
     console.print(1, 5, 'A', fg=_color)
 
@@ -61,6 +81,11 @@ def render_item_menu(consoles, player):
         _color = libtcod.white
         if player.body.torso.skill.selected:
             _color = libtcod.green
+
+        if player.body.torso.skill.cooldown_timer:
+            _string = '{:>2}'.format(player.body.torso.skill.cooldown_timer)
+            _color = libtcod.light_red
+            console.print(5, 6, _string, fg=_color)
     draw_box(_color, console, 4, 4)
     console.print(5, 5, 'S', fg=_color)
 
