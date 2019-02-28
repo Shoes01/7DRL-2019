@@ -21,7 +21,8 @@ class Skill():
         self.initialize_data()
     
     def initialize_data(self):
-        # 19: represents where the player is standing. This value is ignored.
+        # 17: represents tiles the player must be able to path through.
+        # 19: represents where the player is standing.
         # 23: represents where the player will land after using the skill. Does not deal adamage. Must not have an enemy.
         if self.name == 'pierce':
             self.description = 'This skill deals full damage in a straight line.'
@@ -50,15 +51,15 @@ class Skill():
                 [   [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
-                    [0,  0,  0, 19,  0,  0, 23],
+                    [0,  0,  0, 19, 17, 17, 23],
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0]]
             )
             self.template_NE = np.array(
                 [   [0,  0,  0,  0,  0,  0, 23],
-                    [0,  0,  0,  0,  0,  0,  0],
-                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0, 17,  0],
+                    [0,  0,  0,  0, 17,  0,  0],
                     [0,  0,  0, 19,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
