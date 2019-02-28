@@ -1,4 +1,6 @@
 ### BUGS
+LVL appears to increase while wearing items?
+
 What happens when a skill is selected and has no legal targets?
 > What about when there is no equipment?
 > What about when there are no legal targets?
