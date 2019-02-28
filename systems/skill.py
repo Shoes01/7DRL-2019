@@ -99,17 +99,23 @@ def execute_skill(direction, entities, event_queue, game_map, player):
         event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
 
         for (x, y), value in np.ndenumerate(target_array):
-            if value:
+            if value % 19:
+                # This is a special value that represents where the player is sitting.
+                continue
+            elif value % 23:
+                # This is a special value that represents where the player will land.
+                player.pos.x, player.pos.y = xo + x, yo + y
+            elif value:
                 entity = tile_occupied(entities, xo + x, yo + y)
                 
                 skill.cooldown_timer = skill.cooldown
 
                 if skill.nature == 'direct':
                     _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
-                
 
                 if entity and entity is not player and _path_unblocked:
                     turn_results.extend(attack(player, entity, entities))
+            
     else:
         _message = "You can't use that here!"
         _color = libtcod.red
