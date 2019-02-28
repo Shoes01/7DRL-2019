@@ -21,24 +21,47 @@ class Skill():
         self.initialize_data()
     
     def initialize_data(self):
+        # 19: represents where the player is standing. This value is ignored.
+        # 23: represents where the player will land after using the skill. Does not deal adamage. Must not have an enemy.
         if self.name == 'pierce':
             self.description = 'This skill deals full damage in a straight line.'
             self.template_E = np.array(
-                [   [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 9, 1, 1, 1],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0]]
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 19,  1,  1,  1],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
             )
             self.template_NE = np.array(
-                [   [0, 0, 0, 0, 0, 0, 1],
-                    [0, 0, 0, 0, 0, 1, 0],
-                    [0, 0, 0, 0, 1, 0, 0],
-                    [0, 0, 0, 9, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0]]
+                [   [0,  0,  0,  0,  0,  0,  1],
+                    [0,  0,  0,  0,  0,  1,  0],
+                    [0,  0,  0,  0,  1,  0,  0],
+                    [0,  0,  0, 19,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+            self.array_size, _ = self.template_E.shape
+        elif self.name == 'leap':
+            self.description = 'This skill allows the player to leap to another location.'
+            self.template_E = np.array(
+                [   [0,  0,  0,  0,  0,  0, 23],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 19,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+            self.template_NE = np.array(
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 19,  0,  0, 23],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
             )
             self.array_size, _ = self.template_E.shape
