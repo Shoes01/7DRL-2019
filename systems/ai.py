@@ -1,3 +1,4 @@
+import random
 import tcod as libtcod
 
 from map_functions import tile_occupied
@@ -36,9 +37,12 @@ def hunt_player(entity, entities, game_map, player, neighborhood):
     best_direction = (0, 0)
     for direction in directions:
         new_value = neighborhood.dijkstra_map[y + direction[1], x + direction[0]]
-        if new_value <= lowest_value and tile_occupied(entities, direction[0], direction[1]) is None:
+        if new_value != 999 and new_value <= lowest_value and tile_occupied(entities, direction[0], direction[1]) is None:
             lowest_value = new_value
             best_direction = direction
+            
+    if best_direction == (0, 0):
+        best_direction = random.choice(directions)
 
     turn_results.extend(move(best_direction, entity, entities, game_map))
 
