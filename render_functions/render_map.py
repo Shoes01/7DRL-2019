@@ -5,7 +5,7 @@ from game import COLORS, FOV_RADIUS, MAP
 from render_functions.fov import recompute_fov
 from systems.skill import chosen_skill
 
-def render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player):
+def render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, player, neighborhood):
     ' Render all things that appear on the map. '
     console_map = consoles['map']
     console_root = consoles['root']
@@ -15,7 +15,7 @@ def render_map(action, consoles, entities, fov_map, game, game_map, game_state_m
     
         # Draw the game_map tiles that are in the fov.
         for (x, y), _ in np.ndenumerate(game_map.tiles):
-                draw_tile(console_map, fov_map, game, game_map, x, y)
+                draw_tile(console_map, fov_map, game, game_map, x, y, neighborhood)
         game.redraw_map = False
 
     # Draw the skill arrays onto the map.
@@ -39,9 +39,10 @@ def render_map(action, consoles, entities, fov_map, game, game_map, game_state_m
     # Clear entities.
     clear_all(console_map, entities)
 
-def draw_tile(console_map, fov_map, game, game_map, x, y):
+def draw_tile(console_map, fov_map, game, game_map, x, y, neighborhood):
     visible = fov_map.fov[x, y]
     _, blocks_path, explored = game_map.tiles[x, y]
+    value = neighborhood.dijkstra_map[y, x]
     
     if visible:
         # Visible. Light it up.
@@ -64,6 +65,12 @@ def draw_tile(console_map, fov_map, game, game_map, x, y):
         # If neither visible nor explored, it is just black.
         console_map.print(x, y, " ", bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
+    # DEBUG
+    if value == 999:
+        console_map.print(x, y, '#', fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)    
+    else:
+        console_map.print(x, y, baseN(value, 35), fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)
+
 def draw_entity(console_map, entity, fov_map):
     if fov_map.fov[entity.pos.x, entity.pos.y]:
         console_map.print(entity.pos.x, entity.pos.y, entity.base.char, fg=entity.base.color, bg_blend=libtcod.BKGND_NONE)
@@ -84,3 +91,6 @@ def highlight_tiles(console_map, tiles_to_highlight, xo, yo):
         elif value > 5:
             # The only tile that this should apply to is the player's tile.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.green, bg_blend=libtcod.BKGND_SET)
+
+def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
+    return ((num == 0) and numerals[0]) or (baseN(num // b, b, numerals).lstrip(numerals[0]) + numerals[num % b])

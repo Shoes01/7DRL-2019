@@ -14,7 +14,7 @@ def main():
 
     action = True
     render_borders(consoles['root'])
-    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
+    render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
 
     while True:
         # Process input.
@@ -24,14 +24,19 @@ def main():
         # Update game.
         update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, player)
 
+        if action:
+            neighborhood.update_dijkstra_map((player.pos.x, player.pos.y))
+
         # Render results.
-        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player)
+        render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, player, neighborhood)
 
         if game_state_machine.state.__str__() == 'Exit':
             consoles['root'].__exit__()
             return False
         
         warnings.simplefilter("default")
+
+
 
 if __name__ == '__main__':
     # cProfile.run('main()') # This runs the profiler

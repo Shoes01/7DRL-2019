@@ -5,7 +5,7 @@ from collections import deque
 class Neighborhood():
     def __init__ (self, game_map):
         self.directory = {}
-        self.dijkstra_map = np.zeros((game_map.height, game_map.width), dtype=int, order='F')
+        self.dijkstra_map = np.ones((game_map.height, game_map.width), dtype=int, order='F')
         self.populate_directory(game_map)
 
     def neighbors(self, location):
@@ -25,17 +25,18 @@ class Neighborhood():
             self.directory[(x, y)] = results
     
     def update_dijkstra_map(self, start):
+        self.dijkstra_map = (self.dijkstra_map * 0 + 1) * 999
         frontier = deque()
         frontier.append(start)
         visited = {}
         visited[start] = True
 
-        dijkstra_value = 0
+        self.dijkstra_map[start[1], start[0]] = 0
+
         while len(frontier):
-            dijkstra_value += 1
             current = frontier.popleft()
             for neighbor in self.neighbors(current):
                 if neighbor not in visited:
                     frontier.append(neighbor)
-                    self.dijkstra_map[neighbor[1], neighbor[0]] = dijkstra_value
+                    self.dijkstra_map[neighbor[1], neighbor[0]] = self.dijkstra_map[current[1], current[0]] + 1
                     visited[neighbor] = True
