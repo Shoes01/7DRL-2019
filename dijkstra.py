@@ -14,7 +14,6 @@ class Neighborhood():
     def populate_directory(self, game_map):
         directions = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
         
-
         for (x, y), _ in np.ndenumerate(game_map.tiles):
             results = []
             for direction in directions:
