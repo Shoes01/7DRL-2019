@@ -27,6 +27,7 @@ class Skill():
         # 17: represents tiles the player must be able to path through.
         # 19: represents where the player is standing.
         # 23: represents where the player will land after using the skill. Does not deal adamage. Must not have an enemy.
+        # 29: represents tiles the player will knock back.
         if self.name == 'pierce':
             self.description = 'This skill deals full damage in a straight line.'
             self.template_E = np.array(
@@ -47,7 +48,6 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0]]
             )
-            self.array_size, _ = self.template_E.shape
         elif self.name == 'leap':
             self.description = 'This skill allows the player to leap to another location.'
             self.template_E = np.array(
@@ -68,7 +68,6 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0]]
             )
-            self.array_size, _ = self.template_E.shape
         elif self.name == 'none':
             self.description = 'This item has no skill.'
             self.template_E = np.array(
@@ -89,4 +88,25 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0]]
             )
-            self.array_size, _ = self.template_E.shape
+        elif self.name == 'shield bash':
+            self.description: 'This skill knocks enemies back.'
+            self.template_E = np.array(
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0, 29,  0,  0],
+                    [0,  0,  0, 19, 29,  0,  0],
+                    [0,  0,  0,  0, 29,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+            self.template_NE = np.array(
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 29, 29,  0,  0],
+                    [0,  0,  0, 19, 29,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+        
+        self.array_size, _ = self.template_E.shape
