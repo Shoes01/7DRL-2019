@@ -62,13 +62,18 @@ def create_item(name):
     
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _profile = {
-                        'ATK': {
-                            'ATK': 2.5
-                        }
-                    }
+        
+        _profile = {}
+        _ATK_profile = {'ATK': 1.2}
+        _profile['ATK'] = _ATK_profile
+        
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
-        _skill = Skill(cooldown=12, name='pierce', nature='direct')
+
+        _profile = {}
+        _ATK_profile = {'ATK': 1.6, 'MAG': 0.2}
+        _profile['ATK'] = _ATK_profile
+
+        _skill = Skill(cooldown=12, name='pierce', nature='direct', profile=_profile)
     
     elif name == 'boots':
         _base = Base(name='boots', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
@@ -77,14 +82,13 @@ def create_item(name):
     
     elif name == 'chainmail':
         _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _profile = {
-                        'DEF': {
-                            'DEF': 1.5
-                        },
-                        'MAG': {
-                            'MAG': 0.5
-                        }
-                    }
+        
+        _profile = {}
+        _DEF_profile = {'DEF': 1.5}
+        _RES_profile = {'RES': 0.5}
+        _profile['DEF'] = _DEF_profile
+        _profile['RES'] = _RES_profile
+
         _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
         _skill = Skill(cooldown=0, name='none', nature='none')
 

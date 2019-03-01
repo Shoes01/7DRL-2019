@@ -1,25 +1,71 @@
+## NEXT THING TO DO
+
+Skills should have their own damage profile.
+
 ### POLISH
 When selecting a skill, you should still be able to click the other buttons
 >>> The targeting state needs to accept these inputs
 When selecting a skill a second time, it should toggle it off
 >>> Special code needs to be written for this..?
+Better report the errors selecting a skill can produce.
+>>> What about when there is no equipment?
+>>> What about when there are no legal targets?
+>>> What about when the direction chosen is not legal?
+>>> Still on cooldown?
 
-### BUGS
-LVL appears to increase while wearing items?
+### 7DRL CHANGES
 
-What happens when a skill is selected and has no legal targets?
-> What about when there is no equipment?
-> What about when there are no legal targets?
-> What about when the direction chosen is not legal?
-> Still on cooldown?
+Remove inventory
+Remove experience
+Remove leveling up
+Remove the associated keys
+Change the behavior of num_5
+>>> Write new code for this
+Auto equip items
+NEW STATE: Item comparison state
+>>> Describe the item, provide a damage profile
+>>> Show what the legal targeting area of the skill is
+REWORK HUD 
+>>> Remove LVL. 
+>>> ItemDesc always the damage and defense profiles of items when a skill is not selected
+>>> Show Soul Number
+>>> Make entire root console wider... much wider...
+>>>>>> Display monster rank and race. Notihng else
+>>> Show enemy race and rank on screen
+>>> Have some way of inspecting monsters...
+Create new items
+Create new monsters
+Create algorithms for monster generation/distribution, and loot dropping
+Create level progression
+Improve monster AI
+>>> Allow them to use skills
 
-### GAME STATE MACHINE
+__MONSTER DESIGN__
+Rank informs what slots have items equipped a monster has equipped
+Race informs what items are equipped to those slots
 
-[Player_Turn]   >>> is killed   >>> [Player_Dead]
-                >>> acts        >>> [Enemy_Turn]        >>> ai.take_turn()  >>> [Player_Turn]
-                >>> opens inv   >>> [Open_Inveotry]     >>> close inv       >>> [Player_Turn]
-                >>> levels up   >>> [Level_Up]          >>> chooses stat    >>> [Player_Turn]
-                >>> uses skill  >>> [Targeting_State]   >>> chooses dir     >>> [Player_Turn] >>> acts
+:: Rank ::
+Zombie: Main hand only
+Husk: + torso
+Thrull: + off hand
+Adventurer: + boots
+Hero: + ring
+Champion 
+
+[KOBOLD]
+Main hand: Knife
+Torso: Rags
+Offhand: Dagger >> 
+Feet: Sandals
+Ring Finger: Stealth???
+Belt: ???
+
+[GOLBIN]
+Main Hand: Sword
+Torso: Cuirass
+Offhand: Buckler
+Feet: Boots
+
 
 ### GUI
 Exit confirmation

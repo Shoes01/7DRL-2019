@@ -18,20 +18,22 @@ def attack(attacker, defender, entities):
     ### ATTACKER CALCULATIONS
     item = None
     profile = None
-    ' Look to see if the player is using a skill. '
+
+    ' Look to see if the attacker is using a skill. '
     for _, temp_item in attacker.body.parts.items():
         if temp_item and temp_item.skill and temp_item.skill.selected:
-            item = temp_item
+            profile = temp_item.skill.profile
     
     ' If they are not using a skill, look at their main hand weapon. '
     if item is None:
         item = attacker.body.main_hand
 
-    ' If they do not have one, use an example damage profile. '
-    if item is None:
-        profile = example_profile
-    else:
-        profile = item.equip.profile
+    ' If they are not using a skill, look at their torso armor. '
+    if profile is None:
+        if attacker.body.torso:
+            profile = attacker.body.main_hand.equip.profile
+        else:
+            profile = example_profile
 
     ' Infer damage values. '
     ATK_value = calculate_profile_number(attacker, profile.get('ATK'))
@@ -41,20 +43,18 @@ def attack(attacker, defender, entities):
     ' Do the same for the defender. '
     item = None
     profile = None
-    ' Look to see if the player is using a skill. '
+
+    ' Look to see if the defender is using a skill. '
     for _, temp_item in defender.body.parts.items():
         if temp_item and temp_item.skill and temp_item.skill.selected:
-            item = temp_item
+            profile = temp_item.skill.profile
     
-    ' If they are not using a skill, look at their main hand weapon. '
-    if item is None:
-        item = defender.body.torso
-
-    ' If they do not have one, use an example damage profile. '
-    if item is None:
-        profile = example_profile
-    else:
-        profile = item.equip.profile
+    ' If they are not using a skill, look at their torso armor. '
+    if profile is None:
+        if defender.body.torso:
+            profile = defender.body.torso.equip.profile
+        else:
+            profile = example_profile
 
     ' Infer defensive values. '
     DEF_value = calculate_profile_number(defender, profile.get('DEF'))
@@ -80,7 +80,7 @@ def attack(attacker, defender, entities):
         turn_results.append({'message': (_message, _color)})
     else:
         defender.stats.hp -= damage
-        turn_results.append({'message': ('The {0} deals {1} damage to the {2}.'.format(attacker.base.name.capitalize(), damage, defender.base.name.capitalize()), libtcod.yellow)})
+        turn_results.append({'message': ('The {0} deals {1} ATK damage and {2} MAG damage to the {3}.'.format(attacker.base.name.capitalize(), ATK_damage, MAG_damage, defender.base.name.capitalize()), libtcod.yellow)})
 
     if defender.stats.hp <= 0:
         turn_results.extend(kill(defender, entities))
