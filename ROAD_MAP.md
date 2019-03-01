@@ -89,33 +89,6 @@ The rank of the soul will determine its net worth. (Example: a rare sould would 
 +7 :: Champion
 +9 :: Legend
 
-### Systems++
-Move map_gen code into a folder and split into appropriate pieces
-Move Factory code out of systems.
-
-According to ECS, systems should be run in a specific order, every tick. 
-Don't know if I want to do that...
-
-[NAIVE_ECS]
-Each system iterates over all entities every time. Systems don't talk to each other. They are fed components and change them. 
-Systems are processed in a specific order, so that in one tick a multi-system action may be done.
-
-Example
-
-Note: the way I am using the "messenger" pattern now has only one flaw in reagrds to systems: I process the results after all the systems have been read.
-Instead, the result of each system should be fed into the next relevant system.
-
-[InputSystem]
-Write the Input to the InputComponents of entities that have one but don't have an AIComponent. (Should only be the player.) Example: {'move': (+1, 0)}
-[AIInputSystem]
-Write the Input to the InputComponents of entitiesthat have one _and_ have an AIComponent.
-[MovementSystem]
-Read the InputComponent.
-Write the new position of the PositionComponent of the entity.
-[CollisionSystem]
-Read the PositionComponent of the entity. Read the Map?.
-Write collision, if there are any. Does the PositionComponent have a rewind?
-
 ### SKILLS++
 Skills and ranged attack systems get done here.
 
@@ -142,22 +115,3 @@ Feet skills are movement
 
 Items are static. They grant the same skills all the time. A sword has a lunge attack, an axe a cleave attack. A great sword has a different skill. The Sword of Greatness has another skill.
 Is this too much content to make?
-
-### ITEMS++
-Start desinging soul numbers and stuff here.
->> Update GUI here
-
-### AI++
-Have the take_turn ai system check to see the kind of AI the entity has, and then ship all the needed info into the appropriate function.
-
-### Numpy optmizations
-
-```py
-from typing import NamedTuple
-
-class Tile(NamedTuple):
-    blocks_sight: bool
-    blocks_path: bool
-
-tree = Tile(True, True)
-```
