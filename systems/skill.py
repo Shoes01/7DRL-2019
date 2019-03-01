@@ -4,6 +4,7 @@ import tcod as libtcod
 from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
 from systems.helper_stats import get_stats
+from systems.movement import move
 
 def generate_targeting_array(game_map, player, skill):
     skill.legal_targeting_arrays['E'] = skill.template_E
@@ -97,8 +98,10 @@ def execute_skill(direction, entities, event_queue, game_map, player):
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
         event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
+        skill.cooldown_timer = skill.cooldown
 
         for (x, y), value in np.ndenumerate(target_array):
+            entity = tile_occupied(entities, xo + x, yo + y)
             if value and value % 19 == 0:
                 # This is a special value that represents where the player is sitting.
                 continue
@@ -106,13 +109,16 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 # This is a special value that represents where the player will land.
                 player.pos.x += x - center
                 player.pos.y += y - center
-
-                skill.cooldown_timer = skill.cooldown
-            elif value:
-                entity = tile_occupied(entities, xo + x, yo + y)
+            
+            elif value and value % 29 == 0 and entity:
+                dx = (xo + x) - player.pos.x
+                dy = (yo + y) - player.pos.y
                 
-                skill.cooldown_timer = skill.cooldown
+                turn_results.extend(move((dx, dy), entity, entities, game_map))
+                turn_results.extend(move((dx, dy), entity, entities, game_map))
+                turn_results.extend(move((dx, dy), entity, entities, game_map))
 
+            elif value:
                 if skill.nature == 'direct':
                     _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
 
