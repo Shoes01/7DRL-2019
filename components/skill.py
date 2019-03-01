@@ -66,3 +66,24 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0]]
             )
             self.array_size, _ = self.template_E.shape
+        elif self.name == 'none':
+            self.description = 'This item has no skill.'
+            self.template_E = np.array(
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 19,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+            self.template_NE = np.array(
+                [   [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0, 19,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0],
+                    [0,  0,  0,  0,  0,  0,  0]]
+            )
+            self.array_size, _ = self.template_E.shape

@@ -48,7 +48,7 @@ def attack(attacker, defender, entities):
     
     ' If they are not using a skill, look at their main hand weapon. '
     if item is None:
-        item = defender.body.main_hand
+        item = defender.body.torso
 
     ' If they do not have one, use an example damage profile. '
     if item is None:
@@ -89,7 +89,7 @@ def attack(attacker, defender, entities):
     
     return turn_results
 
-def calculate_profile_number(player, profile):
+def calculate_profile_number(entity, profile):
     # Given a stat's profile, go through and calculate the damage/defense profile.
     number = 0
 
@@ -97,18 +97,18 @@ def calculate_profile_number(player, profile):
         return number
 
     if profile.get('ATK'):
-        number += int(player.stats.attack * profile.get('ATK'))
+        number += int(entity.stats.attack * profile.get('ATK'))
     if profile.get('DEF'):
-        number += int(player.stats.defense * profile.get('DEF'))
+        number += int(entity.stats.defense * profile.get('DEF'))
     if profile.get('MAG'):
-        number += int(player.stats.magic * profile.get('MAG'))
+        number += int(entity.stats.magic * profile.get('MAG'))
     if profile.get('RES'):
-        number += int(player.stats.resistance * profile.get('RES'))
+        number += int(entity.stats.resistance * profile.get('RES'))
     if profile.get('HP'):
         # Using HP instead of HP_MAX is more interesting, I think!
-        number += int(player.stats.hp * profile.get('HP'))
+        number += int(entity.stats.hp * profile.get('HP'))
     if profile.get('SPD'):
-        number += int(player.stats.speed * profile.get('SPD'))
+        number += int(entity.stats.speed * profile.get('SPD'))
     
     return number
 

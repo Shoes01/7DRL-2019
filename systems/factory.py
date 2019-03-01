@@ -64,7 +64,7 @@ def create_item(name):
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         _profile = {
                         'ATK': {
-                            'ATK': 2.5,
+                            'ATK': 2.5
                         }
                     }
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
@@ -74,5 +74,18 @@ def create_item(name):
         _base = Base(name='boots', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         _equip = Equippable(slot=Bodyparts.Feet.name)
         _skill = Skill(cooldown=5, name='leap', nature='direct')
+    
+    elif name == 'chainmail':
+        _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
+        _profile = {
+                        'DEF': {
+                            'DEF': 1.5
+                        },
+                        'MAG': {
+                            'MAG': 0.5
+                        }
+                    }
+        _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
+        _skill = Skill(cooldown=0, name='none', nature='none')
 
     return Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)

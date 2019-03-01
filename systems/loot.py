@@ -17,4 +17,10 @@ def drop_loot(entity, entities):
 
     entities.append(item)
 
+    item = create_item('chainmail')
+
+    item.pos.x, item.pos.y = x, y
+
+    entities.append(item)
+
     return turn_results

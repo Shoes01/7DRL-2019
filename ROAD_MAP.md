@@ -1,3 +1,9 @@
+### POLISH
+When selecting a skill, you should still be able to click the other buttons
+>>> The targeting state needs to accept these inputs
+When selecting a skill a second time, it should toggle it off
+>>> Special code needs to be written for this..?
+
 ### BUGS
 LVL appears to increase while wearing items?
 
