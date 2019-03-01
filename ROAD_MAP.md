@@ -1,7 +1,3 @@
-## NEXT THING TO DO
-
-Skills should have their own damage profile.
-
 ### POLISH
 When selecting a skill, you should still be able to click the other buttons
 >>> The targeting state needs to accept these inputs
