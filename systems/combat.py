@@ -7,8 +7,13 @@ from systems.progression import gain_exp
 def attack(attacker, defender, entities):
     turn_results = []
     ### COMBAT RULES
-    # Main hand weapons deal damage.
-    # Offhand weapons negate damage.
+    # Damage is dealt by skills or by main hand items.
+    # Damage is prevented by skills or torso items.
+    # Typically, the other items do the following:
+        # Offhand items have blocking/parry skills
+        # Feet items have leaping/movement skills
+        # Ring finger items have powerful long cooldown skills
+        # Head items have debuff skills ..?
     
     ### ATTACKER CALCULATIONS
     item = None

@@ -58,7 +58,7 @@ def create_monster(name):
     return monster
 
 def create_item(name):
-    item = None
+    _pos = Position()
     
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
@@ -68,22 +68,11 @@ def create_item(name):
                         }
                     }
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
-        _pos = Position()
         _skill = Skill(cooldown=12, name='pierce', nature='direct')
-
-        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
     
     elif name == 'boots':
         _base = Base(name='boots', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _profile = {
-                        'DEF': {
-                            'DEF': 2.5,
-                        }
-                    }
-        _equip = Equippable(slot=Bodyparts.Feet.name, profile=_profile)
-        _pos = Position()
+        _equip = Equippable(slot=Bodyparts.Feet.name)
         _skill = Skill(cooldown=5, name='leap', nature='direct')
 
-        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
-    
-    return item
+    return Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
