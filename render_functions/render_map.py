@@ -98,6 +98,9 @@ def highlight_tiles(console_map, tiles_to_highlight, xo, yo):
         elif value and value % 23 == 0:
             # This is where the player ends up.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.pink, bg_blend=libtcod.BKGND_SET)
+        elif value and value % 29 == 0:
+            # This is where the player knocks back enemies.
+            console_map.print(xo + x, yo + y, " ", bg=libtcod.light_blue, bg_blend=libtcod.BKGND_SET)
 
 def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
     return ((num == 0) and numerals[0]) or (baseN(num // b, b, numerals).lstrip(numerals[0]) + numerals[num % b])
