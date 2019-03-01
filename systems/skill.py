@@ -117,7 +117,9 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                     _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
 
                 if entity and entity is not player and _path_unblocked:
-                    turn_results.extend(attack(player, entity, entities))
+                    _attack = player
+                    _defender = entity
+                    turn_results.extend(attack(_attack, _defender, entities))
             
     else:
         _message = "You can't use that here!"

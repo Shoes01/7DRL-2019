@@ -62,20 +62,28 @@ def create_item(name):
     
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _equip = Equippable(slot=Bodyparts.MainHand.name)
+        _profile = {
+                        'ATK': {
+                            'ATK': 2.5,
+                        }
+                    }
+        _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
         _pos = Position()
         _skill = Skill(cooldown=12, name='pierce', nature='direct')
-        _stats = Stats(attack=1, defense=0, exp=0, hp_max=0, magic=0, resistance=0, speed=0)
 
-        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill, stats=_stats)
+        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
     
     elif name == 'boots':
         _base = Base(name='boots', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _equip = Equippable(slot=Bodyparts.Feet.name)
+        _profile = {
+                        'DEF': {
+                            'DEF': 2.5,
+                        }
+                    }
+        _equip = Equippable(slot=Bodyparts.Feet.name, profile=_profile)
         _pos = Position()
         _skill = Skill(cooldown=5, name='leap', nature='direct')
-        _stats = Stats(attack=0, defense=1, exp=0, hp_max=0, magic=0, resistance=0, speed=0)
 
-        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill, stats=_stats)
+        item = Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
     
     return item
