@@ -88,7 +88,7 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0]]
             )
-        elif self.name == 'shield bash':
+        elif self.name == 'bash':
             self.description: 'This skill knocks enemies back.'
             self.template_E = np.array(
                 [   [0,  0,  0,  0,  0,  0,  0],

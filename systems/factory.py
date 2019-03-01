@@ -92,4 +92,20 @@ def create_item(name):
         _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
         _skill = Skill(cooldown=0, name='none', nature='none')
 
+    elif name == 'shield':
+        _base = Base(name='shield', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
+        
+        _profile = {}
+        _DEF_profile = {'DEF': 1.5}
+        _profile['DEF'] = _DEF_profile
+        
+        _equip = Equippable(slot=Bodyparts.OffHand.name, profile=_profile)
+
+        _profile = {}
+        _ATK_profile = {'DEF': 2.0}
+        _profile['ATK'] = _ATK_profile
+
+        _skill = Skill(cooldown=5, name='bash', nature='direct', profile=_profile)
+
+
     return Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
