@@ -2,10 +2,9 @@ import numpy as np
 
 def get_stats(entity):
     # Return a dict holding the {'stat': value}
-    if entity.soul:
-        soul = entity.soul.soul.reshape(6).tolist()
-        soul.sort(reverse=True)
-    else:
-        return {}
+    soul = entity.soul.soul.copy()
+    soul += entity.race.value          # Add race bonus
+    soul = soul.reshape(6).tolist()    # Convert to list
+    soul.sort(reverse=True)            # Sort
     
     return dict(zip(entity.job.value, soul))
