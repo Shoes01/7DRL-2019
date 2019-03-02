@@ -1,5 +1,14 @@
 ### ITEMS ###
 
+___ LOOT SYSTEM ___
+Items don't really vary...
+
+Monsters will have static equipment for their race/job. <todo> A race may only have access to certain jobs. Job rarity will drive item rarity!
+Monsters will have items equipped based on their rank.
+Monsters will drop what is in their inventory and what they have equipped.
+Monsters will not drop items the player is already wearing.
+Dropped items will not stack; they will each find their own unoccupied space.
+
 ___ ITEM TYPES ___
 Item types, and their role
 
