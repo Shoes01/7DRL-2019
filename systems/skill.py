@@ -120,8 +120,7 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                     dy = dy // abs(dy)
 
                 d_move = (dx, dy)
-
-                force = 3
+                force = skill.knockback_force
 
                 turn_results.extend(push(d_move, entity, entities, force, game_map))
 

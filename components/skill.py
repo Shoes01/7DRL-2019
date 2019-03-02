@@ -20,6 +20,7 @@ class Skill():
         self.template_E = np.array([])
         self.template_NE = np.array([])
         self.array_size = 0
+        self.knockback_force = 0
 
         self.initialize_data()
     
@@ -90,6 +91,7 @@ class Skill():
             )
         elif self.name == 'bash':
             self.description: 'This skill knocks enemies back.'
+            self.knockback_force = 3
             self.template_E = np.array(
                 [   [0,  0,  0,  0,  0,  0,  0],
                     [0,  0,  0,  0,  0,  0,  0],
