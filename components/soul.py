@@ -1,7 +1,7 @@
 import numpy as np
 import random
 
-from systems.soul import generate_soul, soul_pairing
+from systems.soul import generate_soul
 
 class Soul():
     def __init__ (self, eccentricity, rank):

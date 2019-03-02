@@ -3,6 +3,7 @@ import tcod as libtcod
 from components.equippable import example_profile
 from systems.death import kill
 from systems.progression import gain_exp
+from systems.stats import get_stats
 
 def attack(attacker, defender, entities):
     turn_results = []
@@ -92,22 +93,23 @@ def attack(attacker, defender, entities):
 def calculate_profile_number(entity, profile):
     # Given a stat's profile, go through and calculate the damage/defense profile.
     number = 0
+    stats = get_stats(entity)
 
     if profile is None:
         return number
 
     if profile.get('ATK'):
-        number += int(entity.stats.attack * profile.get('ATK'))
+        number += int(stats.get('ATK') * profile.get('ATK'))
     if profile.get('DEF'):
-        number += int(entity.stats.defense * profile.get('DEF'))
+        number += int(stats.get('DEF') * profile.get('DEF'))
     if profile.get('MAG'):
-        number += int(entity.stats.magic * profile.get('MAG'))
+        number += int(stats.get('MAG') * profile.get('MAG'))
     if profile.get('RES'):
-        number += int(entity.stats.resistance * profile.get('RES'))
+        number += int(stats.get('RES') * profile.get('RES'))
     if profile.get('HP'):
         # Using HP instead of HP_MAX is more interesting, I think!
         number += int(entity.stats.hp * profile.get('HP'))
     if profile.get('SPD'):
-        number += int(entity.stats.speed * profile.get('SPD'))
+        number += int(stats.get('SPD') * profile.get('SPD'))
     
     return number

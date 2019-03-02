@@ -7,4 +7,4 @@ def get_stats(entity):
     soul = soul.reshape(6).tolist()    # Convert to list
     soul.sort(reverse=True)            # Sort
     
-    return dict(zip(entity.job.value, soul))
+    return dict(zip(entity.job.value.get('stats'), soul))
