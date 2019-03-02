@@ -39,6 +39,8 @@ class PlayerTurn(State):
             return OpenInventory()
         elif event == 'exit':
             return Exit()
+        elif event == 'compare_items':
+            return CompareItems()
         return self
 
 class Exit(State):
@@ -82,6 +84,14 @@ class EnemyTurn(State):
         if event == 'exit':
             return Exit()
         elif event == 'enemies_acted':
+            return PlayerTurn()
+        return self
+
+class CompareItems(State):
+    def on_event(self, event):
+        if event == 'exit':
+            return Exit()
+        elif event == 'done_comparing':
             return PlayerTurn()
         return self
 
