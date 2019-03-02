@@ -72,7 +72,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     elif _game_state == 'CompareItems':
         if _confirm is True:
             # equip the item!
-            event_queue.append('player_acted')
+            event_queue.append('done_comparing')
         elif _confirm is False:
             event_queue.append('done_comparing')
 
