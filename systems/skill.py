@@ -4,7 +4,7 @@ import tcod as libtcod
 from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
 from systems.helper_stats import get_stats
-from systems.movement import move
+from systems.movement import move, push
 
 def generate_targeting_array(game_map, player, skill):
     skill.legal_targeting_arrays['E'] = skill.template_E
@@ -114,9 +114,16 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 dx = (xo + x) - player.pos.x
                 dy = (yo + y) - player.pos.y
                 
-                turn_results.extend(move((dx, dy), entity, entities, game_map))
-                turn_results.extend(move((dx, dy), entity, entities, game_map))
-                turn_results.extend(move((dx, dy), entity, entities, game_map))
+                if dx:
+                    dx = dx // abs(dx)
+                if dy:
+                    dy = dy // abs(dy)
+
+                d_move = (dx, dy)
+
+                force = 3
+
+                turn_results.extend(push(d_move, entity, entities, force, game_map))
 
             elif value:
                 if skill.nature == 'direct':

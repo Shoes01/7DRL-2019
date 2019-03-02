@@ -26,22 +26,23 @@ def push(d_move, entity, entities, force, game_map):
     turn_results = []
 
     dx, dy = d_move
-    xt, yt = entity.pos.x + dx, entity.pos.y + dy
-
-    blocks_path = game_map.tiles['blocks_path'][xt, yt]
-    tile_occupant = tile_occupied(entities, xt, yt)
 
     while force:
+        blocks_path = game_map.tiles['blocks_path'][entity.pos.x + dx, entity.pos.y + dy]
+        tile_occupant = tile_occupied(entities, entity.pos.x + dx, entity.pos.y + dy)
+        
         if not blocks_path and not tile_occupant:
             entity.pos.x += dx
             entity.pos.y += dy
         
         if blocks_path:
             turn_results.extend(stun(entity, force))
+            force = 0
 
         if tile_occupant:
             turn_results.extend(stun(entity, force))
             turn_results.extend(stun(tile_occupant, force))
+            force = 0
         
         force -= 1
 
