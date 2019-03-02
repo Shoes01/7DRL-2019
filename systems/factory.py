@@ -7,6 +7,7 @@ from components.pos import Position
 from components.equippable import Equippable
 from components.skill import Skill
 from components.stats import Stats
+from components.status import Status
 from entity import Entity
 
 item_list = [
@@ -52,8 +53,9 @@ def create_monster(name):
         _body = Body()
         _pos = Position()
         _stats = Stats(attack=5, defense=3,  exp=101, hp_max=30, magic=0, resistance=0, speed=0)
+        _status = Status()
 
-        monster = Entity(ai=_ai, base=_base, body=_body, pos=_pos, stats=_stats)
+        monster = Entity(ai=_ai, base=_base, body=_body, pos=_pos, stats=_stats, status=_status)
 
     return monster
 
