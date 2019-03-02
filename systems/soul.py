@@ -18,5 +18,4 @@ def generate_soul(eccentricity, rank):
     return np.zeros((2, 3), dtype=int, order='F')
 
 def soul_pairing(soul):
-    # This orders the numbers in the soul, and assigns them to a stat, as described by the race of the unit.
     pass

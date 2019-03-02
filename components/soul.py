@@ -1,7 +1,7 @@
 import numpy as np
 import random
 
-from systems.soul import generate_soul
+from systems.soul import generate_soul, soul_pairing
 
 class Soul():
     def __init__ (self, eccentricity, rank):
@@ -9,4 +9,4 @@ class Soul():
         self.eccentricity = eccentricity    # The greatest distance between two integers
         self.rank = rank                    # The sum total of the integers
 
-        self.soul = self.generate_soul(self.eccentricity, self.rank)
+        self.soul = generate_soul(self.eccentricity, self.rank)

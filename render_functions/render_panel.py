@@ -1,7 +1,7 @@
 import tcod as libtcod
 
 from game import COLORS, INFO
-from systems.helper_stats import get_stats
+from systems.stats import get_stats
 
 def render_panel(consoles, player):
     console_panel = consoles['info']
@@ -10,14 +10,15 @@ def render_panel(consoles, player):
     console_panel.clear()
 
     # Print to the console.
-    LVL = 'LVL: {:>2}'.format(str(get_stats(player, 'level')))
-    HP = 'HP : {:>3}/{:>3}'.format(str(get_stats(player, 'hp')), str(get_stats(player, 'hp_max')))
-    ATK = 'ATK: {:>2}'.format(str(get_stats(player, 'attack')))
-    DEF = 'DEF: {:>2}'.format(str(get_stats(player, 'defense')))
-    MAG = 'MAG: {:>2}'.format(str(get_stats(player, 'magic')))
-    RES = 'RES: {:>2}'.format(str(get_stats(player, 'resistance')))
-    SPD = 'SPD: {:>2}'.format(str(get_stats(player, 'speed')))
-    console_panel.print(0, 1, LVL, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)    
+    stats = get_stats(player)
+
+    HP = 'HP : {:>3}/{:>3}'.format('?', str(stats.get('HP')))
+    ATK = 'ATK: {:>2}'.format(str(stats.get('ATK')))
+    DEF = 'DEF: {:>2}'.format(str(stats.get('DEF')))
+    MAG = 'MAG: {:>2}'.format(str(stats.get('MAG')))
+    RES = 'RES: {:>2}'.format(str(stats.get('RES')))
+    SPD = 'SPD: {:>2}'.format(str(stats.get('SPD')))
+
     console_panel.print(0, 3, HP , fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
     console_panel.print(0, 4, ATK, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
     console_panel.print(0, 5, DEF, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)

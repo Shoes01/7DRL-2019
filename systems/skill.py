@@ -3,7 +3,6 @@ import tcod as libtcod
 
 from map_functions import tile_occupied, path_unblocked
 from systems.combat import attack
-from systems.helper_stats import get_stats
 from systems.movement import move, push
 
 def generate_targeting_array(game_map, player, skill):
