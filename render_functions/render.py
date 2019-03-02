@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from game import COLORS, INFO, INVENTORY, ITEMDESC, ITEMMENU, MAP, MESSAGE, MONSTERS, ROOT
+from render_functions.render_compare_items import render_compare_items
 from render_functions.render_inventory import render_inventory
 from render_functions.render_item_description import render_item_description
 from render_functions.render_item_menu import render_item_menu
@@ -31,6 +32,9 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
     
     if _game_state == 'LeveledUp':
         render_menu(consoles, player, type_='level_up')
+    
+    if _game_state == 'CompareItems':
+        render_compare_items(consoles, entities, player)
 
     if game.debug_mode == True:
         get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse)
