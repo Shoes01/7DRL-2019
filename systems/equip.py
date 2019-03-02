@@ -2,6 +2,32 @@ import tcod as libtcod
 
 from components.body import Bodyparts
 
+def equip_(entities, item, player):
+    turn_results = []
+
+    # Disgusting block of code.
+    if item.equip.slot == Bodyparts.Head.name and player.body.head is None:
+        player.body.head = item
+    elif item.equip.slot == Bodyparts.Torso.name and player.body.torso is None:
+        player.body.torso = item
+    elif item.equip.slot == Bodyparts.MainHand.name and player.body.main_hand is None:
+        player.body.main_hand = item
+    elif item.equip.slot == Bodyparts.OffHand.name and player.body.off_hand is None:
+        player.body.off_hand = item
+    elif item.equip.slot == Bodyparts.Feet.name and player.body.feet is None:
+        player.body.feet = item
+    else:
+        print('fail')
+        return False
+    
+    entities.remove(item)
+        
+    _message = 'The {0} equips the {1}.'.format(player.base.name.capitalize(), item.base.name.capitalize())
+    _color = libtcod.blue
+    turn_results.append({'message': (_message, _color)})
+
+    return turn_results
+
 def equip(player):
     turn_results = []
 

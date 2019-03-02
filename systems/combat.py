@@ -31,7 +31,7 @@ def attack(attacker, defender, entities):
 
     ' If they are not using a skill, look at their torso armor. '
     if profile is None:
-        if attacker.body.torso:
+        if attacker.body.main_hand:
             profile = attacker.body.main_hand.equip.profile
         else:
             profile = example_profile

@@ -50,13 +50,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             event_queue.append('player_acted')
         
         if _interact:
-            turn_results.extend(interact())
-            if turn_results:
-                event_queue.append('player_acted')
-            else:
-                _message = 'There is nothing here.'
-                _color = libtcod.white
-                turn_results.append({'message': (_message, _color)})
+            turn_results.extend(interact(entities, event_queue, player))
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
