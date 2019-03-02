@@ -74,7 +74,11 @@ def draw_tile(console_map, fov_map, game, game_map, neighborhood, x, y):
 
 def draw_entity(console_map, entity, fov_map):
     if fov_map.fov[entity.pos.x, entity.pos.y]:
-        console_map.print(entity.pos.x, entity.pos.y, entity.base.char, fg=entity.base.color, bg_blend=libtcod.BKGND_NONE)
+        if entity.status and entity.status.stunned:
+            _bg_color = COLORS['status_stunned']
+        else:
+            _bg_color = None
+        console_map.print(entity.pos.x, entity.pos.y, entity.base.char, fg=entity.base.color, bg=_bg_color, bg_blend=libtcod.BKGND_SET)
 
 def clear_all(console_map, entities):
     for entity in entities:
