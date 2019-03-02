@@ -2,15 +2,11 @@ import tcod as libtcod
 
 from collections import namedtuple
 from entity import Entity
-from components.base import Base, RenderOrder
-from components.body import Body
-from components.inventory import Inventory
-from components.pos import Position
-from components.stats import Stats
 from dijkstra import Neighborhood
 from game_state_machine import GameStateMachine
 from map_functions import GameMap
 from render_functions.fov import initialize_fov, recompute_fov
+from systems.factory import create_monster
 from systems.message_log import MessageLog
 
 COLORS = {  'dark_floor': libtcod.light_blue,
@@ -74,26 +70,7 @@ ITEMMENU = Console(
 
 def initialize_new_game():
     # Create player entity.
-    _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
-    _body = Body()
-    _inv = Inventory()
-    _pos = Position(15, 15)
-    _stats = Stats(attack=8, defense=3, exp=0, hp_max=50, magic=0, resistance=0, speed=0)
-    player = Entity(base=_base, body=_body, inv=_inv, pos=_pos, stats=_stats)
-    
-    # Fill the player's inventory with DEBUG junk
-    _base = Base('debug_junk_1', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position()
-    debug_junk_1 = Entity(base=_base, pos=_pos)
-    _base = Base('debug_junk_2', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position()
-    debug_junk_2 = Entity(base=_base, pos=_pos)
-    _base = Base('debug_junk_3', ',', libtcod.pink, RenderOrder.ITEM)
-    _pos = Position()
-    debug_junk_3 = Entity(base=_base, pos=_pos)
-    player.inv.contents.append(debug_junk_1)
-    player.inv.contents.append(debug_junk_2)
-    player.inv.contents.append(debug_junk_3)
+    player = create_monster('player')    
 
     # Fill entities list.
     entities = []
