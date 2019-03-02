@@ -37,12 +37,12 @@ def push(d_move, entity, entities, force, game_map):
         
         if blocks_path:
             turn_results.extend(stun(entity, force))
-            force = 0
+            return turn_results
 
         if tile_occupant:
             turn_results.extend(stun(entity, force))
             turn_results.extend(stun(tile_occupant, force))
-            force = 0
+            return turn_results
         
         force -= 1
 

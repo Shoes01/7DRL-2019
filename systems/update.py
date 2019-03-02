@@ -8,6 +8,7 @@ from systems.message_log import Message
 from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
 from systems.skill import cancel_skill, reduce_cooldown_timer, execute_skill, skill_choice
+from systems.status import tick
 
 def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player):
     turn_results = []
@@ -123,6 +124,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     # Handle things that may occur at any time.
     if _exit:
         event_queue.append('exit')
+
+    if 'enemies_acted' in event_queue and game_state_machine.state.__str__() == 'EnemyTurn':
+        # The enemies have acted, their turn is done. It will be the player's turn!
+        turn_results.extend(tick(entities))
 
     handle_turn_results(game, message_log, turn_results)
 

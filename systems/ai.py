@@ -8,6 +8,9 @@ def take_turn(entity, entities, game_map, fov_map, neighborhood, player):
     turn_results = []
     player_spotted = fov_map.fov[entity.pos.x, entity.pos.y]
 
+    if entity.status.stunned:
+        return turn_results
+
     if entity.ai.awake:
         turn_results.extend(hunt_player(entity, entities, game_map, player, neighborhood))
 
