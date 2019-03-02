@@ -81,7 +81,7 @@ def attack(attacker, defender, entities):
         turn_results.append({'message': (_message, _color)})
     else:
         defender.stats.hp -= damage
-        turn_results.append({'message': ('The {0} deals {1} ATK damage and {2} MAG damage to the {3}.'.format(attacker.base.name.capitalize(), ATK_damage, MAG_damage, defender.base.name.capitalize()), libtcod.yellow)})
+        turn_results.append({'message': ('The {0} hits the {1}. (ATK: {2}; MAG: {3}).'.format(attacker.base.name.capitalize(), defender.base.name.capitalize(), ATK_damage, MAG_damage), libtcod.yellow)})
 
     if defender.stats.hp <= 0:
         turn_results.extend(kill(defender, entities))
