@@ -1,6 +1,6 @@
 import tcod as libtcod
 
-from game import COLORS, INFO, INVENTORY, ITEMDESC, MAP, MESSAGE, MONSTERS, ROOT
+from game import COLORS, INFO, INVENTORY, ITEMDESC, ITEMMENU, MAP, MESSAGE, MONSTERS, ROOT
 from render_functions.render_inventory import render_inventory
 from render_functions.render_item_description import render_item_description
 from render_functions.render_item_menu import render_item_menu
@@ -63,21 +63,14 @@ def get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse):
 
 def render_borders(console):
     ' This function renders the borders of the HUD. It should only need to be done once. '
-
-    _column_1 = ROOT.X
-    _column_2 = ROOT.X + INFO.W + 1
-    # if y >= 50
-    _column_3 = ROOT.X + INFO.W + 1 + ITEMDESC.W + 1
-    _column_4 = ROOT.X + INFO.W + 1 + ITEMDESC.W + 1 + MESSAGE.W + 1
-
     # Unicode codes for box drawing.
     # Order: NESW
     NS = u'\u2551'
     EW = u'\u2550'
-    SW = u'\u2554'
-    NW = u'\u255a'
-    NE = u'\u255d'
-    ES = u'\u2557'
+    ES = u'\u2554'
+    NE = u'\u255a'
+    NW = u'\u255d'
+    SW = u'\u2557'
     NSW = u'\u2560'
     NES = u'\u2563'
     ESW = u'\u2566'
@@ -86,38 +79,96 @@ def render_borders(console):
     left_bookend = u'\u2561'
     right_bookend = u'\u255e'
 
+    _column_1 = ROOT.X
+    _column_2 = ROOT.X + INFO.W + 1
+    _column_3 = ROOT.X + ITEMMENU.W + 1
+    # if y >= 50
+    _column_4 = ROOT.X + ITEMMENU.W + 1 + ITEMDESC.W + 1
+    _column_5 = ROOT.X + ITEMMENU.W + 1 + ITEMDESC.W + 1 + MESSAGE.W + 1
+
     for y in range(ROOT.H):
         console.print(_column_1, ROOT.Y + y, NS, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
         console.print(_column_2, ROOT.Y + y, NS, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
         if y >=50:
             console.print(_column_3, ROOT.Y + y, NS, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
             console.print(_column_4, ROOT.Y + y, NS, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+            console.print(_column_5, ROOT.Y + y, NS, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
     _row_1 = ROOT.Y
-    _row_2 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1 + MONSTERS.H + 1
-    _row_3 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1 + MONSTERS.H + 1 + ITEMDESC.H + 1
+    _row_2 = ROOT.Y + INFO.H + 1
+    _row_3 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1
+    _row_4 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1 + MONSTERS.H + 1
+    _row_5 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1 + MONSTERS.H + 1 + ITEMDESC.H + 1
 
     for x in range(ROOT.W):
-        if x <= 13:
+        if x <= INFO.W + 2:
             console.print(ROOT.X + x, _row_1, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-        console.print(ROOT.X + x, _row_2, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-        console.print(ROOT.X + x, _row_3, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+            console.print(ROOT.X + x, _row_2, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+            console.print(ROOT.X + x, _row_3, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+        console.print(ROOT.X + x, _row_4, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+        console.print(ROOT.X + x, _row_5, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
     
     # Print connecting bits.
-    console.print(0, 0, SW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(0, 59, NW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(79, 59, NE, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(13, 0, ES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(79, 50, ES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(13, 15, NES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(13, 35, NES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(0, 15, NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(0, 35, NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(0, 50, NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(13, 50, NESW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(40, 50, ESW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(13, 59, NEW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print(40, 59, NEW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        0, 
+        0, 
+        ES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        0, 
+        ROOT.H - 1, 
+        NE, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ROOT.W - 1, 
+        ROOT.H - 1, 
+        NW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        INFO.W + 1, 
+        0, 
+        SW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ROOT.W - 1, 
+        MAP.H, 
+        SW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        INFO.W + 1, 
+        INFO.H + 1, 
+        NES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        INFO.W + 1, 
+        INFO.H + INVENTORY.H + 2, 
+        NES, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        0, 
+        INFO.H + 1, 
+        NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        0, 
+        INFO.H + INVENTORY.H + 2, 
+        NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        0, 
+        MAP.H, 
+        NSW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        INFO.W + 1, 
+        MAP.H, 
+        NEW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ITEMMENU.W + ITEMDESC.W + 2, 
+        MAP.H, 
+        ESW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ITEMMENU.W + 1, 
+        MAP.H, 
+        ESW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ITEMMENU.W + 1, 
+        ROOT.H - 1, 
+        NEW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    console.print(
+        ITEMMENU.W + ITEMDESC.W + 2, 
+        ROOT.H - 1, 
+        NEW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
     # Print titles and bookens.
     console.print(1, 0, left_bookend, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
