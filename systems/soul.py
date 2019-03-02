@@ -16,6 +16,3 @@ def generate_soul(eccentricity, rank):
         attempts += 1
     
     return np.zeros((2, 3), dtype=int, order='F')
-
-def soul_pairing(soul):
-    pass
