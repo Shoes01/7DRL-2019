@@ -11,6 +11,8 @@ def handle_keys(game_state_machine, key):
         return handle_level_up_keys(key)
     elif _game_state == 'TargetingState':
         return handle_targeting_state_keys(key)
+    elif _game_satte == 'CompareItems':
+        return handle_compare_items_keys(key)
     else:
         return handle_general_keys(key)
 
@@ -141,3 +143,16 @@ def handle_generic_movement_keys(key):
         return {'wait': True}
     
     return {}
+
+def handle_compare_items_keys(key):
+    if key.vk == libtcod.KEY_SPACE:
+        return {'confirm': True}
+    elif handle_generic_movement_keys(key):
+        return {'confirm': False}
+
+    if key.vk == libtcod.KEY_ENTER and key.lalt:
+        # Alt+Enter: toggle full screen
+        return {'fullscreen': True}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        # Exit the game
+        return {'exit': True}

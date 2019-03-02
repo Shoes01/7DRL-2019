@@ -68,6 +68,14 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             if event_queue.count('leveled_up') == 0:
                 event_queue.insert(0, 'leveled_up')
     
+    # Handle the comparison of items.
+    elif _game_state == 'CompareItems':
+        if _confirm is True:
+            # equip the item!
+            event_queue.append('player_acted')
+        elif _confirm is False:
+            event_queue.append('done_comparing')
+
     # Handle the enemy turn.
     elif _game_state == 'EnemyTurn':
         # Each entity gets to take a turn.
