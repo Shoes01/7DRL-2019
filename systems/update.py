@@ -147,14 +147,15 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     handle_turn_results(game, message_log, turn_results)
 
     if event_queue:
-        handle_events(event_queue, game_state_machine, player)
+        handle_events(event_queue, game, game_state_machine, player)
 
-def handle_events(event_queue, game_state_machine, player):
+def handle_events(event_queue, game, game_state_machine, player):
     temp_event_queue = event_queue.copy()
     for event in temp_event_queue:
         _old_state = game_state_machine.state
         if _old_state != game_state_machine.on_event(event):
             # The state has changed!
+            game.redraw_map = True
             event_queue.remove(event)
 
 def handle_turn_results(game, message_log, results):
