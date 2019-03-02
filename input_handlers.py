@@ -36,6 +36,10 @@ def handle_general_keys(key):
     if key_char == 'd' and not key.lctrl:
         return {'skill_choice': Bodyparts.MainHand.name}
 
+    # General purpose key.
+    if key.vk == libtcod.KEY_SPACE:
+        return {'interact': True}
+
     # Inventory related keys.
     if key_char == 'g':
         return {'grab': True}

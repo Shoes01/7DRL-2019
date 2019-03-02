@@ -21,6 +21,30 @@ No inventory.
 
 Picking up an item prompts the player to swap if one is already equipped.
 
+###################
+
+Pressing SPACE triggers the "interact" action.
+
+If there is an item on the ground, equip it
+    If there is already an item equipped in that slot, compare the items
+        Press 9 for SWAP, 3 for DON'T SWAP
+
+If there is nothing on the ground, pass turn.
+
+>>> The ITEMDESC panel should say what "5" does. Rename to the INTERACTION panel.
+
+
+###################
+
+
+
+
+
+
+
+
+
+
 __Goal 2__
 Soul number mechanic.
 
@@ -31,29 +55,6 @@ A Soul Number is a 2x3 matrix of numbers.
 The class of a unit informs how the soul number is used to affect the stats.
 A racial bonus is a flat number applied to all stats.
 HP always has a multiplier on it.
-
-Stats are:
-ATK
-DEF
-MAG
-RES
-SPD
-HP
-
-> Example
-Soul rank: "plain"
-Soul Number: [  [0, 0, 1], 
-                [1, 0, -2]]
-Warrior: ATK // HP // DEF // SPD // RES // MAG
-Race: Rat + 1
-
-Total:
-ATK: 2
-HP : 2
-DEF: 1
-SPD: 1
-RES: 1
-MAG:-1
 
 __Goal 2.2__
 The play may consume the souls of the fallen to increase their own power.
