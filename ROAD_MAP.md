@@ -9,6 +9,10 @@ Better report the errors selecting a skill can produce.
 >>> What about when the direction chosen is not legal?
 >>> Still on cooldown?
 
+Entities have their char determined by their race
+Their color determined by their "soul rank" (zombie, etc)
+Have their class determined by ...
+
 ### 7DRL CHANGES
 
 Remove inventory

@@ -111,23 +111,3 @@ def calculate_profile_number(entity, profile):
         number += int(entity.stats.speed * profile.get('SPD'))
     
     return number
-
-### COMBAT
-"""
-The GUI should have a "damage output" number.
-    When no skill is active, it shows the bump attack output.
-
-Bump attacks:
-    A bump attack looks at the weapon to apply appropriate damage. It should only deal ATK or MAG damage.
-    
-    OR easymode: A bump attack uses ATK.
-    
-Skilled attacks:
-    A skill may use any stat to deal damage.
-    ATK goes against DEF
-    MAG goes against RES
-
-    SPD, DEF, RES or HP all deal pure damage.
-    OR these are deals _as_ ATK or MAG. 
-
-"""

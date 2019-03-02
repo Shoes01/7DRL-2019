@@ -69,7 +69,7 @@ def create_monster(name):
         _ai = AI(brain=BRAIN.ZOMBIE)
         _base = Base(name='zombie', char='Z', color=libtcod.green, render_order=RenderOrder.ACTOR)
         _body = Body()
-        _job = Job.PHALANX
+        _job = random.choice(list(Job))
         _pos = Position()
         _race = random.choice(list(Race))
         _soul = Soul(eccentricity=3, rank=-1)

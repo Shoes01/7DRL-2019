@@ -74,7 +74,9 @@ def draw_tile(console_map, fov_map, game, game_map, neighborhood, x, y):
 
 def draw_entity(console_map, entity, fov_map):
     if fov_map.fov[entity.pos.x, entity.pos.y]:
-        console_map.print(entity.pos.x, entity.pos.y, entity.base.char, fg=entity.base.color, bg_blend=libtcod.BKGND_NONE)
+        _char = entity.race.value['char']
+        _color = entity.job.value['color']
+        console_map.print(entity.pos.x, entity.pos.y, _char, fg=_color, bg_blend=libtcod.BKGND_NONE)
 
 def clear_all(console_map, entities):
     for entity in entities:
