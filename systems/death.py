@@ -1,7 +1,6 @@
 import tcod as libtcod
 
 from components.base import RenderOrder
-from components.job import SpecialJob
 from components.race import Race
 from systems.loot import drop_loot
 
@@ -15,8 +14,6 @@ def kill(entity, entities):
     entity.base.color = libtcod.red
     entity.base.name = 'remains of ' + entity.base.name
     entity.base.render_order = RenderOrder.CORPSE
-
-    entity.job = SpecialJob.CARCASS
 
     turn_results.extend(drop_loot(entity, entities))
 

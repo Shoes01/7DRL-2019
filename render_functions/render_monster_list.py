@@ -19,7 +19,7 @@ def render_monster_list(consoles, entities, fov_map):
             if entity.base.char is '%':
                 string = entity.base.char + ' Corpse'    
             else:
-                string = entity.base.char + ' ' + entity.base.name.capitalize()
+                string = entity.base.char + ' ' + entity.base.name
 
             console.print(0, y, string, fg=entity.base.color, bg_blend=libtcod.BKGND_NONE)
             y += 1

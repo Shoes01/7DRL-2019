@@ -67,14 +67,19 @@ def create_monster(name):
 
     elif name == 'zombie':
         _ai = AI(brain=BRAIN.ZOMBIE)
-        _base = Base(name='zombie', char='Z', color=libtcod.green, render_order=RenderOrder.ACTOR)
         _body = Body()
         _job = random.choice(list(Job))
         _pos = Position()
         _race = random.choice(list(Race))
         _soul = Soul(eccentricity=3, rank=-1)
-        _stats = Stats(attack=5, defense=3,  exp=101, hp_max=30, magic=0, resistance=0, speed=0)
+        _stats = Stats(attack=5, defense=3,  exp=101, hp_max=10, magic=0, resistance=0, speed=0)
         _status = Status()
+
+        _name = 'Zombie' + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
+        _color = _job.value['color']
+        _char = _race.value['char']
+
+        _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
 
         monster = Entity(ai=_ai, base=_base, body=_body, job=_job, pos=_pos, race=_race, soul=_soul, stats=_stats, status=_status)
 
