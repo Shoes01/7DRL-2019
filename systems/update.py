@@ -127,15 +127,13 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
     if 'enemies_acted' in event_queue and game_state_machine.state.__str__() == 'EnemyTurn':
         # The enemies have acted, their turn is done. It will be the player's turn!
+        neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
         turn_results.extend(tick(entities))
 
     handle_turn_results(game, message_log, turn_results)
 
     if event_queue:
         handle_events(event_queue, game_state_machine, player)
-
-    if _move or _wait: 
-        neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
 
 def handle_events(event_queue, game_state_machine, player):
     temp_event_queue = event_queue.copy()
