@@ -3,6 +3,7 @@ import tcod as libtcod
 from game import FOV_RADIUS
 from systems.ai import take_turn
 from systems.equip import equip, unequip
+from systems.interaction import interact
 from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
 from systems.movement import move
@@ -23,6 +24,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     _equip = action.get('equip')
     _exit = action.get('exit')
     _grab = action.get('grab')
+    _interact = action.get('interact')
     _inventory = action.get('inventory')
     _inventory_choice = action.get('inventory_choice')
     _level_up_choice = action.get('level_up_choice')
@@ -46,6 +48,15 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         if _grab:
             turn_results.extend(pick_up(player, entities))
             event_queue.append('player_acted')
+        
+        if _interact:
+            turn_results.extend(interact())
+            if turn_results:
+                event_queue.append('player_acted')
+            else:
+                _message = 'There is nothing here.'
+                _color = libtcod.white
+                turn_results.append({'message': (_message, _color)})
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
