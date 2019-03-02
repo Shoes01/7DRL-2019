@@ -1,3 +1,4 @@
+import random
 import tcod as libtcod
 
 from components.ai import AI, BRAIN
@@ -7,6 +8,7 @@ from components.equippable import Equippable
 from components.inventory import Inventory
 from components.job import Job
 from components.pos import Position
+from components.race import Race
 from components.skill import Skill
 from components.soul import Soul
 from components.stats import Stats
@@ -56,11 +58,12 @@ def create_monster(name):
         _inv = Inventory()
         _job = Job.PALADIN
         _pos = Position(15, 15)
+        _race = Race.HUMAN
         _soul = Soul(eccentricity=1, rank=-3)
         _stats = Stats(attack=8, defense=3, exp=0, hp_max=50, magic=0, resistance=0, speed=0)
         _status = Status()
 
-        monster = Entity(base=_base, body=_body, inv=_inv, job=_job, pos=_pos, soul=_soul, stats=_stats, status=_status)
+        monster = Entity(base=_base, body=_body, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, stats=_stats, status=_status)
 
     elif name == 'zombie':
         _ai = AI(brain=BRAIN.ZOMBIE)
@@ -68,11 +71,12 @@ def create_monster(name):
         _body = Body()
         _job = Job.PHALANX
         _pos = Position()
+        _race = random.choice(list(Race))
         _soul = Soul(eccentricity=3, rank=-1)
         _stats = Stats(attack=5, defense=3,  exp=101, hp_max=30, magic=0, resistance=0, speed=0)
         _status = Status()
 
-        monster = Entity(ai=_ai, base=_base, body=_body, job=_job, pos=_pos, soul=_soul, stats=_stats, status=_status)
+        monster = Entity(ai=_ai, base=_base, body=_body, job=_job, pos=_pos, race=_race, soul=_soul, stats=_stats, status=_status)
 
     return monster
 
