@@ -139,9 +139,11 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     if _exit:
         event_queue.append('exit')
 
+    if 'player_acted' in event_queue and game_state_machine.state.__str__() == 'PlayerTurn':
+        # The player has acted, their turn is done. It is the enemy's turn!
+        neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
     if 'enemies_acted' in event_queue and game_state_machine.state.__str__() == 'EnemyTurn':
         # The enemies have acted, their turn is done. It will be the player's turn!
-        neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
         turn_results.extend(tick(entities))
 
     handle_turn_results(game, message_log, turn_results)
