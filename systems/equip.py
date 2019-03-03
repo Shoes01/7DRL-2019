@@ -19,17 +19,17 @@ def swap_items(entities, player):
         equipped_item = player.body.head
         player.body.head = floor_item
     elif floor_item.equip.slot == Bodyparts.Torso.name:
-        equipped_item = player.body.Torso
-        player.body.Torso = floor_item
+        equipped_item = player.body.torso
+        player.body.torso = floor_item
     elif floor_item.equip.slot == Bodyparts.MainHand.name:
-        equipped_item = player.body.MainHand
-        player.body.MainHand = floor_item
+        equipped_item = player.body.main_hand
+        player.body.main_hand = floor_item
     elif floor_item.equip.slot == Bodyparts.OffHand.name:
-        equipped_item = player.body.OffHand
-        player.body.OffHand = floor_item
+        equipped_item = player.body.off_hand
+        player.body.off_hand = floor_item
     elif floor_item.equip.slot == Bodyparts.Feet.name:
-        equipped_item = player.body.Feet
-        player.body.Feet = floor_item
+        equipped_item = player.body.feet
+        player.body.feet = floor_item
 
     entities.remove(floor_item)
     entities.append(equipped_item)
