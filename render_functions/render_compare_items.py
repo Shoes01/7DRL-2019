@@ -36,10 +36,14 @@ def print_text(console, entities, player):
     equipped_item = player.body.parts.get(item.equip.slot)
 
     string_1 = 'Currently equipped:\n{0}'.format(equipped_item.base.name.capitalize())
+
     string_2 = 'Currently on the ground:\n{0}'.format(item.base.name.capitalize())
 
-    console.print(3, 3, string_1, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
-    console.print((MAP.W - 1) // 2 + 3, 3, string_2, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    # Left column
+    console.print(2, 2, string_1, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+
+    # Right column
+    console.print((MAP.W - 1) // 2 + 2, 2, string_2, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
 def print_border(console):
     # Unicode cheat sheet.
