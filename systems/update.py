@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import FOV_RADIUS
 from systems.ai import take_turn
-from systems.equip import equip, unequip
+from systems.equip import equip, equip_floor_item, unequip
 from systems.interaction import interact
 from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
@@ -71,7 +71,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     # Handle the comparison of items.
     elif _game_state == 'CompareItems':
         if _confirm is True:
-            # equip the item!
+            turn_results.extend(swap_items(entities, player))
             event_queue.append('done_comparing')
 
         elif _confirm is False:

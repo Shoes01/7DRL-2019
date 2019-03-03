@@ -2,6 +2,42 @@ import tcod as libtcod
 
 from components.body import Bodyparts
 
+def swap_items(entities, player):
+    turn_results = []
+
+    floor_item = None
+    equipped_item = None
+
+    x, y = player.pos.x, player.pos.y
+
+    for item in entities:
+        if item.pos.x == x and item.pos.y == y:
+            floor_item = item
+
+    # Disgusting block of code.
+    if floor_item.equip.slot == Bodyparts.Head.name:
+        equipped_item = player.body.head
+        player.body.head = floor_item
+    elif floor_item.equip.slot == Bodyparts.Torso.name:
+        equipped_item = player.body.Torso
+        player.body.Torso = floor_item
+    elif floor_item.equip.slot == Bodyparts.MainHand.name:
+        equipped_item = player.body.MainHand
+        player.body.MainHand = floor_item
+    elif floor_item.equip.slot == Bodyparts.OffHand.name:
+        equipped_item = player.body.OffHand
+        player.body.OffHand = floor_item
+    elif floor_item.equip.slot == Bodyparts.Feet.name:
+        equipped_item = player.body.Feet
+        player.body.Feet = floor_item
+
+    entities.remove(floor_item)
+    entities.append(equipped_item)
+    
+    equipped_item.pos.x, equipped_item.pos.y = x, y
+
+    return turn_results
+
 def equip_(entities, item, player):
     turn_results = []
 
