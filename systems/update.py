@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import FOV_RADIUS
 from systems.ai import take_turn
-from systems.equip import equip, equip_floor_item, unequip
+from systems.equip import equip, swap_items, unequip
 from systems.interaction import interact
 from systems.inventory import close_inventory, drop_item, inventory_choice, open_inventory, pick_up
 from systems.message_log import Message
