@@ -81,7 +81,7 @@ def create_monster(name):
         _status = Status()
 
         monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
-        monster.health.points = get_stats(monster)['HP'] * 4
+        monster.health.points = monster.health.max
 
     elif name == 'zombie':
         _ai = AI(brain=BRAIN.ZOMBIE)
@@ -100,7 +100,7 @@ def create_monster(name):
         _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
 
         monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
-        monster.health.points = get_stats(monster)['HP'] * 4
+        monster.health.points = monster.health.max
 
     return monster
 

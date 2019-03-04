@@ -111,7 +111,7 @@ class GameMap:
 
 def tile_occupied(entities, x, y):
     for entity in entities:
-        if entity.stats and entity.stats.hp > 0 and x == entity.pos.x and y == entity.pos.y:
+        if entity.health and entity.health.points > 0 and x == entity.pos.x and y == entity.pos.y:
             return entity
     else:
         return None

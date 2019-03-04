@@ -80,13 +80,11 @@ def attack(attacker, defender, entities):
         _color = libtcod.light_yellow
         turn_results.append({'message': (_message, _color)})
     else:
-        defender.stats.hp -= damage
+        defender.health.points -= damage
         turn_results.append({'message': ('The {0} hits the {1}. (ATK: {2}; MAG: {3}).'.format(attacker.base.name.capitalize(), defender.base.name.capitalize(), ATK_damage, MAG_damage), libtcod.yellow)})
 
-    if defender.stats.hp <= 0:
+    if defender.health.points <= 0:
         turn_results.extend(kill(defender, entities))
-        if not attacker.ai:
-            turn_results.extend(gain_exp(defender.stats.exp, attacker))
     
     return turn_results
 
@@ -108,7 +106,7 @@ def calculate_profile_number(entity, profile):
         number += int(stats.get('RES') * profile.get('RES'))
     if profile.get('HP'):
         # Using HP instead of HP_MAX is more interesting, I think!
-        number += int(entity.stats.hp * profile.get('HP'))
+        number += int(entity.health.points * profile.get('HP'))
     if profile.get('SPD'):
         number += int(stats.get('SPD') * profile.get('SPD'))
     

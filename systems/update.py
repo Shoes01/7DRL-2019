@@ -63,11 +63,6 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
         if _wait:
             event_queue.append('player_acted')
-
-        # Check to see if the player has leveled up. This is a persistent event.
-        if player.stats.exp > player.stats.exp_needed_for_next_level:
-            if event_queue.count('leveled_up') == 0:
-                event_queue.insert(0, 'leveled_up')
     
     # Handle the comparison of items.
     elif _game_state == 'CompareItems':
@@ -99,7 +94,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
                 turn_results.extend(take_turn(entity, entities, game_map, fov_map, neighborhood, player))
         
         event_queue.append('enemies_acted')
-        if player.stats.hp <= 0:
+        if player.health.points <= 0:
             event_queue.append('player_dead')
         reduce_cooldown_timer(player)
         game.redraw_map = True
