@@ -59,7 +59,7 @@ def create_soul(entity):
     _soul = Soul(_soul_eccentricity, _soul_rank)
     _soul.number = _soul_number
 
-    _base = Base(name='soul', char='*', color=libtcod.dark_green, render_order=RenderOrder.ITEM)
+    _base = Base(name='soul', char='*', color=libtcod.dark_green, render_order=RenderOrder.SOUL)
     _pos = Position()
 
     soul_item = Entity(base=_base, pos=_pos, soul=_soul)

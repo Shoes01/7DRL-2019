@@ -3,7 +3,8 @@ from enum import Enum
 class RenderOrder(Enum):
     CORPSE = 0
     ITEM = 1
-    ACTOR = 2
+    SOUL = 2
+    ACTOR = 3
 
 class Base:
     def __init__(self, name, char, color, render_order):

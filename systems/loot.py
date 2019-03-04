@@ -9,6 +9,8 @@ def drop_loot(entity, entities):
 
     x, y = entity.pos.x, entity.pos.y
 
+    # TODO: Loot can be dropped into walls....
+
     item = create_item('sword')
     direction = random.choice(directions)
     directions.remove(direction)    
