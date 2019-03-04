@@ -109,7 +109,7 @@ def render_borders(console):
     _row_5 = ROOT.Y + INFO.H + 1 + INVENTORY.H + 1 + MONSTERS.H + 1 + ITEMDESC.H + 1
 
     for x in range(ROOT.W):
-        if x <= INFO.W + 2:
+        if x <= INFO.W + 1:
             console.print(ROOT.X + x, _row_1, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
             console.print(ROOT.X + x, _row_2, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
             console.print(ROOT.X + x, _row_3, EW, fg=COLORS['hud_border_fg'], bg=libtcod.black, bg_blend=libtcod.BKGND_SET)

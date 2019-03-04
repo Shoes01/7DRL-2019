@@ -12,6 +12,8 @@ Controls:
 
     esc: exit
 
+    need a way to drop items. Space bar over nothing? not a bad idea! always swaps, even with nothing...
+
 All other information is on the HUD.
 
 <what about damage?> Killing enemies returns HP. Killing many per turn grants more HP? Revenge kills grant more HP? <lore> When a soul leaves a body, you absorb some of that ... energy ...

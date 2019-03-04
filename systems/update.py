@@ -38,6 +38,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     if _debug_toggle:
         game.debug_mode = not game.debug_mode
         game.redraw_map = True
+        player.health.points = player.health.max
 
     # Handle the player turn.
     if _game_state == 'PlayerTurn':

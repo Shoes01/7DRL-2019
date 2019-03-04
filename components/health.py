@@ -6,4 +6,8 @@ class Health():
         
     @property
     def max(self):
-        return get_stats(self.owner)['HP'] * 4
+        if get_stats(self.owner)['HP'] * 4 > 10:
+            return get_stats(self.owner)['HP'] * 4
+        else:
+            return 10
+

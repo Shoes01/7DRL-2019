@@ -8,6 +8,9 @@ def generate_soul(eccentricity, rank):
     attempts = 0
     soul_attempt = np.zeros((2, 3), dtype=int, order='F')
 
+    if eccentricity * 6 < rank:
+        print('WARNING: This could is impossible to make.')
+
     while attempts < 100:
         with np.nditer(soul_attempt, op_flags=['readwrite']) as it:
             for x in it:

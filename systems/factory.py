@@ -77,7 +77,7 @@ def create_monster(name):
         _job = Job.PALADIN
         _pos = Position()
         _race = Race.HUMAN
-        _soul = Soul(eccentricity=1, rank=-3)
+        _soul = Soul(eccentricity=3, rank=8)
         _status = Status()
 
         monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
