@@ -36,15 +36,6 @@ If there is nothing on the ground, pass turn.
 
 ###################
 
-
-
-
-
-
-
-
-
-
 __Goal 2__
 Soul number mechanic.
 

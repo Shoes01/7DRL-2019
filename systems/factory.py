@@ -51,13 +51,28 @@ item_list = [
     'platemail'
 ]
 
+def create_soul(entity):
+    _soul_rank = entity.soul.rank
+    _soul_eccentricity = entity.soul.eccentricity
+    _soul_number = entity.soul.soul
+
+    _soul = Soul(_soul_eccentricity, _soul_rank)
+    _soul.number = _soul_number
+
+    _base = Base(name='soul', char='*', color=libtcod.dark_green, render_order=RenderOrder.ITEM)
+    _pos = Position()
+
+    soul_item = Entity(base=_base, pos=_pos, soul=_soul)
+
+    return soul_item
+
 def create_monster(name):
     if name == 'player':
         _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
         _body = Body()
         _inv = Inventory()
         _job = Job.PALADIN
-        _pos = Position(15, 15)
+        _pos = Position()
         _race = Race.HUMAN
         _soul = Soul(eccentricity=1, rank=-3)
         _stats = Stats(attack=8, defense=3, exp=0, hp_max=50, magic=0, resistance=0, speed=0)

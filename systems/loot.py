@@ -1,6 +1,6 @@
 import random
 
-from systems.factory import create_item
+from systems.factory import create_item, create_soul
 
 def drop_loot(entity, entities):
     turn_results = []
@@ -32,5 +32,11 @@ def drop_loot(entity, entities):
     directions.remove(direction)    
     item.pos.x, item.pos.y = x + direction[0], y + direction[1]
     entities.append(item)
+
+    soul = create_soul(entity)
+    direction = random.choice(directions)
+    directions.remove(direction)    
+    soul.pos.x, soul.pos.y = x + direction[0], y + direction[1]
+    entities.append(soul)
 
     return turn_results
