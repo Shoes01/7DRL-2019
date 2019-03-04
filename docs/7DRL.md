@@ -18,28 +18,11 @@ All other information is on the HUD.
 
 <what about damage?> Killing enemies returns HP. Killing many per turn grants more HP? Revenge kills grant more HP? <lore> When a soul leaves a body, you absorb some of that ... energy ...
 
-__Goal 1.1__
-No inventory.
-
-Picking up an item prompts the player to swap if one is already equipped.
-
-###################
-
-Pressing SPACE triggers the "interact" action.
-
-If there is an item on the ground, equip it
-    If there is already an item equipped in that slot, compare the items
-        Press 9 for SWAP, 3 for DON'T SWAP
-
-If there is nothing on the ground, pass turn.
-
->>> The ITEMDESC panel should say what "5" does. Rename to the INTERACTION panel.
-
-
-###################
-
 __Goal 3__
 Skills are interesting.
 Enemies use the skills too???
 
 Gameplay has the player taking on huge numbers of lowly creatures, and a few heroic opponents.
+
+__Goal 3.1__
+Allow some items to use stats negatively, so that the player may actually try to bottom out some stats and use the negative values for a great bonus...
