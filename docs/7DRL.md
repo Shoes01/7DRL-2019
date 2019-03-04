@@ -50,7 +50,7 @@ HP always has a multiplier on it.
 __Goal 2.2__
 The play may consume the souls of the fallen to increase their own power.
 
-The play may rotate or flip the soul before consuming it, thus choosing how it affects the numbers.
+The play may flip or flip the soul before consuming it, thus choosing how it affects the numbers.
 
 __Goal 3__
 Skills are interesting.

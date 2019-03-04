@@ -163,8 +163,8 @@ def handle_compare_items_keys(key):
 
 def handle_consume_soul_keys(key):
     key_char = chr(key.c)
-    
-    # Rotate the soul.
+
+    # Flip the soul.
     if key.vk == libtcod.KEY_UP or key_char == 'k' or key.vk == libtcod.KEY_KP8:
         return {'move': (0, -1)}
     elif key.vk == libtcod.KEY_DOWN or key_char == 'j' or key.vk == libtcod.KEY_KP2:
@@ -173,6 +173,14 @@ def handle_consume_soul_keys(key):
         return {'move': (-1, 0)}
     elif key.vk == libtcod.KEY_RIGHT or key_char == 'l' or key.vk == libtcod.KEY_KP6:
         return {'move': (1, 0)}
+    elif key_char == 'y' or key.vk == libtcod.KEY_KP7:
+        return {'move': (-1, -1)}
+    elif key_char == 'u' or key.vk == libtcod.KEY_KP9:
+        return {'move': (1, -1)}
+    elif key_char == 'b' or key.vk == libtcod.KEY_KP1:
+        return {'move': (-1, 1)}
+    elif key_char == 'n' or key.vk == libtcod.KEY_KP3:
+        return {'move': (1, 1)}
 
     # Confirmation keys.
     if key.vk == libtcod.KEY_KP5:
