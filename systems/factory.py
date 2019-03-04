@@ -5,6 +5,7 @@ from components.ai import AI, BRAIN
 from components.base import Base, RenderOrder
 from components.body import Body, Bodyparts
 from components.equippable import Equippable
+from components.health import Health
 from components.inventory import Inventory
 from components.job import Job
 from components.pos import Position
@@ -14,6 +15,7 @@ from components.soul import Soul
 from components.stats import Stats
 from components.status import Status
 from entity import Entity
+from systems.stats import get_stats
 
 item_list = [
     # Main hand items
@@ -70,24 +72,25 @@ def create_monster(name):
     if name == 'player':
         _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
         _body = Body()
+        _health = Health()
         _inv = Inventory()
         _job = Job.PALADIN
         _pos = Position()
         _race = Race.HUMAN
         _soul = Soul(eccentricity=1, rank=-3)
-        _stats = Stats(attack=8, defense=3, exp=0, hp_max=50, magic=0, resistance=0, speed=0)
         _status = Status()
 
-        monster = Entity(base=_base, body=_body, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, stats=_stats, status=_status)
+        monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
+        monster.health.points = get_stats(monster)['HP'] * 4
 
     elif name == 'zombie':
         _ai = AI(brain=BRAIN.ZOMBIE)
         _body = Body()
+        _health = Health()
         _job = random.choice(list(Job))
         _pos = Position()
         _race = random.choice(list(Race))
         _soul = Soul(eccentricity=3, rank=-1)
-        _stats = Stats(attack=5, defense=3,  exp=101, hp_max=10, magic=0, resistance=0, speed=0)
         _status = Status()
 
         _name = 'Zombie' + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
@@ -96,7 +99,8 @@ def create_monster(name):
 
         _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
 
-        monster = Entity(ai=_ai, base=_base, body=_body, job=_job, pos=_pos, race=_race, soul=_soul, stats=_stats, status=_status)
+        monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
+        monster.health.points = get_stats(monster)['HP'] * 4
 
     return monster
 

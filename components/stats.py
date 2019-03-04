@@ -1,5 +1,5 @@
 class Stats:
-    def __init__(self, attack, defense, exp, hp_max, magic, resistance, speed):
+    def __init__(self):
         self.attack = attack
         self.defense = defense
         self.hp_max = hp_max

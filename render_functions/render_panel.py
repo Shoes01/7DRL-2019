@@ -12,7 +12,7 @@ def render_panel(consoles, player):
     # Print to the console.
     stats = get_stats(player)
 
-    HP = 'HP : {:>3}/{:>3}'.format(str(player.stats.hp), str(stats.get('HP'))) # TODO: If HP gets moved out of stats, this will need to change too
+    HP = 'HP : {:>3}/{:>3}'.format(str(player.health.points), str(stats.get('HP'))) # TODO: If HP gets moved out of stats, this will need to change too
     ATK = 'ATK: {:>2}'.format(str(stats.get('ATK')))
     DEF = 'DEF: {:>2}'.format(str(stats.get('DEF')))
     MAG = 'MAG: {:>2}'.format(str(stats.get('MAG')))
