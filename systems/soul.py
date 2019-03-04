@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import tcod as libtcod
 
 def generate_soul(eccentricity, rank):
     attempts = 0
@@ -16,3 +17,21 @@ def generate_soul(eccentricity, rank):
         attempts += 1
     
     return np.zeros((2, 3), dtype=int, order='F')
+
+def rotate_soul(entities, player):
+    turn_results = []
+
+    _message = 'Soul is rotated! (not rly).'
+    _color = libtcod.blue
+    turn_results.append({'message': (_message, _color)})
+
+    return turn_results
+
+def merge_soul(entities, player):
+    turn_results = []
+
+    _message = 'Soul is merged! (not rly).'
+    _color = libtcod.blue
+    turn_results.append({'message': (_message, _color)})
+
+    return turn_results

@@ -162,6 +162,8 @@ def handle_compare_items_keys(key):
     return {}
 
 def handle_consume_soul_keys(key):
+    key_char = chr(key.c)
+    
     # Rotate the soul.
     if key.vk == libtcod.KEY_UP or key_char == 'k' or key.vk == libtcod.KEY_KP8:
         return {'move': (0, -1)}

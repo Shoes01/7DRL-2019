@@ -9,6 +9,7 @@ from systems.message_log import Message
 from systems.movement import move
 from systems.progression import confirm_stat_gain, level_up_choice
 from systems.skill import cancel_skill, reduce_cooldown_timer, execute_skill, skill_choice
+from systems.soul import merge_soul, rotate_soul
 from systems.status import tick
 
 def update(action, entities, event_queue, fov_map, game, game_map, game_state_machine, message_log, neighborhood, player):
@@ -79,10 +80,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
     elif _game_state == 'ConsumeSoul':
         if _move:
-            # Rotate the soul.
+            turn_results.extend(rotate_soul(entities, player))
         
         if _confirm is True:
-            # Merge souls.
+            turn_results.extend(merge_soul(entities, player))
             event_queue.append('done_consuming')
         
         if _confirm is False:
