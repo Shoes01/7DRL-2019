@@ -41,6 +41,8 @@ class PlayerTurn(State):
             return Exit()
         elif event == 'compare_items':
             return CompareItems()
+        elif event == 'consume_soul':
+            return ConsumeSoul()
         return self
 
 class Exit(State):
@@ -92,6 +94,14 @@ class CompareItems(State):
         if event == 'exit':
             return Exit()
         elif event == 'done_comparing':
+            return PlayerTurn()
+        return self
+
+class ConsumeSoul(State):
+    def on_event(self, event):
+        if event == 'exit':
+            return Exit()
+        elif event == 'done_consuming':
             return PlayerTurn()
         return self
 
