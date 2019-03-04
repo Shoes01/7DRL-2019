@@ -77,6 +77,18 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         elif _confirm is False:
             event_queue.append('done_comparing')
 
+    elif _game_state == 'ConsumeSoul':
+        if _move:
+            # Rotate the soul.
+        
+        if _confirm is True:
+            # Merge souls.
+            event_queue.append('done_consuming')
+        
+        if _confirm is False:
+            # Do not merge souls.
+            event_queue.append('done_consuming')
+
     # Handle the enemy turn.
     elif _game_state == 'EnemyTurn':
         # Each entity gets to take a turn.
