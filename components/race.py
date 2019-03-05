@@ -46,7 +46,7 @@ class Race(Enum):
         'name': 'kobold',
         'eccentricity': 10,
         'loadout': [
-            ('', ''),
+            ('wand', 'MDF'),
             ('boots', 'leather'),
             ('boots', 'leather'),
             ('boots', 'leather'),

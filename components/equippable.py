@@ -31,6 +31,22 @@ def example_profile():
                     'RES': 0.0,
                     'SPD': 0.0,
                     'HP' : 0.0
+                },
+                'HP': {
+                    'ATK': 0.0,
+                    'DEF': 0.0,
+                    'MAG': 0.0,
+                    'RES': 0.0,
+                    'SPD': 0.0,
+                    'HP' : 0.0
+                },
+                'SPD': {
+                    'ATK': 0.0,
+                    'DEF': 0.0,
+                    'MAG': 0.0,
+                    'RES': 0.0,
+                    'SPD': 1.0,     # The default for SPD should be the entity's stat
+                    'HP' : 0.0
                 }
             }
 

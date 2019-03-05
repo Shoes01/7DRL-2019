@@ -20,8 +20,9 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'message_very_good': libtcod.cyan,
             'message_good': libtcod.green,
             'message_ok': libtcod.white,
-            'message_bad': libtcod.red,
-            'message_very_bad': libtcod.darker_red}
+            'message_bad': libtcod.dark_red,
+            'message_very_bad': libtcod.red,
+            'message_kill': libtcod.darker_red}
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
 

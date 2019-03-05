@@ -153,8 +153,7 @@ def calculate_profile_number(entity, profile):
     if profile.get('RES'):
         number += int(stats.get('RES') * profile.get('RES'))
     if profile.get('HP'):
-        # Using HP instead of HP_MAX is more interesting, I think!
-        number += int(entity.health.points * profile.get('HP'))
+        number += int(stats.get('HP') * profile.get('HP'))
     if profile.get('SPD'):
         number += int(stats.get('SPD') * profile.get('SPD'))
     

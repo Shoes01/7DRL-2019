@@ -7,10 +7,6 @@ Create a monster generation thing
 >>> The monster rank informs how many items they have
 >>>>> Should these items generate in the same way each time, or random?
 
-# COMBAT
-
-SPD thing, double damage.
-
 # DUNGEON
 
 Create a way to progress through the dungeon
@@ -45,3 +41,9 @@ Give instructions to the player about the controls
 
 Character creation screen
 > Would simply be a game state with its own input
+
+After some overkill gibbing :3
+
+# ADDITIONAL MECHANIC???
+
+Charge up attacks... certain skills have a cooldown that only reduce when they kill or hit others
