@@ -1,9 +1,5 @@
 ##### TODO ######
 
-# GUI
-
-Improve soul consumption screen... show how it will affect stats
-
 # LOOT
 
 Create loot generation thing

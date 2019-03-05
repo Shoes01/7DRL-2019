@@ -46,9 +46,9 @@ def print_text(console, entities, player):
     order = player.job.value['stats']
     y = 0
     for stat in order:
-        _string = stat + ' : ' + str(player.race.value['bonus']) +  ' + ' + '{:>3}'.format(str(new_stats[stat])) +  ' = ' + '{:>3}'.format(str(total_stats[stat]))
+        _string = stat + ' : ' + str(player.race.value['bonus']) +  ' + ' + '{:>2}'.format(str(new_stats[stat])) +  ' = ' + '{:>2}'.format(str(total_stats[stat]))
         if stat == 'HP':
-            _string = stat + '  : ' + str(player.race.value['bonus']) +  ' + ' +'{:>3}'.format(str(new_stats[stat] // 4)) +  ' = ' + '{:>3}'.format(str(total_stats[stat] // 4)) + ' x4' + ' = ' + str(total_stats[stat]
+            _string = stat + '  : ' + str(player.race.value['bonus']) +  ' + ' +'{:>2}'.format(str(new_stats[stat] // 4)) +  ' = ' + '{:>2}'.format(str(total_stats[stat] // 4)) + ' x4' + ' = ' + str(total_stats[stat])
         console.print(4, 13 + y, _string)
         y += 1
 
@@ -61,7 +61,7 @@ def print_text(console, entities, player):
     ### Print stats
     stats = get_stats(player)
     new_stats = get_stats(None, player.job, player.race, new_soul + soul)
-    HP = 'HP :{:>3}/{:>3}'.format(str(player.health.points), str(player.health.max))
+    HP = 'HP :{:>2}/{:>2}'.format(str(player.health.points), str(player.health.max))
     SPD = 'SPD:{:>2}'.format(str(stats.get('SPD')))
     ATK = 'ATK:{:>2}'.format(str(stats.get('ATK')))
     DEF = 'DEF:{:>2}'.format(str(stats.get('DEF')))
@@ -83,7 +83,7 @@ def print_text(console, entities, player):
     ### Print new stats
     ### Print stats
     new_stats = get_stats(None, player.job, player.race, new_soul + soul)
-    HP = 'HP :{:>3}/{:>3}'.format(str(player.health.points), str(player.health.max))
+    HP = 'HP :{:>2}/{:>2}'.format(str(player.health.points), str(player.health.max))
     SPD = 'SPD:{:>2}'.format(str(new_stats.get('SPD')))
     ATK = 'ATK:{:>2}'.format(str(new_stats.get('ATK')))
     DEF = 'DEF:{:>2}'.format(str(new_stats.get('DEF')))
@@ -112,7 +112,7 @@ def print_text(console, entities, player):
         elif _diff < 0:
             _color = COLORS['message_bad']
         
-        console.print(3 + MAP.W // 2 + 14, 7 + y, '{:>3}'.format(_string), fg=_color)
+        console.print(3 + MAP.W // 2 + 14, 7 + y, '{:>2}'.format(_string), fg=_color)
         y += 1    
     """
 
