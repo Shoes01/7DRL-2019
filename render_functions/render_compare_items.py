@@ -47,27 +47,27 @@ def print_column(console, item, left):
         right = MAP.W // 2
 
     # Title
-    console.print(1 + right, 1, 'Equipped item\n  ' + item.base.name)
+    console.print(2 + right, 2, 'Equipped item\n  ' + item.base.name)
     
     # Offensive items!
     if item.equip.slot == Bodyparts.MainHand.name:
         # Sub title 1
-        console.print(1 + right, 5, '--- Bump Attack ---\n  ATK profile')
+        console.print(2 + right, 6, '--- Bump Attack ---\n  ATK profile')
 
         # Bump profiles
         profile = item.equip.profile
-        print_stats(console, profile['ATK'], 1 + right, 7)
+        print_stats(console, profile['ATK'], 2 + right, 7)
 
-        console.print(1 + right, 14, '  MAG profile')
-        print_stats(console, profile['DEF'], 1 + right, 15)
+        console.print(2 + right, 15, '  MAG profile')
+        print_stats(console, profile['DEF'], 2 + right, 16)
 
         # Skill profiles
-        console.print(1 + right, 22, '--- Skill Attack ---\n  ATK profile')
+        console.print(2 + right, 23, '--- Skill Attack ---\n  ATK profile')
         profile = item.skill.profile
-        print_stats(console, profile['ATK'], 1 + right, 24)
+        print_stats(console, profile['ATK'], 2 + right, 25)
 
-        console.print(1 + right, 14, '  MAG profile')
-        print_stats(console, profile['DEF'], 1 + right, 32)
+        console.print(2 + right, 32, '  MAG profile')
+        print_stats(console, profile['DEF'], 2 + right, 33)
 
 
 def print_stats(console, profile, x, y):
@@ -76,7 +76,10 @@ def print_stats(console, profile, x, y):
         string = '   ' + name + ' x ' + str(value)
         if name is 'HP':
             string = '   ' + name + '  x ' + str(value) # One extra space
-        console.print(x, y + dy, string)
+        if value == 0:
+            console.print(x, y + dy, string, fg=libtcod.dark_grey)
+        else:
+            console.print(x, y + dy, string, fg=libtcod.white)
         dy += 1
     
 
