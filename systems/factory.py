@@ -16,6 +16,7 @@ from components.soul import Soul
 from components.stats import Stats
 from components.status import Status
 from entity import Entity
+from systems.equip import equip_
 from systems.stats import get_stats
 
 item_list = [
@@ -109,51 +110,131 @@ def create_monster_(difficulty):
     monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
     monster.health.points = monster.health.max
 
+    equip_monster(monster)
+
     return monster
 
-def create_item(name):
-    _pos = Position()
+def equip_monster(monster):
+    for value in monster.race.value['loadout']:
+        _name = value[0]
+        _material = value[1]
+
+        item = create_item_(_name, _material)
+
+        if item:
+            equip_(item, monster)            
+
+material_dict = {
+    'leather':  (0.1, libtcod.sepia),
+    'copper':   (0.2, libtcod.brass),
+    'iron':     (0.5, libtcod.dark_grey),
+    'steel':    (1.0, libtcod.silver),
+    'quartz':   (0.0, (221, 221, 223)),
+    'hematite': (0.0, libtcod.darker_crimson)
+}
+
+def create_item_(name, material):
+    _base, _equip, _skill = None, None, None
+
+    _base, _equip, _skill = create_mainhand_item(name, material)
+    if _base:
+        return Entity(base=_base, equip=_equip, pos=Position(), skill=_skill)
+    _base, _equip, _skill = create_torso_item(name, material)
+    if _base:
+        return Entity(base=_base, equip=_equip, pos=Position(), skill=_skill)
+    _base, _equip, _skill = create_offhand_item(name, material)
+    if _base:
+        return Entity(base=_base, equip=_equip, pos=Position(), skill=_skill)
     
+    return None
+
+def create_mainhand_item(name, material):
+    _bonus = material_dict[material][0]
+    _color = material_dict[material][1]
+
+    _base, _equip, _skill = None, None, None
+
     if name == 'sword':
-        _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        
+        _base = Base(name=name, char=u'\u2193', color=_color, render_order=RenderOrder.ITEM)
+
         _profile = {}
         _profile = example_profile()
-        _profile['ATK']['ATK'] = 1.2
-        
+        _profile['ATK']['ATK'] = 1.8 + _bonus
+
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
 
         _profile = {}
         _profile = example_profile()
-        _profile['ATK']['ATK'] = 1.6
-        _profile['ATK']['MAG'] = 0.2
+        _profile['ATK']['ATK'] = 1.6 + _bonus
+        _profile['ATK']['MAG'] = 0.2 + _bonus
 
         _skill = Skill(cooldown=12, name='pierce', nature='direct', profile=_profile)
-    
-    elif name == 'boots':
-        _base = Base(name='boots', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        _equip = Equippable(slot=Bodyparts.Feet.name)
-        _skill = Skill(cooldown=5, name='leap', nature='direct')
-    
-    elif name == 'chainmail':
-        _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        
+
+    if name == 'spear':
+        _base = Base(name=name, char=u'\u2191', color=_color, render_order=RenderOrder.ITEM)
+
         _profile = {}
         _profile = example_profile()
-        _profile['DEF']['DEF'] = 1.5
-        _profile['RES']['RES'] = 0.5
+        _profile['ATK']['ATK'] = 1.2 + _bonus
+
+        _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
+
+        _profile = {}
+        _profile = example_profile()
+        _profile['ATK']['ATK'] = 1.6 + _bonus
+        _profile['ATK']['SPD'] = 0.2 + _bonus
+
+        _skill = Skill(cooldown=5, name='pierce', nature='direct', profile=_profile)
+    
+    return _base, _equip, _skill
+
+def create_torso_item(name, material):
+    _bonus = material_dict[material][0]
+    _color = material_dict[material][1]
+
+    _base, _equip, _skill = None, None, None
+
+    if name == 'chain mail':
+        _base = Base(name=name, char=u'\u2591', color=_color, render_order=RenderOrder.ITEM)
+
+        _profile = {}
+        _profile = example_profile()
+        _profile['DEF']['DEF'] = 1.2 + _bonus
+        _profile['MAG']['MAG'] = 1.0 + _bonus
 
         _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
-        _skill = Skill(cooldown=0, name='none', nature='none')
 
-    elif name == 'shield':
-        _base = Base(name='shield', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)        
-        _equip = Equippable(slot=Bodyparts.OffHand.name)
+        _skill = Skill()
+    
+    if name == 'plate mail':
+        _base = Base(name=name, char=u'\u2593', color=_color, render_order=RenderOrder.ITEM)
 
         _profile = {}
         _profile = example_profile()
-        _profile['ATK']['DEF'] = 2.0
+        _profile['DEF']['DEF'] = 1.9 + _bonus
+        _profile['MAG']['MAG'] = 0.7 + _bonus
 
-        _skill = Skill(cooldown=5, name='bash', nature='direct', profile=_profile)
+        _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
 
-    return Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)
+        _skill = Skill()
+    
+    return _base, _equip, _skill
+
+def create_offhand_item(name, material):
+    _bonus = material_dict[material][0]
+    _color = material_dict[material][1]
+    _base, _equip, _skill = None, None, None
+
+    if name == 'buckler':
+        _base = Base(name=name, char=u'\u03A6', color=_color, render_order=RenderOrder.ITEM)
+        _equip = Equippable(slot=Bodyparts.OffHand.name)
+        _skill = Skill(cooldown=5, name='bash', nature='direct')
+        _skill.knockback_force = 2
+
+    if name == 'shield':
+        _base = Base(name=name, char=u'\u13A6', color=_color, render_order=RenderOrder.ITEM)
+        _equip = Equippable(slot=Bodyparts.OffHand.name)
+        _skill = Skill(cooldown=5, name='bash', nature='direct')
+        _skill.knockback_force = 4
+
+    return _base, _equip, _skill

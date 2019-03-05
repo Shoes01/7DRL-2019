@@ -9,7 +9,7 @@ class Race(Enum):
     ]}
     
     ORC =       {'bonus': 9,    'char': 'O', 'name': 'orc',     'eccentricity': 6,  'loadout': [
-        ('helm', 'copper'), ('war hammer', 'iron'), ('ring', 'hematite'), ('plate mail', 'iron'), ('shield', 'steel'), ('greaves', 'steel')
+        ('helm', 'copper'), ('spear', 'iron'), ('ring', 'hematite'), ('plate mail', 'iron'), ('shield', 'steel'), ('greaves', 'steel')
     ]}
 
 def pick_race(difficulty=0):

@@ -38,7 +38,7 @@ def swap_items(entities, player):
 
     return turn_results
 
-def equip_(entities, item, player):
+def equip_(item, player, entities=None):
     turn_results = []
 
     # Disgusting block of code.
@@ -55,11 +55,12 @@ def equip_(entities, item, player):
     else:
         return False
     
-    entities.remove(item)
+    if entities:
+        entities.remove(item)
         
-    _message = 'The {0} equips the {1}.'.format(player.base.name.capitalize(), item.base.name.capitalize())
-    _color = libtcod.blue
-    turn_results.append({'message': (_message, _color)})
+        _message = 'The {0} equips the {1}.'.format(player.base.name.capitalize(), item.base.name.capitalize())
+        _color = libtcod.blue
+        turn_results.append({'message': (_message, _color)})
 
     return turn_results
 

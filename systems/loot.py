@@ -1,44 +1,38 @@
 import random
 
-from systems.factory import create_item, create_soul
+from map_functions import tile_empty
 
 def drop_loot(entity, entities):
     turn_results = []
     
     directions = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
 
+    random.shuffle(directions)
+
     x, y = entity.pos.x, entity.pos.y
 
-    # TODO: Loot can be dropped into walls....
+    loot = None
+    while directions:
+        direction = directions.pop()
+        
+        if tile_empty(entities, x + direction[0], y + direction[1]):
+            ### Generate loot
+            # Get a list of body parts
+            # Shuffle this like
+            # Loop through it until you find an item
+            item_list = []
+            for _, item in entity.body.parts.items():
+                if item:
+                    item_list.append(item)
 
-    item = create_item('sword')
-    direction = random.choice(directions)
-    directions.remove(direction)    
-    item.pos.x, item.pos.y = x + direction[0], y + direction[1]
-    entities.append(item)
+            random.shuffle(item_list)
 
-    item = create_item('boots')
-    direction = random.choice(directions)
-    directions.remove(direction)    
-    item.pos.x, item.pos.y = x + direction[0], y + direction[1]
-    entities.append(item)
+            loot = item_list.pop()
 
-    item = create_item('chainmail')
-    direction = random.choice(directions)
-    directions.remove(direction)    
-    item.pos.x, item.pos.y = x + direction[0], y + direction[1]
-    entities.append(item)
-
-    item = create_item('shield')
-    direction = random.choice(directions)
-    directions.remove(direction)    
-    item.pos.x, item.pos.y = x + direction[0], y + direction[1]
-    entities.append(item)
-
-    soul = create_soul(entity)
-    direction = random.choice(directions)
-    directions.remove(direction)    
-    soul.pos.x, soul.pos.y = x + direction[0], y + direction[1]
-    entities.append(soul)
+            if item_list:
+                loot = item_list.pop()
+                loot.pos.x, loot.pos.y = x + direction[0], y + direction[1]
+                entities.append(loot)
+                break
 
     return turn_results

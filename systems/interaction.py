@@ -12,7 +12,7 @@ def interact(entities, event_queue, player):
     for item in entities:
         if item.pos.x == x and item.pos.y == y:
             if item.base.render_order == RenderOrder.ITEM:
-                if equip_(entities, item, player):
+                if equip_(item, player, entities=entities):
                     event_queue.append('player_acted')
                     # yay
                 else:

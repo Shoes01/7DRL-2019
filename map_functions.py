@@ -116,6 +116,13 @@ def tile_occupied(entities, x, y):
     else:
         return None
 
+def tile_empty(entities, x, y):
+    for entity in entities:
+        if x == entity.pos.x and y == entity.pos.y:
+            return False
+    
+    return True
+
 def path_unblocked(game_map, xo, yo, xd, yd):
     path = list(libtcod.line_iter(xo, yo, xd, yd))
 
