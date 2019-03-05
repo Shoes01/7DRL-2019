@@ -3,7 +3,7 @@ import numpy as np
 from components.equippable import example_profile
 
 class Skill():
-    def __init__(self, cooldown, name, nature, profile=example_profile):
+    def __init__(self, cooldown, name, nature, profile=example_profile()):
         ' Skill essential data. '
         self.cooldown = cooldown
         self.name = name

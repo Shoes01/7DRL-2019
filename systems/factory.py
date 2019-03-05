@@ -111,13 +111,13 @@ def create_item(name):
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
         _profile = {}
-        _profile = example_profile.copy()
+        _profile = example_profile()
         _profile['ATK']['ATK'] = 1.2
         
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
 
         _profile = {}
-        _profile = example_profile.copy()
+        _profile = example_profile()
         _profile['ATK']['ATK'] = 1.6
         _profile['ATK']['MAG'] = 0.2
 
@@ -132,7 +132,7 @@ def create_item(name):
         _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
         _profile = {}
-        _profile = example_profile.copy()
+        _profile = example_profile()
         _profile['DEF']['DEF'] = 1.5
         _profile['RES']['RES'] = 0.5
 
@@ -144,7 +144,7 @@ def create_item(name):
         _equip = Equippable(slot=Bodyparts.OffHand.name)
 
         _profile = {}
-        _profile = example_profile.copy()
+        _profile = example_profile()
         _profile['ATK']['DEF'] = 2.0
 
         _skill = Skill(cooldown=5, name='bash', nature='direct', profile=_profile)
