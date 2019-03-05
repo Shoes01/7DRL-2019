@@ -35,15 +35,26 @@ def print_text(console, entities, player):
 
     equipped_item = player.body.parts.get(item.equip.slot)
 
-    string_1 = 'Currently equipped:\n{0}'.format(equipped_item.base.name.capitalize())
+    print_column(console, equipped_item, left=True)
+    print_column(console, item, left=False)
 
-    string_2 = 'Currently on the ground:\n{0}'.format(item.base.name.capitalize())
+def print_column(console, item, left):
+    # If side is left, add a constant to all the x coords.
 
-    # Left column
-    console.print(2, 2, string_1, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    right = 0
+    if not left:
+        right = MAP.W // 2
 
-    # Right column
-    console.print((MAP.W - 1) // 2 + 2, 2, string_2, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    profile = item.equip.profile
+
+    string_1 = 'Equipped item\n  ' + item.base.name
+
+    string_2 = '--- Bump Attack ---\n  ATK profile'
+    string_3 = '    ATK x ' + str(profile.get('ATK').get('ATK'))
+
+    console.print(1 + right, 1, string_1)
+    console.print(1 + right, 5, string_2)
+    console.print(1 + right, 7, string_3)
 
 def print_border(console):
     # Unicode cheat sheet.
