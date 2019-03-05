@@ -4,7 +4,7 @@ import tcod as libtcod
 from components.ai import AI, BRAIN
 from components.base import Base, RenderOrder
 from components.body import Body, Bodyparts
-from components.equippable import Equippable
+from components.equippable import Equippable, example_profile
 from components.health import Health
 from components.inventory import Inventory
 from components.job import Job
@@ -110,15 +110,14 @@ def create_item(name):
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
-        _profile = {}
-        _ATK_profile = {'ATK': 1.2}
-        _profile['ATK'] = _ATK_profile
+        _profile = example_profile
+        _profile['ATK']['ATK'] = 1.2
         
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
 
-        _profile = {}
-        _ATK_profile = {'ATK': 1.6, 'MAG': 0.2}
-        _profile['ATK'] = _ATK_profile
+        _profile = example_profile
+        _profile['ATK']['ATK'] = 1.6
+        _profile['ATK']['MAG'] = 0.2
 
         _skill = Skill(cooldown=12, name='pierce', nature='direct', profile=_profile)
     
@@ -130,29 +129,20 @@ def create_item(name):
     elif name == 'chainmail':
         _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
-        _profile = {}
-        _DEF_profile = {'DEF': 1.5}
-        _RES_profile = {'RES': 0.5}
-        _profile['DEF'] = _DEF_profile
-        _profile['RES'] = _RES_profile
+        _profile = example_profile
+        _profile['DEF']['DEF'] = 1.5
+        _profile['RES']['RES'] = 0.5
 
         _equip = Equippable(slot=Bodyparts.Torso.name, profile=_profile)
         _skill = Skill(cooldown=0, name='none', nature='none')
 
     elif name == 'shield':
-        _base = Base(name='shield', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
-        
-        _profile = {}
-        _DEF_profile = {'DEF': 1.5}
-        _profile['DEF'] = _DEF_profile
-        
-        _equip = Equippable(slot=Bodyparts.OffHand.name, profile=_profile)
+        _base = Base(name='shield', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)        
+        _equip = Equippable(slot=Bodyparts.OffHand.name)
 
-        _profile = {}
-        _ATK_profile = {'DEF': 2.0}
-        _profile['ATK'] = _ATK_profile
+        _profile = example_profile
+        _profile['ATK']['DEF'] = 2.0
 
         _skill = Skill(cooldown=5, name='bash', nature='direct', profile=_profile)
-
 
     return Entity(base=_base, equip=_equip, pos=_pos, skill=_skill)

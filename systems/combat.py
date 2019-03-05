@@ -29,12 +29,14 @@ def attack(attacker, defender, entities):
     if item is None:
         item = attacker.body.main_hand
 
-    ' If they are not using a skill, look at their torso armor. '
+    ' If they are not using a skill, look at their main hand weapon. '
     if profile is None:
         if attacker.body.main_hand:
             profile = attacker.body.main_hand.equip.profile
         else:
             profile = example_profile
+            profile['ATK']['ATK'] = 0.5
+            profile['MAG']['MAG'] = 0.5
 
     ' Infer damage values. '
     ATK_value = calculate_profile_number(attacker, profile.get('ATK'))
@@ -56,6 +58,8 @@ def attack(attacker, defender, entities):
             profile = defender.body.torso.equip.profile
         else:
             profile = example_profile
+            profile['DEF']['DEF'] = 0.5
+            profile['RES']['RES'] = 0.5
 
     ' Infer defensive values. '
     DEF_value = calculate_profile_number(defender, profile.get('DEF'))
