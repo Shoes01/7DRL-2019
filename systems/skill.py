@@ -40,8 +40,17 @@ def skill_choice(body_part, event_queue, game_map, player):
     item = player.body.parts[body_part]
 
     if item and item.skill and item.skill.cooldown_timer == 0:
+        # Unselect the other skill first!
+        for _, other_item in player.body.parts.items():
+            if other_item and other_item.skill and other_item.skill.selected:
+                other_item.skill.selected = False
+                if other_item == item:
+                    return turn_results
+
         item.skill.selected = True
         generate_targeting_array(game_map, player, item.skill)
+        if 'skill_selected' in event_queue:
+            return turn_results
         event_queue.append('skill_selected')
     elif item and item.skill and item.skill.cooldown_timer > 0:
         _message = 'This skill is still on cooldown.'

@@ -5,13 +5,7 @@ from components.body import Bodyparts
 def handle_keys(game_state_machine, key):
     _game_state = game_state_machine.state.__str__()
 
-    if _game_state == 'OpenInventory':
-        return handle_inventory_keys(key)
-    elif _game_state == 'LeveledUp':
-        return handle_level_up_keys(key)
-    elif _game_state == 'TargetingState':
-        return handle_targeting_state_keys(key)
-    elif _game_state == 'CompareItems':
+    if _game_state == 'CompareItems':
         return handle_compare_items_keys(key)
     elif _game_state == 'ConsumeSoul':
         return handle_consume_soul_keys(key)
@@ -44,12 +38,6 @@ def handle_general_keys(key):
     if key.vk == libtcod.KEY_SPACE:
         return {'interact': True}
 
-    # Inventory related keys.
-    if key_char == 'g':
-        return {'grab': True}
-    if key_char == 'i':
-        return {'inventory': True}
-
     # Other keys
     if key_char == 'd' and key.lctrl:
         return {'debug_toggle': True}
@@ -61,64 +49,6 @@ def handle_general_keys(key):
         return {'exit': True}
 
     # No key was pressed
-    return {}
-
-def handle_inventory_keys(key):
-    index = key.c - ord('a')
-    key_char = chr(key.c)
-
-    if key_char == 'd' and key.shift:
-        return {'drop': True}
-
-    if key_char == 'e' and key.shift:
-        return {'equip': True}
-
-    if key_char == 'u' and key.shift:
-        return {'unequip': True}
-
-    if index >= 0:
-        return {'inventory_choice': index}
-
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
-        return {'fullscreen': True}
-    elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the game
-        return {'exit': True}
-
-    return {}
-
-def handle_level_up_keys(key):
-    index = key.c - ord('a')
-
-    if key.vk == libtcod.KEY_ENTER:
-        return {'confirm': True}
-
-    if index >= 0:
-        return {'level_up_choice': index}
-
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
-        return {'fullscreen': True}
-    elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the game
-        return {'exit': True}
-
-    return {}
-
-def handle_targeting_state_keys(key):
-    # Movement keys
-    movement = handle_generic_movement_keys(key)
-    if movement:
-        return movement
-    
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
-        return {'fullscreen': True}
-    elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the game
-        return {'exit': True}
-
     return {}
 
 def handle_generic_movement_keys(key):

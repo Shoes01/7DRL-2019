@@ -31,12 +31,8 @@ class PlayerTurn(State):
             return PlayerDead()
         elif event == 'player_acted':
             return EnemyTurn()
-        elif event == 'leveled_up':
-            return LeveledUp()
         elif event == 'skill_selected':
             return TargetingState()
-        elif event == 'open_inventory':
-            return OpenInventory()
         elif event == 'exit':
             return Exit()
         elif event == 'compare_items':
@@ -49,14 +45,6 @@ class Exit(State):
     def on_event(self, event):
         return self
 
-class OpenInventory(State):
-    def on_event(self, event):
-        if event == 'exit':
-            return Exit()
-        elif event == 'close_inventory':
-            return PlayerTurn()
-        return self
-
 class TargetingState(State):
     def on_event(self, event):
         if event == 'exit':
@@ -64,14 +52,6 @@ class TargetingState(State):
         elif event == 'chose_direction':
             return PlayerTurn()
         elif event == 'cancel_targeting':
-            return PlayerTurn()
-        return self
-
-class LeveledUp(State):
-    def on_event(self, event):
-        if event == 'exit':
-            return Exit()
-        elif event == 'chose_stat':
             return PlayerTurn()
         return self
 

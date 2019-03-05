@@ -43,14 +43,6 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     # Handle the player turn.
     if _game_state == 'PlayerTurn':
         # The player may act.
-        if _inventory:
-            turn_results.extend(open_inventory())
-            event_queue.append('open_inventory')
-
-        if _grab:
-            turn_results.extend(pick_up(player, entities))
-            event_queue.append('player_acted')
-        
         if _interact:
             turn_results.extend(interact(entities, event_queue, player))
 
@@ -134,12 +126,14 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             turn_results.extend(level_up_choice(_level_up_choice, player))
     
     elif _game_state == 'TargetingState':
-        # _previous_state is how to get out of this state.
-        # Any button other than a directional should trigger it.
         if _exit:
             turn_results.extend(cancel_skill(player))
             event_queue.append('cancel_targeting')
             _exit = None
+
+        if _skill_choice:
+            _bodypart = _skill_choice
+            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player))
         
         if _move:
             _direction = _move
