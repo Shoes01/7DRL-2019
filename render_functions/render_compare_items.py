@@ -47,9 +47,9 @@ def print_column(console, item, left):
         right = MAP.W // 2
 
     # Title
-    console.print(2 + right, 2, 'Equipped item\n  ' + item.base.name)
+    console.print(2 + right, 2, 'Equipped item\n  ' + item.base.name.capitalize())
     
-    # Offensive items!
+    # Main hand items!
     if item.equip.slot == Bodyparts.MainHand.name:
         # Sub title 1
         console.print(2 + right, 6, '--- Bump Attack ---\n  ATK profile')
@@ -69,6 +69,35 @@ def print_column(console, item, left):
         console.print(2 + right, 32, '  MAG profile')
         print_stats(console, profile['DEF'], 2 + right, 33)
 
+    # Torso items!
+    if item.equip.slot == Bodyparts.Torso.name:
+        # Sub title 1
+        console.print(2 + right, 6, '--- Damage Mitigation ---\n  DEF profile')
+
+        # Bump profiles
+        profile = item.equip.profile
+        print_stats(console, profile['DEF'], 2 + right, 7)
+
+        console.print(2 + right, 15, '  RES profile')
+        print_stats(console, profile['RES'], 2 + right, 16)
+
+        # Skill profiles
+        console.print(2 + right, 23, '--- Buff Skill ---\n  DEF profile')
+        profile = item.skill.profile
+        print_stats(console, profile['DEF'], 2 + right, 25)
+
+        console.print(2 + right, 32, '  RES profile')
+        print_stats(console, profile['RES'], 2 + right, 33)
+
+    # Off hand items!
+    if item.equip.slot == Bodyparts.OffHand.name:
+        # Skill profiles
+        console.print(2 + right, 23, '--- Skill Defense ---\n  DEF profile')
+        profile = item.skill.profile
+        print_stats(console, profile['DEF'], 2 + right, 25)
+
+        console.print(2 + right, 32, '  RES profile')
+        print_stats(console, profile['RES'], 2 + right, 33)
 
 def print_stats(console, profile, x, y):
     dy = 0
@@ -82,7 +111,6 @@ def print_stats(console, profile, x, y):
             console.print(x, y + dy, string, fg=libtcod.white)
         dy += 1
     
-
 def print_border(console):
     # Unicode cheat sheet.
     NS = u'\u2551'

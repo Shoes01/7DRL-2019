@@ -3,6 +3,8 @@
 # GUI
 
 Improve compare screen
+>>> Display skill
+>>> Display legend or whatever...
 Improve soul consumption screen... show how it will affect stats
 
 # LOOT
