@@ -34,10 +34,6 @@ def flip_soul(d_move, entities, player):
     if y:
         soul_entity.soul.soul = np.flipud(soul_entity.soul.soul)
 
-    _message = 'Soul is flipd! (not rly).'
-    _color = libtcod.blue
-    turn_results.append({'message': (_message, _color)})
-
     return turn_results
 
 def merge_soul(entities, player):

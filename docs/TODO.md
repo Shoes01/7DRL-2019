@@ -2,9 +2,6 @@
 
 # GUI
 
-Improve compare screen
->>> Display skill
->>> Display legend or whatever...
 Improve soul consumption screen... show how it will affect stats
 
 # LOOT
@@ -27,3 +24,9 @@ Create a way to progress through the dungeon
 # CONTENT
 
 Create more items
+
+# GUI++
+
+Improve compare screen
+>>> Display skill
+>>> Display legend or whatever...

@@ -2,6 +2,7 @@ import tcod as libtcod
 
 from components.base import RenderOrder
 from game import COLORS, MAP
+from systems.stats import get_stats
 
 def render_consume_soul(consoles, entities, player):
     console = consoles['map']
@@ -28,14 +29,64 @@ def print_text(console, entities, player):
 
     # Print left column
     ### Print the player's soul
-    string_1 = 'Your soul:\n' + str(soul)
+    string_1 = 'Your soul:\n\n' + str(soul)
     console.print(2, 2, string_1, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+
+    ### Print stats
+    stats = get_stats(player)
+    HP = 'HP :{:>3}/{:>3}'.format(str(player.health.points), str(player.health.max))
+    SPD = 'SPD:{:>2}'.format(str(stats.get('SPD')))
+    ATK = 'ATK:{:>2}'.format(str(stats.get('ATK')))
+    DEF = 'DEF:{:>2}'.format(str(stats.get('DEF')))
+    MAG = 'MAG:{:>2}'.format(str(stats.get('MAG')))
+    RES = 'RES:{:>2}'.format(str(stats.get('RES')))
+
+    console.print(3, 7, HP , fg=COLORS['hud_text'])
+    console.print(3, 8, SPD, fg=COLORS['hud_text'])
+    console.print(3, 9, ATK, fg=COLORS['hud_text'])
+    console.print(3, 10, DEF, fg=COLORS['hud_text'])
+    console.print(3, 11, MAG, fg=COLORS['hud_text'])
+    console.print(3, 12, RES, fg=COLORS['hud_text'])
 
     # Print right coulmn
     ### Print the new soul
-    string_2 = 'New soul:\n' + str(new_soul)
-    console.print((MAP.W - 1) // 2 + 2, 2, string_2, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
+    string_2 = 'New soul:\n\n' + str(new_soul)
+    console.print(3 + MAP.W // 2, 2, string_2, bg=libtcod.black, bg_blend=libtcod.BKGND_SET)
 
+    ### Print new stats
+    ### Print stats
+    new_stats = get_stats(None, player.job, player.race, new_soul + soul)
+    HP = 'HP :{:>3}/{:>3}'.format(str(player.health.points), str(player.health.max))
+    SPD = 'SPD:{:>2}'.format(str(new_stats.get('SPD')))
+    ATK = 'ATK:{:>2}'.format(str(new_stats.get('ATK')))
+    DEF = 'DEF:{:>2}'.format(str(new_stats.get('DEF')))
+    MAG = 'MAG:{:>2}'.format(str(new_stats.get('MAG')))
+    RES = 'RES:{:>2}'.format(str(new_stats.get('RES')))
+
+    console.print(3 + MAP.W // 2, 7, HP , fg=COLORS['hud_text'])
+    console.print(3 + MAP.W // 2, 8, SPD, fg=COLORS['hud_text'])
+    console.print(3 + MAP.W // 2, 9, ATK, fg=COLORS['hud_text'])
+    console.print(3 + MAP.W // 2, 10, DEF, fg=COLORS['hud_text'])
+    console.print(3 + MAP.W // 2, 11, MAG, fg=COLORS['hud_text'])
+    console.print(3 + MAP.W // 2, 12, RES, fg=COLORS['hud_text'])
+
+    ### Compare values
+    y = 0
+    order = ['HP', 'SPD', 'ATK', 'DEF', 'MAG', 'RES']
+    for name in order:
+        _diff = new_stats[name] - stats[name]
+        _string = str(_diff)
+        _color = None
+        if _diff > 0:
+            _string = '+' + _string
+            _color = COLORS['message_good']
+        elif _diff == 0:
+            _color = COLORS['message_ok']
+        elif _diff < 0:
+            _color = COLORS['message_bad']
+        
+        console.print(3 + MAP.W // 2 + 14, 7 + y, '{:>3}'.format(_string), fg=_color)
+        y += 1    
 
 def print_border(console):
     # Unicode cheat sheet.
