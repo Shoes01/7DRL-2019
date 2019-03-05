@@ -42,6 +42,7 @@ def attack(attacker, defender, entities, game_map):
     ' Infer damage values. '
     ATK_value = calculate_profile_number(attacker, profile.get('ATK'))
     MAG_value = calculate_profile_number(attacker, profile.get('MAG'))
+    SPD_value_attacker = calculate_profile_number(attacker, profile.get('SPD'))
 
     ### DEFENDER CALCULATIONS
     ' Do the same for the defender. '
@@ -65,6 +66,7 @@ def attack(attacker, defender, entities, game_map):
     ' Infer defensive values. '
     DEF_value = calculate_profile_number(defender, profile.get('DEF'))
     RES_value = calculate_profile_number(defender, profile.get('RES'))
+    SPD_value_defender = calculate_profile_number(defender, profile.get('SPD'))
     
     ### DAMAGE CALCULATIONS
     ' Calculate the damage. '
@@ -78,6 +80,11 @@ def attack(attacker, defender, entities, game_map):
     
     damage = ATK_damage + MAG_damage
 
+    doubled = False
+    if SPD_value_attacker > SPD_value_defender + 5:
+        damage = damage * 2
+        doubled = True
+
     ### DAMAGE APPLICATIONS
     defender.health.points -= damage
 
@@ -87,26 +94,38 @@ def attack(attacker, defender, entities, game_map):
             _message = 'You hit the {0}, but do no damage!'.format(defender.base.name)
             _color = COLORS['message_very_bad']
             turn_results.append({'message': (_message, _color)})
-        else:
+        elif doubled == False:
             _message = 'You hit the {0}, dealing {1} ATK and {2} MAG ({3} total damage).'.format(defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
             _color = COLORS['message_good']
+            turn_results.append({'message': (_message, _color)})
+        elif doubled == True:
+            _message = 'You hit the {0} twice, dealing {1} ATK and {2} MAG ({3} total damage)!'.format(defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_very_good']
             turn_results.append({'message': (_message, _color)})
     elif defender.base.name == 'player':
         if damage == 0:
             _message = 'The {0} hits you, but you take no damage!'.format(attacker.base.name)
             _color = COLORS['message_very_good']
             turn_results.append({'message': (_message, _color)})
-        else:
+        elif doubled == False:
             _message = 'The {0} hits you, dealing {1} ATK and {2} MAG ({3} total damage).'.format(attacker.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
             _color = COLORS['message_bad']
+            turn_results.append({'message': (_message, _color)})
+        elif doubled == True:
+            _message = 'The {0} hits you twice, dealing {1} ATK and {2} MAG ({3} total damage)!'.format(attacker.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_very_bad']
             turn_results.append({'message': (_message, _color)})
     else:
         if damage == 0:
             _message = 'The {0} hits the {1}, but does no damage.'.format(attacker.base.name, defender.base.name)
             _color = COLORS['message_ok']
             turn_results.append({'message': (_message, _color)})
-        else:
+        elif doubled == False:
             _message = 'The {0} hits the {1}, dealing {2} ATK and {3} MAG ({4} total damage).'.format(attacker.base.name, defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_ok']
+            turn_results.append({'message': (_message, _color)})
+        elif doubled == True:
+            _message = 'The {0} hits the {1} twice, dealing {2} ATK and {3} MAG ({4} total damage).'.format(attacker.base.name, defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
             _color = COLORS['message_ok']
             turn_results.append({'message': (_message, _color)})
     
