@@ -34,7 +34,7 @@ def attack(attacker, defender, entities):
         if attacker.body.main_hand:
             profile = attacker.body.main_hand.equip.profile
         else:
-            profile = example_profile
+            profile = example_profile.copy()
             profile['ATK']['ATK'] = 0.5
             profile['MAG']['MAG'] = 0.5
 
@@ -57,7 +57,7 @@ def attack(attacker, defender, entities):
         if defender.body.torso:
             profile = defender.body.torso.equip.profile
         else:
-            profile = example_profile
+            profile = example_profile.copy()
             profile['DEF']['DEF'] = 0.5
             profile['RES']['RES'] = 0.5
 

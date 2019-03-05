@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from components.base import RenderOrder
+from components.body import Bodyparts
 from game import COLORS, MAP
 
 def render_compare_items(consoles, entities, player):
@@ -45,16 +46,39 @@ def print_column(console, item, left):
     if not left:
         right = MAP.W // 2
 
-    profile = item.equip.profile
+    # Title
+    console.print(1 + right, 1, 'Equipped item\n  ' + item.base.name)
+    
+    # Offensive items!
+    if item.equip.slot == Bodyparts.MainHand.name:
+        # Sub title 1
+        console.print(1 + right, 5, '--- Bump Attack ---\n  ATK profile')
 
-    string_1 = 'Equipped item\n  ' + item.base.name
+        # Bump profiles
+        profile = item.equip.profile
+        print_stats(console, profile['ATK'], 1 + right, 7)
 
-    string_2 = '--- Bump Attack ---\n  ATK profile'
-    string_3 = '    ATK x ' + str(profile.get('ATK').get('ATK'))
+        console.print(1 + right, 14, '  MAG profile')
+        print_stats(console, profile['DEF'], 1 + right, 15)
 
-    console.print(1 + right, 1, string_1)
-    console.print(1 + right, 5, string_2)
-    console.print(1 + right, 7, string_3)
+        # Skill profiles
+        console.print(1 + right, 22, '--- Skill Attack ---\n  ATK profile')
+        profile = item.skill.profile
+        print_stats(console, profile['ATK'], 1 + right, 24)
+
+        console.print(1 + right, 14, '  MAG profile')
+        print_stats(console, profile['DEF'], 1 + right, 32)
+
+
+def print_stats(console, profile, x, y):
+    dy = 0
+    for name, value in profile.items():
+        string = '   ' + name + ' x ' + str(value)
+        if name is 'HP':
+            string = '   ' + name + '  x ' + str(value) # One extra space
+        console.print(x, y + dy, string)
+        dy += 1
+    
 
 def print_border(console):
     # Unicode cheat sheet.

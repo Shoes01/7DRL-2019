@@ -76,8 +76,8 @@ def create_monster(name):
         _inv = Inventory()
         _job = Job.PALADIN
         _pos = Position()
-        _race = Race.HUMAN
-        _soul = Soul(eccentricity=3, rank=8)
+        _race = Race.DEBUG
+        _soul = Soul(eccentricity=5, rank=10)
         _status = Status()
 
         monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
@@ -110,12 +110,14 @@ def create_item(name):
     if name == 'sword':
         _base = Base(name='sword', char=')', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
-        _profile = example_profile
+        _profile = {}
+        _profile = example_profile.copy()
         _profile['ATK']['ATK'] = 1.2
         
         _equip = Equippable(slot=Bodyparts.MainHand.name, profile=_profile)
 
-        _profile = example_profile
+        _profile = {}
+        _profile = example_profile.copy()
         _profile['ATK']['ATK'] = 1.6
         _profile['ATK']['MAG'] = 0.2
 
@@ -129,7 +131,8 @@ def create_item(name):
     elif name == 'chainmail':
         _base = Base(name='chainmail', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)
         
-        _profile = example_profile
+        _profile = {}
+        _profile = example_profile.copy()
         _profile['DEF']['DEF'] = 1.5
         _profile['RES']['RES'] = 0.5
 
@@ -140,7 +143,8 @@ def create_item(name):
         _base = Base(name='shield', char='[', color=libtcod.dark_grey, render_order=RenderOrder.ITEM)        
         _equip = Equippable(slot=Bodyparts.OffHand.name)
 
-        _profile = example_profile
+        _profile = {}
+        _profile = example_profile.copy()
         _profile['ATK']['DEF'] = 2.0
 
         _skill = Skill(cooldown=5, name='bash', nature='direct', profile=_profile)

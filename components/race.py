@@ -8,3 +8,4 @@ class Race(Enum):
     HUMAN =     {'bonus': 7,    'char': 'H', 'name': 'human'}
     ORC =       {'bonus': 9,    'char': 'O', 'name': 'orc'}
     TROLL =     {'bonus': 12,   'char': 'T', 'name': 'troll'}
+    DEBUG =     {'bonus': 60,   'char': 'S', 'name': 'shoes'}
