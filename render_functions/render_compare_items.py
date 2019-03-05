@@ -1,7 +1,9 @@
+import numpy as np
 import tcod as libtcod
 
 from components.base import RenderOrder
 from components.body import Bodyparts
+from systems.skill import generate_targeting_array
 from game import COLORS, MAP
 
 def render_compare_items(consoles, entities, player):
@@ -47,7 +49,10 @@ def print_column(console, item, left):
         right = MAP.W // 2
 
     # Title
-    console.print(2 + right, 2, 'Equipped item\n  ' + item.base.name.capitalize())
+    if left:
+        console.print(2 + right, 2, 'Equipped item\n  ' + item.base.name.capitalize())
+    if right:
+        console.print(2 + right, 2, 'New item\n  ' + item.base.name.capitalize())
     
     # Main hand items!
     if item.equip.slot == Bodyparts.MainHand.name:
@@ -56,7 +61,7 @@ def print_column(console, item, left):
 
         # Bump profiles
         profile = item.equip.profile
-        print_stats(console, profile['ATK'], 2 + right, 7)
+        print_stats(console, profile['ATK'], 2 + right, 8)
 
         console.print(2 + right, 15, '  MAG profile')
         print_stats(console, profile['DEF'], 2 + right, 16)
@@ -69,6 +74,11 @@ def print_column(console, item, left):
         console.print(2 + right, 32, '  MAG profile')
         print_stats(console, profile['DEF'], 2 + right, 33)
 
+        # Skill targeting array
+        print_skill(console, item.skill, 28 + right, 6)
+
+        # Start at the top corner. (28, 6)?
+
     # Torso items!
     if item.equip.slot == Bodyparts.Torso.name:
         # Sub title 1
@@ -76,7 +86,7 @@ def print_column(console, item, left):
 
         # Bump profiles
         profile = item.equip.profile
-        print_stats(console, profile['DEF'], 2 + right, 7)
+        print_stats(console, profile['DEF'], 2 + right, 8)
 
         console.print(2 + right, 15, '  RES profile')
         print_stats(console, profile['RES'], 2 + right, 16)
@@ -98,6 +108,37 @@ def print_column(console, item, left):
 
         console.print(2 + right, 32, '  RES profile')
         print_stats(console, profile['RES'], 2 + right, 33)
+
+def print_skill(console, skill, x, y):
+    array = np.zeros((skill.array_size, skill.array_size), int, 'F')
+
+    array += skill.template_E
+    array += np.rot90(skill.template_E)
+    array += np.rot90(np.rot90(skill.template_E))
+    array += np.rot90(np.rot90(np.rot90(skill.template_E)))
+    array += skill.template_NE
+    array += np.rot90(skill.template_NE)
+    array += np.rot90(np.rot90(skill.template_NE))
+    array += np.rot90(np.rot90(np.rot90(skill.template_NE)))
+
+    for (dx, dy), value in np.ndenumerate(array):
+        _bg_color = libtcod.light_red
+        _char = ' '
+        if value == 0:
+            continue
+        elif 1 < value < 3:
+            _bg_color = libtcod.red
+        elif value % 17 == 0:
+            _bg_color = libtcod.light_pink
+        elif value % 19 == 0:
+            _char = '@'
+            _bg_color = libtcod.green
+        elif value % 23 == 0:
+            _bg_color = libtcod.pink
+        elif value % 29 == 0:
+            _bg_color = libtcod.blue
+
+        console.print(x + dx, y + dy, _char, fg=libtcod.white, bg=_bg_color)
 
 def print_stats(console, profile, x, y):
     dy = 0
