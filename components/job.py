@@ -1,5 +1,6 @@
 import tcod as libtcod
 
+from components.race import Race
 from enum import Enum
 
 _brown = (160, 82, 45)
@@ -9,3 +10,10 @@ class Job(Enum):
     NINJA =     {'stats': ('SPD', 'ATK', 'MAG', 'RES', 'HP', 'DEF'), 'color': libtcod.blue,     'name': 'ninja'}
     PALADIN =   {'stats': ('RES', 'HP', 'ATK', 'DEF', 'MAG', 'SPD'), 'color': libtcod.red,      'name': 'paladin'}
     PHALANX =   {'stats': ('DEF', 'HP', 'RES', 'ATK', 'SPD', 'MAG'), 'color': _brown,           'name': 'phalanx'}
+    WARRIOR =   {'stats': ('DEF', 'HP', 'ATK', 'SPD', 'RES', 'MAG'), 'color': libtcod.green,    'name': 'warrior'}
+
+def pick_job(race):
+    if race == Race.GOBLIN:
+        return Job.WARRIOR
+    if race == Race.ORC:
+        return Job.WARRIOR

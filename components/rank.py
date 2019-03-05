@@ -2,12 +2,12 @@ from enum import Enum
 from random import randint
 
 class Rank(Enum):
-    ZOMBIE = -3
-    HUSK = -1
-    THURLL = 0
-    SOLDIER = 3
-    HERO = 6
-    CHAMPION = 10
+    ZOMBIE = {'name': 'zombie', 'rank': -3}
+    HUSK = {'name': 'husk', 'rank': -1}
+    THURLL = {'name': 'thrull', 'rank': 0}
+    SOLDIER = {'name': 'soldier', 'rank': 3}
+    HERO = {'name': 'hero', 'rank': 6}
+    CHAMPION = {'name': 'champion', 'rank': 10}
 
 def pick_rank(difficulty=0):
     choice = randint(1, 100)

@@ -14,7 +14,7 @@ def generate_soul(eccentricity, rank):
     while attempts < 100:
         with np.nditer(soul_attempt, op_flags=['readwrite']) as it:
             for x in it:
-                x[...] = random.randint(-eccentricity, eccentricity)
+                x[...] = random.randint(-eccentricity + rank // 2, eccentricity + rank // 2)
         
         if soul_attempt.sum() == rank:
             return soul_attempt

@@ -7,7 +7,7 @@ from components.body import Body, Bodyparts
 from components.equippable import Equippable, example_profile
 from components.health import Health
 from components.inventory import Inventory
-from components.job import Job
+from components.job import Job, pick_job
 from components.pos import Position
 from components.race import Race, pick_race
 from components.rank import Rank, pick_rank
@@ -71,7 +71,7 @@ def create_soul(entity):
 
     return soul_item
 
-def create_monster(name, difficulty=0):
+def create_monster(name):
     if name == 'player':
         _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
         _body = Body()
@@ -79,30 +79,11 @@ def create_monster(name, difficulty=0):
         _inv = Inventory()
         _job = Job.PALADIN
         _pos = Position()
-        _race = Race.DEBUG # Players will be HUMAN...
+        _race = Race.HUMAN
         _soul = Soul(eccentricity=5, rank=10)
         _status = Status()
 
         monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
-        monster.health.points = monster.health.max
-
-    elif name == 'zombie':
-        _ai = AI(brain=BRAIN.ZOMBIE)
-        _body = Body()
-        _health = Health()
-        _job = random.choice(list(Job))
-        _pos = Position()
-        _race = random.choice(list(Race))
-        _soul = Soul(eccentricity=3, rank=-1)
-        _status = Status()
-
-        _name = 'Zombie' + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
-        _color = _job.value['color']
-        _char = _race.value['char']
-
-        _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
-
-        monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
         monster.health.points = monster.health.max
 
     return monster
@@ -110,17 +91,25 @@ def create_monster(name, difficulty=0):
 def create_monster_(difficulty):
     _rank = pick_rank(difficulty)
     _race = pick_race(difficulty)
-    _job = random.choice(list(Job)) # Monsters might not have jobs....
+    _job = pick_job(_race)
 
     _ai = AI(brain=BRAIN.ZOMBIE)
     _body = Body()
     _health = Health()
     _pos = Position()
-    _soul = Soul(eccentricity=3, rank=_rank.value)
+    _soul = Soul(eccentricity=_race.value['eccentricity'], rank=_rank.value['rank'])
     _status = Status()
 
+    _name = str(_rank.value['name']).capitalize() + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
+    _color = _job.value['color']
+    _char = _race.value['char']
 
+    _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
 
+    monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
+    monster.health.points = monster.health.max
+
+    return monster
 
 def create_item(name):
     _pos = Position()

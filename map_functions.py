@@ -2,7 +2,7 @@ import numpy as np
 import random
 import tcod as libtcod
 
-from systems.factory import create_monster
+from systems.factory import create_monster_
 
 class GameMap:
     def __init__(self, width, height):
@@ -96,7 +96,7 @@ class GameMap:
             number_of_monsters = size // 5  # This controls monster density
 
             while number_of_monsters > 0:
-                monster = create_monster('zombie')
+                monster = create_monster_(difficulty=0)
 
                 x = random.randint(room.x, room.x + room.w - 1)
                 y = random.randint(room.y, room.y + room.h - 1)
