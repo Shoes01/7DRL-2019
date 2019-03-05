@@ -79,6 +79,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             # Do not merge souls.
             event_queue.append('done_consuming')
 
+    elif _game_state == 'CharacterSheet':
+        if _interact:
+            event_queue.append('close_character_sheet')
+
     # Handle the enemy turn.
     elif _game_state == 'EnemyTurn':
         # Each entity gets to take a turn.

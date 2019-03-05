@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from game import COLORS, INFO, ITEMMENU, MAP, LOG, ROOT
+from render_functions.character_sheet import render_character_sheet
 from render_functions.render_compare_items import render_compare_items
 from render_functions.render_consume_soul import render_consume_soul
 from render_functions.render_item_description import render_item_description
@@ -29,6 +30,9 @@ def render_all(action, consoles, entities, fov_map, game, game_map, game_state_m
     
     if _game_state == 'ConsumeSoul':
         render_consume_soul(consoles, entities, player)
+    
+    if _game_state == 'CharacterSheet':
+        render_character_sheet(consoles, player)
 
     if game.debug_mode == True:
         get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse)

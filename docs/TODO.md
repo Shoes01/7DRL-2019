@@ -2,9 +2,6 @@
 
 # GUI
 
-Show total damage output for bump attacks.
-What to do with the Inventroy screen? Probably change that to show body parts and what is equipped...
-Show soul number.
 Improve compare screen
 Improve soul consumption screen... show how it will affect stats
 

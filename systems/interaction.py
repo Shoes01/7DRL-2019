@@ -1,5 +1,3 @@
-import tcod as libtcod
-
 from components.base import RenderOrder
 from systems.equip import equip_
 
@@ -25,6 +23,6 @@ def interact(entities, event_queue, player):
                 event_queue.append('consume_soul')
                 break
     else:
-        turn_results.append({'message': ('There is nothing here.', libtcod.light_grey)})
+        event_queue.append('open_character_sheet')
 
     return turn_results

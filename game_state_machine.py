@@ -39,6 +39,8 @@ class PlayerTurn(State):
             return CompareItems()
         elif event == 'consume_soul':
             return ConsumeSoul()
+        elif event == 'open_character_sheet':
+            return CharacterSheet()
         return self
 
 class Exit(State):
@@ -82,6 +84,14 @@ class ConsumeSoul(State):
         if event == 'exit':
             return Exit()
         elif event == 'done_consuming':
+            return PlayerTurn()
+        return self
+
+class CharacterSheet(State):
+    def on_event(self, event):
+        if event == 'exit':
+            return Exit()
+        elif event == 'close_character_sheet':
             return PlayerTurn()
         return self
 
