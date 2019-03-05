@@ -89,22 +89,24 @@ def clear(console_map, entity):
 
 def highlight_tiles(console_map, tiles_to_highlight, xo, yo):
     for (x, y), value in np.ndenumerate(tiles_to_highlight):
-        if value == 1:
+        if value and value % 37 == 0:
+            # Deals damage
             console_map.print(xo + x, yo + y, " ", bg=libtcod.light_red, bg_blend=libtcod.BKGND_SET)
-        elif 1 < value <= 3:
-            console_map.print(xo + x, yo + y, " ", bg=libtcod.red, bg_blend=libtcod.BKGND_SET)
-        elif value and value % 17 == 0:
+        if value and value % 17 == 0:
             # This is where the player must path through.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.light_pink, bg_blend=libtcod.BKGND_SET)
-        elif value and value % 19 == 0:
+        if value and value % 19 == 0:
             # This is where the player is standing.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.green, bg_blend=libtcod.BKGND_SET)
-        elif value and value % 23 == 0:
+        if value and value % 23 == 0:
             # This is where the player ends up.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.pink, bg_blend=libtcod.BKGND_SET)
-        elif value and value % 29 == 0:
+        if value and value % 29 == 0:
             # This is where the player knocks back enemies.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.light_blue, bg_blend=libtcod.BKGND_SET)
+        if value and value & 31 == 0:
+            # Buff
+            console_map.print(xo + x, yo + y, " ", bg=libtcod.red, bg_blend=libtcod.BKGND_SET)
 
 def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
     return ((num == 0) and numerals[0]) or (baseN(num // b, b, numerals).lstrip(numerals[0]) + numerals[num % b])

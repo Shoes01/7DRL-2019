@@ -267,7 +267,7 @@ def create_head_item(name, material):
     if name == 'cap':
         _base = Base(name=_name, char=u'\u207F', color=_color, render_order=RenderOrder.ITEM)
         _equip = Equippable(slot=Bodyparts.Head.name)
-        _skill = Skill()
+        _skill = Skill(cooldown=10, name='healing buff', nature='direct')
 
     return _base, _equip, _skill
 

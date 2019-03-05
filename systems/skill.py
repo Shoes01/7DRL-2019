@@ -120,13 +120,14 @@ def execute_skill(direction, entities, event_queue, game_map, player):
             entity = tile_occupied(entities, xo + x, yo + y)
             if value and value % 19 == 0:
                 # This is a special value that represents where the player is sitting.
-                continue
-            elif value and value % 23 == 0:
+                pass
+            if value and value % 23 == 0:
                 # This is a special value that represents where the player will land.
                 player.pos.x += x - center
                 player.pos.y += y - center
             
-            elif value and value % 29 == 0 and entity:
+            if value and value % 29 == 0 and entity:
+                # This represents a knockback value
                 dx = (xo + x) - player.pos.x
                 dy = (yo + y) - player.pos.y
                 
@@ -140,7 +141,13 @@ def execute_skill(direction, entities, event_queue, game_map, player):
 
                 turn_results.extend(push(d_move, entity, entities, force, game_map))
 
-            elif value:
+            if value and value % 31 == 0 and entity:
+                # This grants a healing buff
+                entity.status.healing = skill.duration
+                entity.status.healing_power = skill.power
+
+            if value and value % 37 == 0:
+                # This damages units.
                 if skill.nature == 'direct':
                     _path_unblocked = path_unblocked(game_map, player.pos.x, player.pos.y, xo + x, yo + y)
 
