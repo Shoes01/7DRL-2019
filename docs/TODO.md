@@ -1,14 +1,8 @@
 ##### TODO ######
 
-# POLSIH
+# POLISH
 
-The skills selection thing isn't exactly right...
-And a few characters seem poor choices
-
-
-
-
-
+Improve combat log
 
 # MONSTERS
 

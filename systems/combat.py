@@ -1,6 +1,7 @@
 import tcod as libtcod
 
 from components.equippable import example_profile
+from game import COLORS
 from systems.death import kill
 from systems.progression import gain_exp
 from systems.stats import get_stats
@@ -78,18 +79,42 @@ def attack(attacker, defender, entities, game_map):
     damage = ATK_damage + MAG_damage
 
     ### DAMAGE APPLICATIONS
-    if damage <= 0:
-        damage = 0
-        _message = 'The {0} hits the {1}, but they take no damage!'.format(attacker.base.name.capitalize(), defender.base.name.capitalize())
-        _color = libtcod.light_yellow
-        turn_results.append({'message': (_message, _color)})
-    else:
-        defender.health.points -= damage
-        turn_results.append({'message': ('The {0} hits the {1}. (ATK: {2}; MAG: {3}).'.format(attacker.base.name.capitalize(), defender.base.name.capitalize(), ATK_damage, MAG_damage), libtcod.yellow)})
+    defender.health.points -= damage
 
-    if defender.health.points <= 0:
-        turn_results.extend(kill(defender, entities, game_map))
+    ### CREATE MESSAGE
+    if attacker.base.name == 'player':
+        if damage == 0:
+            _message = 'You hit the {0}, but do no damage!'.format(defender.base.name)
+            _color = COLORS['message_very_bad']
+            turn_results.append({'message': (_message, _color)})
+        else:
+            _message = 'You hit the {0}, dealing {1} ATK and {2} MAG ({3} total damage).'.format(defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_good']
+            turn_results.append({'message': (_message, _color)})
+    elif defender.base.name == 'player':
+        if damage == 0:
+            _message = 'The {0} hits you, but you take no damage!'.format(attacker.base.name)
+            _color = COLORS['message_very_good']
+            turn_results.append({'message': (_message, _color)})
+        else:
+            _message = 'The {0} hits you, dealing {1} ATK and {2} MAG ({3} total damage).'.format(attacker.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_bad']
+            turn_results.append({'message': (_message, _color)})
+    else:
+        if damage == 0:
+            _message = 'The {0} hits the {1}, but does no damage.'.format(attacker.base.name, defender.base.name)
+            _color = COLORS['message_ok']
+            turn_results.append({'message': (_message, _color)})
+        else:
+            _message = 'The {0} hits the {1}, dealing {2} ATK and {3} MAG ({4} total damage).'.format(attacker.base.name, defender.base.name, ATK_damage, MAG_damage, ATK_damage+MAG_damage)
+            _color = COLORS['message_ok']
+            turn_results.append({'message': (_message, _color)})
     
+    if defender.health.points <= 0:
+        _death_message = kill(defender, entities, game_map)
+        _death_message.extend(turn_results)
+        turn_results = _death_message
+
     return turn_results
 
 def calculate_profile_number(entity, profile):

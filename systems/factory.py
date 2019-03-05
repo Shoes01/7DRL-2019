@@ -128,7 +128,7 @@ material_dict = {
     'leather':  (0.1, libtcod.sepia),
     'copper':   (0.2, libtcod.brass),
     'iron':     (0.5, libtcod.dark_grey),
-    'steel':    (1.0, libtcod.silver),
+    'steel':    (1.0, libtcod.lighter_grey),
     'quartz':   (0.0, (221, 221, 223)),
     'hematite': (0.0, libtcod.darker_crimson)
 }
@@ -195,7 +195,7 @@ def create_torso_item(name, material):
     _base, _equip, _skill = None, None, None
 
     if name == 'chain mail':
-        _base = Base(name=name, char=u'\u2591', color=_color, render_order=RenderOrder.ITEM)
+        _base = Base(name=name, char=u'\u2593', color=_color, render_order=RenderOrder.ITEM)
 
         _profile = {}
         _profile = example_profile()
@@ -207,7 +207,7 @@ def create_torso_item(name, material):
         _skill = Skill()
     
     if name == 'plate mail':
-        _base = Base(name=name, char=u'\u2593', color=_color, render_order=RenderOrder.ITEM)
+        _base = Base(name=name, char=u'\u2588', color=_color, render_order=RenderOrder.ITEM)
 
         _profile = {}
         _profile = example_profile()
@@ -226,13 +226,13 @@ def create_offhand_item(name, material):
     _base, _equip, _skill = None, None, None
 
     if name == 'buckler':
-        _base = Base(name=name, char=u'\u03A6', color=_color, render_order=RenderOrder.ITEM)
+        _base = Base(name=name, char=u'\u03C3', color=_color, render_order=RenderOrder.ITEM)
         _equip = Equippable(slot=Bodyparts.OffHand.name)
         _skill = Skill(cooldown=5, name='bash', nature='direct')
         _skill.knockback_force = 2
 
     if name == 'shield':
-        _base = Base(name=name, char=u'\u13A6', color=_color, render_order=RenderOrder.ITEM)
+        _base = Base(name=name, char=u'\u0398', color=_color, render_order=RenderOrder.ITEM)
         _equip = Equippable(slot=Bodyparts.OffHand.name)
         _skill = Skill(cooldown=5, name='bash', nature='direct')
         _skill.knockback_force = 4
