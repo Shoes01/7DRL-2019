@@ -19,55 +19,39 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'status_stunned': libtcod.purple}
 FOV_RADIUS = 18
 GAME_TITLE = '7DRL 2019'
+
 ' Console constants. '
 Console = namedtuple('Console', ['X', 'Y', 'W', 'H'])
-_vertical_hud_width = 32
-_horizontal_hud_height = 8
+
 ROOT = Console(
     X=0, 
     Y=0, 
     W=100, 
     H=60)
+
 MAP = Console(
-    X=_vertical_hud_width + 2, 
+    X=0, 
     Y=0, 
-    W=66,
-    H=50)
-MENU = Console(
-    X=_vertical_hud_width + 2,
-    Y=10,           
-    W=66,
-    H=31)
+    W=100,
+    H=42)
+
+LOG = Console(
+    X=16, 
+    Y=43,
+    W=83,
+    H=16)
+
 INFO = Console(
     X=1, 
-    Y=1,
-    W= _vertical_hud_width,
-    H=14)
-INVENTORY = Console(
-    X=1,
-    Y=16,
-    W= _vertical_hud_width,
-    H=19)
-MONSTERS = Console(
-    X=1,
-    Y=36,
-    W= _vertical_hud_width,
-    H=14)
-MESSAGE = Console(
-    X=41,
-    Y=51,
-    W=58,
-    H= _horizontal_hud_height)
-ITEMDESC = Console(
-    X=14,
-    Y=51,
-    W=26,
-    H= _horizontal_hud_height)
+    Y=43,
+    W=14,
+    H=7)
+
 ITEMMENU = Console(
     X=1,
     Y=51,
-    W=12,
-    H= _horizontal_hud_height)
+    W=14,
+    H=8)
 
 def initialize_new_game():
     # Create player entity.
@@ -82,19 +66,15 @@ def initialize_new_game():
     consoles = {}
     consoles['root'] = libtcod.console_init_root(ROOT.W, ROOT.H, title=GAME_TITLE, order='F')
     consoles['map'] = libtcod.console.Console(MAP.W, MAP.H, order='F')
-    consoles['menu'] = libtcod.console.Console(MENU.W, MENU.H, order='F')
-    consoles['message_log'] = libtcod.console.Console(MESSAGE.W, MESSAGE.H, order='F')
+    consoles['log'] = libtcod.console.Console(LOG.W, LOG.H, order='F')
     consoles['info'] = libtcod.console.Console(INFO.W, INFO.H, order='F')
-    consoles['inventory'] = libtcod.console.Console(INVENTORY.W, INVENTORY.H, order='F')
-    consoles['monsters'] = libtcod.console.Console(MONSTERS.W, MONSTERS.H, order='F')
-    consoles['item_description'] = libtcod.console.Console(ITEMDESC.W, ITEMDESC.H, order='F')
     consoles['item_menu'] = libtcod.console.Console(ITEMMENU.W, ITEMMENU.H, order='F')
 
     # Create other basic functions.
     game = GameThing()
     game_map = GameMap(MAP.W, MAP.H)
     key = libtcod.Key()
-    message_log = MessageLog(MESSAGE.W, MESSAGE.H)
+    message_log = MessageLog(LOG.W, LOG.H)
     mouse = libtcod.Mouse()
 
     # Create a first map.

@@ -4,27 +4,29 @@ from game import COLORS, INFO
 from systems.stats import get_stats
 
 def render_panel(consoles, player):
-    console_panel = consoles['info']
+    console = consoles['info']
     console_root = consoles['root']
     # Reset the console.
-    console_panel.clear()
+    console.clear()
 
     # Print to the console.
     stats = get_stats(player)
 
-    HP = 'HP : {:>3}/{:>3}'.format(str(player.health.points), str(player.health.max)) # TODO: If HP gets moved out of stats, this will need to change too
-    ATK = 'ATK: {:>2}'.format(str(stats.get('ATK')))
-    DEF = 'DEF: {:>2}'.format(str(stats.get('DEF')))
-    MAG = 'MAG: {:>2}'.format(str(stats.get('MAG')))
-    RES = 'RES: {:>2}'.format(str(stats.get('RES')))
-    SPD = 'SPD: {:>2}'.format(str(stats.get('SPD')))
+    HP = 'HP :{:>3}/{:>3}'.format(str(player.health.points), str(player.health.max))
+    SPD = 'SPD:{:>2}'.format(str(stats.get('SPD')))
+    ATK = 'ATK:{:>2}'.format(str(stats.get('ATK')))
+    DEF = 'DEF:{:>2}'.format(str(stats.get('DEF')))
+    MAG = 'MAG:{:>2}'.format(str(stats.get('MAG')))
+    RES = 'RES:{:>2}'.format(str(stats.get('RES')))
 
-    console_panel.print(0, 3, HP , fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 4, ATK, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 5, DEF, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 6, MAG, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 7, RES, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
-    console_panel.print(0, 8, SPD, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(0, 1, HP , fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(0, 3, SPD, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(0, 4, ATK, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(7, 4, DEF, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(0, 5, MAG, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    console.print(7, 5, RES, fg=COLORS['hud_text'], bg=libtcod.black, bg_blend=libtcod.BKGND_NONE, alignment=libtcod.LEFT)
+    
 
     # Send to console.
-    console_panel.blit(dest=console_root, dest_x=INFO.X, dest_y=INFO.Y, width=INFO.W, height=INFO.H)
+    # console.clear(ch=5, fg=libtcod.red, bg=libtcod.red) # DEBUG code.
+    console.blit(dest=console_root, dest_x=INFO.X, dest_y=INFO.Y, width=INFO.W, height=INFO.H)

@@ -29,9 +29,9 @@ def render_item_menu(consoles, player):
         if player.body.ring_finger.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.ring_finger.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(1, 2, _string, fg=_color)
-    draw_box(_color, console, 0, 0)
-    console.print(1, 1, 'Q', fg=_color)
+            console.print(2, 2, _string, fg=_color)
+    draw_box(_color, console, 1, 0)
+    console.print(2, 1, 'Q', fg=_color)
 
     ' Print the W square. '
     _color = libtcod.grey
@@ -43,9 +43,9 @@ def render_item_menu(consoles, player):
         if player.body.head.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.head.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(5, 2, _string, fg=_color)
-    draw_box(_color, console, 4, 0)
-    console.print(5, 1, 'W', fg=_color)
+            console.print(6, 2, _string, fg=_color)
+    draw_box(_color, console, 5, 0)
+    console.print(6, 1, 'W', fg=_color)
 
     ' Print the E square. '
     _color = libtcod.grey
@@ -57,9 +57,9 @@ def render_item_menu(consoles, player):
         if player.body.feet.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.feet.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(9, 2, _string, fg=_color)
-    draw_box(_color, console, 8, 0)
-    console.print(9, 1, 'E', fg=_color)
+            console.print(10, 2, _string, fg=_color)
+    draw_box(_color, console, 9, 0)
+    console.print(10, 1, 'E', fg=_color)
 
     ' Print the A square. '
     _color = libtcod.grey
@@ -71,9 +71,9 @@ def render_item_menu(consoles, player):
         if player.body.off_hand.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.off_hand.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(1, 6, _string, fg=_color)
-    draw_box(_color, console, 0, 4)
-    console.print(1, 5, 'A', fg=_color)
+            console.print(2, 6, _string, fg=_color)
+    draw_box(_color, console, 1, 4)
+    console.print(2, 5, 'A', fg=_color)
 
     ' Print the S square. '
     _color = libtcod.grey
@@ -85,9 +85,9 @@ def render_item_menu(consoles, player):
         if player.body.torso.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.torso.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(5, 6, _string, fg=_color)
-    draw_box(_color, console, 4, 4)
-    console.print(5, 5, 'S', fg=_color)
+            console.print(6, 6, _string, fg=_color)
+    draw_box(_color, console, 5, 4)
+    console.print(6, 5, 'S', fg=_color)
 
     ' Print the D square. '
     _color = libtcod.grey
@@ -99,11 +99,17 @@ def render_item_menu(consoles, player):
         if player.body.main_hand.skill.cooldown_timer:
             _string = '{:>2}'.format(player.body.main_hand.skill.cooldown_timer)
             _color = libtcod.light_red
-            console.print(9, 6, _string, fg=_color)
-    draw_box(_color, console, 8, 4)
-    console.print(9, 5, 'D', fg=_color)
+            console.print(10, 6, _string, fg=_color)
+    draw_box(_color, console, 9, 4)
+    console.print(10, 5, 'D', fg=_color)
+
+    ' Print decorative border. '
+    for y in range(ITEMMENU.H):
+        console.print(ITEMMENU.X - 1, y, u'\u2591')
+        console.print(ITEMMENU.X + ITEMMENU.W - 2, y, u'\u2591')
 
     # Send to console.
+    # console.clear(ch=5, fg=libtcod.blue, bg=libtcod.blue) # DEBUG code.
     console.blit(console_root, ITEMMENU.X, ITEMMENU.Y, 0, 0, ITEMMENU.W, ITEMMENU.H)
 
 def draw_box(color, console, x, y):

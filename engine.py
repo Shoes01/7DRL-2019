@@ -4,7 +4,8 @@ import warnings
 
 from game import initialize_new_game
 from input_handlers import handle_keys
-from render_functions.render import render_all, render_borders
+from render_functions.borders import render_borders
+from render_functions.render import render_all
 from systems.update import update
 
 def main():
