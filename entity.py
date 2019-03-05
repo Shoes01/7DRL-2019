@@ -1,5 +1,5 @@
 class Entity:
-    def __init__(self, ai=None, base=None, body=None, equip=None, health=None, inv=None, job=None, pos=None, race=None, skill=None, soul=None, stats=None, status=None):
+    def __init__(self, ai=None, base=None, body=None, equip=None, health=None, inv=None, job=None, pos=None, race=None, rank=None, skill=None, soul=None, stats=None, status=None):
         self.ai = ai
         self.base = base
         self.body = body
@@ -9,6 +9,7 @@ class Entity:
         self.job = job
         self.pos = pos
         self.race = race
+        self.rank = rank
         self.skill = skill
         self.soul = soul
         self.stats = stats
@@ -32,6 +33,8 @@ class Entity:
             self.pos.owner = self
         if self.race:
             self.race.owner = self
+        if self.rank:
+            self.rank.owner = self
         if self.skill:
             self.skill.owner = self
         if self.soul:

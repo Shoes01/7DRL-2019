@@ -9,7 +9,8 @@ from components.health import Health
 from components.inventory import Inventory
 from components.job import Job
 from components.pos import Position
-from components.race import Race
+from components.race import Race, pick_race
+from components.rank import Rank, pick_rank
 from components.skill import Skill
 from components.soul import Soul
 from components.stats import Stats
@@ -40,7 +41,9 @@ item_list = [
     'great helm',
     'hood',
     # Ring finger items
-    'ring',
+    'ruby ring',
+    'sapphire ring',
+    'quartz ring',
     # Feet items
     'greaves',
     'sabatons',
@@ -68,7 +71,7 @@ def create_soul(entity):
 
     return soul_item
 
-def create_monster(name):
+def create_monster(name, difficulty=0):
     if name == 'player':
         _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
         _body = Body()
@@ -76,7 +79,7 @@ def create_monster(name):
         _inv = Inventory()
         _job = Job.PALADIN
         _pos = Position()
-        _race = Race.DEBUG
+        _race = Race.DEBUG # Players will be HUMAN...
         _soul = Soul(eccentricity=5, rank=10)
         _status = Status()
 
@@ -103,6 +106,21 @@ def create_monster(name):
         monster.health.points = monster.health.max
 
     return monster
+
+def create_monster_(difficulty):
+    _rank = pick_rank(difficulty)
+    _race = pick_race(difficulty)
+    _job = random.choice(list(Job)) # Monsters might not have jobs....
+
+    _ai = AI(brain=BRAIN.ZOMBIE)
+    _body = Body()
+    _health = Health()
+    _pos = Position()
+    _soul = Soul(eccentricity=3, rank=_rank.value)
+    _status = Status()
+
+
+
 
 def create_item(name):
     _pos = Position()
