@@ -10,17 +10,21 @@ def generate_soul(eccentricity, rank):
 
     if eccentricity * 6 < rank:
         print('WARNING: This could is impossible to make.')
+        eccentricity += 2
 
-    while attempts < 100:
+    while attempts < 400:
         with np.nditer(soul_attempt, op_flags=['readwrite']) as it:
             for x in it:
-                x[...] = random.randint(-eccentricity + rank // 2, eccentricity + rank // 2)
+                x[...] = random.randint(-eccentricity, eccentricity)
         
         if soul_attempt.sum() == rank:
             return soul_attempt
 
         attempts += 1
+        if attempts > 300:
+            rank = 3 * rank // 4
     
+    print('Soul failed. Rank: {0}. Eccentricity: {1}'.format(rank, eccentricity))
     return np.zeros((2, 3), dtype=int, order='F')
 
 def flip_soul(d_move, entities, player):

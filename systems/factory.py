@@ -125,6 +125,7 @@ def equip_monster(monster):
             equip_(item, monster)            
 
 material_dict = {
+    '': (0.0, (0, 0, 0)),
     'leather':  (0.1, libtcod.sepia),
     'copper':   (0.2, libtcod.brass),
     'iron':     (0.5, libtcod.dark_grey),
