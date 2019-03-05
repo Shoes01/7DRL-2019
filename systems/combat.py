@@ -76,7 +76,7 @@ def attack(attacker, defender, entities):
     ### DAMAGE APPLICATIONS
     if damage <= 0:
         damage = 0
-        _message = 'The {0} takes no damage!'.format(defender.base.name.capitalize())
+        _message = 'The {0} hits the {1}, but they take no damage!'.format(attacker.base.name.capitalize(), defender.base.name.capitalize())
         _color = libtcod.light_yellow
         turn_results.append({'message': (_message, _color)})
     else:
