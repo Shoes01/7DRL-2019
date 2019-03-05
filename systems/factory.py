@@ -101,7 +101,7 @@ def create_monster_(difficulty):
     _status = Status()
 
     _name = str(_rank.value['name']).capitalize() + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
-    _color = _job.value['color']
+    _color = _rank.value['color']
     _char = _race.value['char']
 
     _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)

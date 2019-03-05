@@ -53,7 +53,6 @@ def equip_(entities, item, player):
     elif item.equip.slot == Bodyparts.Feet.name and player.body.feet is None:
         player.body.feet = item
     else:
-        print('fail')
         return False
     
     entities.remove(item)
