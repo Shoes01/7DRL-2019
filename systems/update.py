@@ -52,7 +52,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         
         if _skill_choice:
             _bodypart = _skill_choice
-            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player))
+            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player, _game_state))
 
         if _wait:
             event_queue.append('player_acted')
@@ -137,7 +137,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
 
         if _skill_choice:
             _bodypart = _skill_choice
-            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player))
+            turn_results.extend(skill_choice(_bodypart, event_queue, game_map, player, _game_state))
         
         if _move:
             _direction = _move

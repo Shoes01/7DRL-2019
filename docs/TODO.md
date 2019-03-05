@@ -1,43 +1,9 @@
 ##### TODO ######
 
-# LOOT
+# POLSIH
 
-Create loot generation thing
-Ensure loot does not generate in walls
-
-Monsters have items equipped based on their race and rank.
-When they die, they drop their highest rank loot.
-Their soul also drops.
-
-Possible items:
-MainHand, OffHand, Torso, Head, Feet, RingFinger
-
-__Ranks__
-Zombie
-Husk
-Thrull
-Soldier
-Hero
-Champion
-
-[GOBLIN]
-
-Sword, Copper
-Chain Mail, Copper
-Buckler, Iron
-Cap, Leather
-Low Boots, Steel
-Ring, Quartz
-
-[ORC]
-
-Helm, Copper
-War Hammer, Iron
-Ring, Hematite
-Plate Mail, Iron
-Shield, Steel
-Greaves, Steel
-
+The skills selection thing isn't exactly right...
+And a few characters seem poor choices
 
 
 
@@ -65,3 +31,8 @@ Create more items
 Improve compare screen
 >>> Display skill
 >>> Display legend or whatever...
+
+# FEEDBACK
+
+Somehow display that blows are being delivered
+> Flash the status of every entity?

@@ -34,28 +34,36 @@ def generate_targeting_array(game_map, player, skill):
                     skill.legal_targeting_arrays[direction] = None
                     break
 
-def skill_choice(body_part, event_queue, game_map, player):
+def skill_choice(body_part, event_queue, game_map, player, _game_state):
     turn_results = []
 
     item = player.body.parts[body_part]
+    other_item = None
 
+    for _, value in player.body.parts.items():
+        if value and value.skill and value.skill.selected:
+            other_item = value
+
+    if _game_state == 'TargetingState' and other_item == item:
+        # We clicked the skill again. Cancel targeting.
+        other_item.skill.selected = False
+        event_queue.append('cancel_targeting')
+        return turn_results
+    
+    elif _game_state == 'TargetingState' and other_item != item:
+        other_item.skill.selected = False
+        
     if item and item.skill and item.skill.cooldown_timer == 0:
-        # Unselect the other skill first!
-        for _, other_item in player.body.parts.items():
-            if other_item and other_item.skill and other_item.skill.selected:
-                other_item.skill.selected = False
-                if other_item == item:
-                    return turn_results
-
         item.skill.selected = True
         generate_targeting_array(game_map, player, item.skill)
-        if 'skill_selected' in event_queue:
-            return turn_results
-        event_queue.append('skill_selected')
+        if _game_state == 'PlayerTurn':
+            event_queue.append('skill_selected')
+
     elif item and item.skill and item.skill.cooldown_timer > 0:
         _message = 'This skill is still on cooldown.'
         _color = libtcod.red
         turn_results.append({'message': (_message, _color)})
+
     else:
         _message = 'There is no item equipped in this slot.'
         _color = libtcod.red
@@ -139,7 +147,7 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 if entity and entity is not player and _path_unblocked:
                     _attack = player
                     _defender = entity
-                    turn_results.extend(attack(_attack, _defender, entities))
+                    turn_results.extend(attack(_attack, _defender, entities, game_map))
             
     else:
         _message = "You can't use that here!"

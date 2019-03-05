@@ -5,7 +5,7 @@ from systems.death import kill
 from systems.progression import gain_exp
 from systems.stats import get_stats
 
-def attack(attacker, defender, entities):
+def attack(attacker, defender, entities, game_map):
     turn_results = []
     ### COMBAT RULES
     # Damage is dealt by skills or by main hand items.
@@ -88,7 +88,7 @@ def attack(attacker, defender, entities):
         turn_results.append({'message': ('The {0} hits the {1}. (ATK: {2}; MAG: {3}).'.format(attacker.base.name.capitalize(), defender.base.name.capitalize(), ATK_damage, MAG_damage), libtcod.yellow)})
 
     if defender.health.points <= 0:
-        turn_results.extend(kill(defender, entities))
+        turn_results.extend(kill(defender, entities, game_map))
     
     return turn_results
 

@@ -2,7 +2,7 @@ import random
 
 from map_functions import tile_empty
 
-def drop_loot(entity, entities):
+def drop_loot(entity, entities, game_map):
     turn_results = []
     
     directions = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
@@ -15,7 +15,7 @@ def drop_loot(entity, entities):
     while directions:
         direction = directions.pop()
         
-        if tile_empty(entities, x + direction[0], y + direction[1]):
+        if tile_empty(entities, game_map, x + direction[0], y + direction[1]):
             ### Generate loot
             # Get a list of body parts
             # Shuffle this like
@@ -26,8 +26,6 @@ def drop_loot(entity, entities):
                     item_list.append(item)
 
             random.shuffle(item_list)
-
-            loot = item_list.pop()
 
             if item_list:
                 loot = item_list.pop()

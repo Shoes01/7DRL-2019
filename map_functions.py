@@ -116,9 +116,9 @@ def tile_occupied(entities, x, y):
     else:
         return None
 
-def tile_empty(entities, x, y):
+def tile_empty(entities, game_map, x, y):
     for entity in entities:
-        if x == entity.pos.x and y == entity.pos.y:
+        if (x == entity.pos.x and y == entity.pos.y) or game_map.tiles['blocks_path'][x, y]:
             return False
     
     return True

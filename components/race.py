@@ -2,7 +2,7 @@ from enum import Enum
 from random import randint
 
 class Race(Enum):
-    HUMAN =     {'bonus': 7,    'char': 'H', 'name': 'human',   'eccentricity': 4,  'loadout': []}
+    HUMAN =     {'bonus': 50,    'char': 'H', 'name': 'human',   'eccentricity': 4,  'loadout': []}
 
     GOBLIN =    {'bonus': 3,    'char': 'g', 'name': 'goblin',  'eccentricity': 3,  'loadout': [
         ('sword', 'copper'), ('chain mail', 'copper'), ('buckler', 'iron'), ('cap', 'leather'), ('low boots', 'steel'), ('ring', 'quartz')
