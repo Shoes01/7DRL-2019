@@ -92,6 +92,8 @@ def get_single_targeting_array(direction, player):
         return skill.legal_targeting_arrays['S']
     if direction == (1, 1):
         return skill.legal_targeting_arrays['SE']
+    if direction is True:
+        return skill.legal_targeting_arrays['E']
 
 def cancel_skill(player):
     turn_results = []
@@ -109,18 +111,25 @@ def execute_skill(direction, entities, event_queue, game_map, player):
 
     skill = chosen_skill(player)
 
-    if target_array is not None and skill is not None:
+    if skill is not None and target_array is not None:
         center, _ = target_array.shape
         center = center // 2
         xo, yo = player.pos.x - center, player.pos.y - center
         event_queue.append('player_acted') # Order is important, so that the player may have a chance to level up before the enemy turn.
         skill.cooldown_timer = skill.cooldown
 
+        if direction is True:
+            # We are targeting ourselves.
+            for (x, y), value in np.ndenumerate(target_array):
+                if value and value % 19 == 0:
+                    if value % 37 == 0:
+                        # This grants a healing buff
+                        entity.status.healing = skill.duration
+                        entity.status.healing_power = skill.power
+
         for (x, y), value in np.ndenumerate(target_array):
             entity = tile_occupied(entities, xo + x, yo + y)
-            if value and value % 19 == 0:
-                # This is a special value that represents where the player is sitting.
-                pass
+          
             if value and value % 23 == 0:
                 # This is a special value that represents where the player will land.
                 player.pos.x += x - center

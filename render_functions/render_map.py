@@ -104,7 +104,7 @@ def highlight_tiles(console_map, tiles_to_highlight, xo, yo):
         if value and value % 29 == 0:
             # This is where the player knocks back enemies.
             console_map.print(xo + x, yo + y, " ", bg=libtcod.light_blue, bg_blend=libtcod.BKGND_SET)
-        if value and value & 31 == 0:
+        if value and value % 31 == 0:
             # Buff
             console_map.print(xo + x, yo + y, " ", bg=libtcod.red, bg_blend=libtcod.BKGND_SET)
 

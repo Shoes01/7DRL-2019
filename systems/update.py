@@ -63,7 +63,8 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             turn_results.extend(swap_items(entities, player))
             event_queue.append('done_comparing')
 
-        elif _confirm is False:
+        elif _confirm is False or _exit:
+            _exit = None
             event_queue.append('done_comparing')
 
     elif _game_state == 'ConsumeSoul':
@@ -75,8 +76,9 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
             turn_results.extend(merge_soul(entities, player))
             event_queue.append('done_consuming')
         
-        if _confirm is False:
+        if _confirm is False or _exit:
             # Do not merge souls.
+            _exit = None
             event_queue.append('done_consuming')
 
     elif _game_state == 'CharacterSheet':
@@ -141,6 +143,10 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
         
         if _move:
             _direction = _move
+            turn_results.extend(execute_skill(_direction, entities, event_queue, game_map, player))
+
+        if _wait:
+            _direction = _wait
             turn_results.extend(execute_skill(_direction, entities, event_queue, game_map, player))
 
     # Handle things that may occur at any time.

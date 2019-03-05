@@ -115,7 +115,7 @@ class Skill():
                     [0,  0,  0,  0,  0,  0,  0]]
             )
         elif self.name == 'healing buff':
-            self.description: 'This skill heals the user over a short period of time.'
+            self.description = 'This skill heals the user over a short period of time.'
             self.duration = 5
             self.power = 3
             self.template_E = np.array(

@@ -4,7 +4,7 @@ from random import randint, choice
 class Race(Enum):
     # The player is the only human.
     HUMAN = {
-        'bonus': 50,    
+        'bonus': 10,    
         'char': 'H', 
         'name': 'human',   
         'eccentricity': 4,  
