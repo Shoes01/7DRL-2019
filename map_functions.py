@@ -2,7 +2,7 @@ import numpy as np
 import random
 import tcod as libtcod
 
-from systems.factory import create_monster_
+from systems.factory import create_monster_, create_stairs
 
 class GameMap:
     def __init__(self, width, height):
@@ -11,6 +11,7 @@ class GameMap:
         self.tiles = self.initialize_tiles()
         
         self.rooms = []
+        self.leaf_rooms = []
 
     def initialize_tiles(self):
         # Create a numpy array full of ones.
@@ -20,7 +21,7 @@ class GameMap:
 
         return tiles
 
-    def generate_new_map(self):
+    def generate_new_map(self, entities, player):
         bsp = libtcod.bsp.BSP(x=0, y=0, width=self.width, height=self.height)
         bsp.split_recursive(
             depth=5,
@@ -36,10 +37,16 @@ class GameMap:
                 self.connect_rooms(node1, node2)
             else:
                 self.dig_room(node)
+        
+        self.place_player(player.pos)
+        self.place_stairs(entities)
+        self.place_monsters(entities)
     
     def dig_room(self, node):
         ' Dig out a room in the center. Nothing fancy. '
         self.rooms.append(node)
+        if len(node.children) == 0:
+            self.leaf_rooms.append(node)
         for x in range(node.x + 1, node.x + node.w - 1):
             for y in range(node.y + 1, node.y + node.h - 1):
                 self.tiles[x, y] = False, False, False
@@ -75,22 +82,38 @@ class GameMap:
             for x in range(start + 1, end):
                 self.tiles[x, y1c] = False, False, False
         
-    def place_player(self, game_map, position):
-        room = self.rooms.pop(random.randint(0, len(self.rooms) - 1))
+    def place_player(self, position):
+        room = self.leaf_rooms.pop(random.randint(0, len(self.leaf_rooms) - 1))
+        self.rooms.remove(room)
 
         success = False
         while not success:
             position.x = random.randint(room.x, room.x + room.w - 1)
             position.y = random.randint(room.y, room.y + room.h - 1)
 
-            _, blocks_path, _ = game_map.tiles[position.x, position.y]
+            _, blocks_path, _ = self.tiles[position.x, position.y]
 
             if not blocks_path:
                 success = True
-
-        return position
     
-    def place_monsters(self, entities, game_map):
+    def place_stairs(self, entities):
+        room = self.leaf_rooms.pop(random.randint(0, len(self.leaf_rooms) - 1))
+        self.rooms.remove(room)
+
+        stairs = create_stairs()
+        entities.append(stairs)
+
+        success = False
+        while not success:
+            stairs.pos.x = random.randint(room.x, room.x + room.w - 1)
+            stairs.pos.y = random.randint(room.y, room.y + room.h - 1)
+
+            _, blocks_path, _ = self.tiles[stairs.pos.x, stairs.pos.y]
+
+            if not blocks_path:
+                success = True
+    
+    def place_monsters(self, entities):
         for room in self.rooms:
             size = room.h + room.w
             number_of_monsters = size // 5  # This controls monster density
@@ -102,7 +125,7 @@ class GameMap:
                 y = random.randint(room.y, room.y + room.h - 1)
                 monster.pos.x, monster.pos.y = x, y
 
-                _, blocks_path, _ = game_map.tiles[x, y]
+                _, blocks_path, _ = self.tiles[x, y]
 
                 if not blocks_path and not tile_occupied(entities, x, y):
                     entities.append(monster)

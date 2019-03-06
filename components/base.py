@@ -4,7 +4,8 @@ class RenderOrder(Enum):
     CORPSE = 0
     ITEM = 1
     SOUL = 2
-    ACTOR = 3
+    STAIRS = 3
+    ACTOR = 4
 
 class Base:
     def __init__(self, name, char, color, render_order):

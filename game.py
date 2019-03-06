@@ -84,11 +84,7 @@ def initialize_new_game():
     mouse = libtcod.Mouse()
 
     # Create a first map.
-    game_map.generate_new_map()
-
-    # Place player and monsters.
-    player.pos = game_map.place_player(game_map, player.pos)
-    game_map.place_monsters(entities, game_map)
+    game_map.generate_new_map(entities, player)
 
     # Create fov map.
     fov_map = initialize_fov(game_map)

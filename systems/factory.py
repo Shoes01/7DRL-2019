@@ -57,6 +57,12 @@ item_list = [
     'platemail'
 ]
 
+def create_stairs():
+    _base = Base(name='stairs', char=u'\u2261', color=libtcod.white, render_order=RenderOrder.STAIRS)
+    _pos = Position()
+
+    return Entity(base=_base, pos=_pos)
+
 def create_soul(entity):
     _soul_rank = entity.soul.rank
     _soul_eccentricity = entity.soul.eccentricity
@@ -73,19 +79,18 @@ def create_soul(entity):
     return soul_item
 
 def create_monster(name):
-    if name == 'player':
-        _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
-        _body = Body()
-        _health = Health()
-        _inv = Inventory()
-        _job = Job.PALADIN
-        _pos = Position()
-        _race = Race.HUMAN
-        _soul = Soul(eccentricity=5, rank=10)
-        _status = Status()
+    _base = Base(name='player', char='@', color=libtcod.white, render_order=RenderOrder.ACTOR)
+    _body = Body()
+    _health = Health()
+    _inv = Inventory()
+    _job = Job.PALADIN
+    _pos = Position()
+    _race = Race.HUMAN
+    _soul = Soul(eccentricity=5, rank=10)
+    _status = Status()
 
-        monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
-        monster.health.points = monster.health.max
+    monster = Entity(base=_base, body=_body, health=_health, inv=_inv, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
+    monster.health.points = monster.health.max
 
     return monster
 

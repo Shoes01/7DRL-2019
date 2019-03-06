@@ -2,13 +2,10 @@
 
 #####--------------------------- MVP 0.1.0
 
-# SOULS
-
-Ensure they drop.
-
 # DUNGEON
 
 Have a staircase that gen's another
+>>> Interaction with a staircase uses it
 Track depth
 Increases difficulty with each gen
 Have a bottom depth
