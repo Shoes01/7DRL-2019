@@ -13,6 +13,7 @@ class Skill():
         ' Skill data that changes with use. '
         self.cooldown_timer = 0
         self.selected = False
+        self.direction = None
         
         ' Skill data that is generated from its name. '
         self.description = 'There is no description.'

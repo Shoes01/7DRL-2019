@@ -109,7 +109,13 @@ def execute_skill(direction, entities, event_queue, game_map, player):
 
     target_array = get_single_targeting_array(direction, player)
 
+    _confirmed = False
     skill = chosen_skill(player)
+    if skill.direction == direction:
+        _confirmed = True
+    else:
+        skill.direction = direction
+        return turn_results
 
     if skill is not None and target_array is not None:
         center, _ = target_array.shape
@@ -124,8 +130,8 @@ def execute_skill(direction, entities, event_queue, game_map, player):
                 if value and value % 19 == 0:
                     if value % 37 == 0:
                         # This grants a healing buff
-                        entity.status.healing = skill.duration
-                        entity.status.healing_power = skill.power
+                        player.status.healing = skill.duration
+                        player.status.healing_power = skill.power
 
         for (x, y), value in np.ndenumerate(target_array):
             entity = tile_occupied(entities, xo + x, yo + y)
