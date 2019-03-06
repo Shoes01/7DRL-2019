@@ -1,21 +1,37 @@
 ##### TODO ######
 
-# MONSTERS
+#####--------------------------- MVP 0.1.0
 
-Create a monster generation thing
->>> Monsters are equipped with items in a static fashion
->>> The monster rank informs how many items they have
->>>>> Should these items generate in the same way each time, or random?
+# SKILLS
+
+Do not show all 8 directions. Show only one. Double click to confirm.
+
+# SOULS
+
+Ensure they drop.
 
 # DUNGEON
 
-Create a way to progress through the dungeon
+Have a staircase that gen's another
+Track depth
+Increases difficulty with each gen
+Have a bottom depth
 
-# CONTENT
+# WIN CONDITION
 
-Create more items
+Defeat a special monster
 
-# GUI++
+#####--------------------------- MVP 0.2.0
+
+# STATES
+
+Have a game start state
+Have a game win state
+Have a dead state
+
+#####--------------------------- MVP 0.3.0
+
+# GUI
 
 Improve compare screen
 >>> Display skill
@@ -24,18 +40,32 @@ Improve compare screen
 
 Improve Charachter sheet
 
+Add a message to the log when a player equips or switches an item
+
+Using skills should update the log
+
+#####--------------------------- MVP 0.4.0
+
+# CONTENT
+
+Add more skills
+Add more items
+Add more monsters
+
+#####--------------------------- MVP 0.5.0
+
 # FEEDBACK
 
 Somehow display that blows are being delivered
 > Flash the status of every entity?
-
-Add a message to the log when a player equips or switches an item
 
 Give instructions to the player about the controls
 > Space bar is to "interact" or to stop "interact"ing. 
 > NUM_5 or NUM_ENTER is to confirm interaction
 > NUM_PAD is for movement, NUM_5 for wait
 > QWEASD are for skills
+
+#####--------------------------- MVP 0.6.0
 
 # GUI++++
 
@@ -44,6 +74,14 @@ Character creation screen
 
 After some overkill gibbing :3
 
+#####--------------------------- MVP 0.7.0
+
 # ADDITIONAL MECHANIC???
 
 Charge up attacks... certain skills have a cooldown that only reduce when they kill or hit others
+
+#####--------------------------- MVP 1.0.0
+
+# BALANCE
+
+Make the game fun?

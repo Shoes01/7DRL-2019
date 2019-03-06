@@ -1,6 +1,7 @@
 import random
 
 from map_functions import tile_empty
+from systems.factory import create_soul
 
 def drop_loot(entity, entities, game_map):
     turn_results = []
@@ -11,7 +12,14 @@ def drop_loot(entity, entities, game_map):
 
     x, y = entity.pos.x, entity.pos.y
 
-    loot = None
+    while directions:
+        direction = directions.pop()
+        
+        if tile_empty(entities, game_map, x + direction[0], y + direction[1]):
+            soul_entity = create_soul(entity)
+            entities.append(soul_entity)
+            break
+
     while directions:
         direction = directions.pop()
         
