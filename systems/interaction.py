@@ -1,9 +1,11 @@
 from components.base import RenderOrder
 from systems.equip import equip_
 
-def interact(entities, event_queue, player):
+def interact(entities, event_queue, game_map, player):
     # Look on the ground for an item.
     # Equip it.
+    # Or look for stairs.
+    # Descence them.
 
     turn_results = []
 
@@ -22,6 +24,10 @@ def interact(entities, event_queue, player):
             elif item.base.render_order == RenderOrder.SOUL:
                 event_queue.append('consume_soul')
                 break
+            elif item.base.render_order == RenderOrder.STAIRS:
+                game_map.generate_new_map(entities, player)
+                break
+
     else:
         event_queue.append('open_character_sheet')
 

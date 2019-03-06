@@ -44,7 +44,7 @@ def update(action, entities, event_queue, fov_map, game, game_map, game_state_ma
     if _game_state == 'PlayerTurn':
         # The player may act.
         if _interact:
-            turn_results.extend(interact(entities, event_queue, player))
+            turn_results.extend(interact(entities, event_queue, game_map, player))
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))

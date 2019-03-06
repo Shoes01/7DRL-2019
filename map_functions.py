@@ -2,6 +2,7 @@ import numpy as np
 import random
 import tcod as libtcod
 
+from components.base import RenderOrder
 from systems.factory import create_monster_, create_stairs
 
 class GameMap:
@@ -132,9 +133,15 @@ class GameMap:
 
                 number_of_monsters -= 1
 
+def is_stairs(entities, x, y):
+    for entity in entities:
+        if entity.pos.x == x and entities.pos.y == y and entity.base.render_order is RenderOrder.STAIRS:
+            return True
+    return False
+
 def tile_occupied(entities, x, y):
     for entity in entities:
-        if entity.health and entity.health.points > 0 and x == entity.pos.x and y == entity.pos.y:
+        if entity.health and entity.health.points > 0 and x == entity.pos.x and y == entity.pos.y and entity.base.render_order is not RenderOrder.STAIRS:
             return entity
     else:
         return None
