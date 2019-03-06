@@ -101,6 +101,7 @@ def cancel_skill(player):
     for _, item in player.body.parts.items():
         if item and item.skill:
             item.skill.selected = False
+            item.skill.direction = None
 
     return turn_results
 

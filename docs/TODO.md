@@ -2,12 +2,6 @@
 
 #####--------------------------- MVP 0.1.0
 
-# SKILLS
-
-Do not show all 8 directions. Show only one. Double click to confirm.
-> Click once to draw that direction
-> Click again to confirm
-
 # SOULS
 
 Ensure they drop.

@@ -11,12 +11,13 @@ def drop_loot(entity, entities, game_map):
     random.shuffle(directions)
 
     x, y = entity.pos.x, entity.pos.y
-
+    
     while directions:
         direction = directions.pop()
         
         if tile_empty(entities, game_map, x + direction[0], y + direction[1]):
             soul_entity = create_soul(entity)
+            soul_entity.pos.x, soul_entity.pos.y = x + direction[0], y + direction[1]
             entities.append(soul_entity)
             break
 

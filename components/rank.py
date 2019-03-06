@@ -4,12 +4,12 @@ from enum import Enum
 from random import randint
 
 class Rank(Enum):
-    ZOMBIE =    {'name': 'zombie',      'rank': -3, 'color': libtcod.dark_cyan}
-    HUSK =      {'name': 'husk',        'rank': 0, 'color': libtcod.dark_sea}
+    ZOMBIE =    {'name': 'zombie',      'rank': 0, 'color': libtcod.dark_cyan}
+    HUSK =      {'name': 'husk',        'rank': 1, 'color': libtcod.dark_sea}
     THURLL =    {'name': 'thrull',      'rank': 2,  'color': libtcod.dark_chartreuse}
-    SOLDIER =   {'name': 'soldier',     'rank': 5,  'color': libtcod.dark_yellow}
-    HERO =      {'name': 'hero',        'rank': 8,  'color': libtcod.dark_orange}
-    CHAMPION =  {'name': 'champion',    'rank': 15, 'color': libtcod.dark_red}
+    SOLDIER =   {'name': 'soldier',     'rank': 3,  'color': libtcod.dark_yellow}
+    HERO =      {'name': 'hero',        'rank': 5,  'color': libtcod.dark_orange}
+    CHAMPION =  {'name': 'champion',    'rank': 10, 'color': libtcod.dark_red}
 
 def pick_rank(difficulty=0):
     choice = randint(1, 100)
