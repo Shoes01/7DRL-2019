@@ -10,7 +10,8 @@ class GameMap:
         self.width = width
         self.height = height
         self.tiles = self.initialize_tiles()
-        
+        self.depth = 0
+
         self.rooms = []
         self.leaf_rooms = []
 
@@ -23,6 +24,7 @@ class GameMap:
         return tiles
 
     def generate_new_map(self, entities, player):
+        self.tiles = self.initialize_tiles()
         bsp = libtcod.bsp.BSP(x=0, y=0, width=self.width, height=self.height)
         bsp.split_recursive(
             depth=5,
@@ -39,9 +41,12 @@ class GameMap:
             else:
                 self.dig_room(node)
         
-        self.place_player(player.pos)
+        entities.clear()
+        
+        self.place_player(entities, player)
         self.place_stairs(entities)
         self.place_monsters(entities)
+        self.depth += 1
     
     def dig_room(self, node):
         ' Dig out a room in the center. Nothing fancy. '
@@ -83,19 +88,21 @@ class GameMap:
             for x in range(start + 1, end):
                 self.tiles[x, y1c] = False, False, False
         
-    def place_player(self, position):
+    def place_player(self, entities, player):
         room = self.leaf_rooms.pop(random.randint(0, len(self.leaf_rooms) - 1))
         self.rooms.remove(room)
 
         success = False
         while not success:
-            position.x = random.randint(room.x, room.x + room.w - 1)
-            position.y = random.randint(room.y, room.y + room.h - 1)
+            player.pos.x = random.randint(room.x, room.x + room.w - 1)
+            player.pos.y = random.randint(room.y, room.y + room.h - 1)
 
-            _, blocks_path, _ = self.tiles[position.x, position.y]
+            _, blocks_path, _ = self.tiles[player.pos.x, player.pos.y]
 
             if not blocks_path:
                 success = True
+        
+        entities.append(player)
     
     def place_stairs(self, entities):
         room = self.leaf_rooms.pop(random.randint(0, len(self.leaf_rooms) - 1))
@@ -120,7 +127,7 @@ class GameMap:
             number_of_monsters = size // 5  # This controls monster density
 
             while number_of_monsters > 0:
-                monster = create_monster_(difficulty=0)
+                monster = create_monster_(difficulty=self.depth)
 
                 x = random.randint(room.x, room.x + room.w - 1)
                 y = random.randint(room.y, room.y + room.h - 1)

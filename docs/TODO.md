@@ -4,11 +4,11 @@
 
 # DUNGEON
 
-Have a staircase that gen's another
->>> Interaction with a staircase uses it
 Track depth
 Increases difficulty with each gen
 Have a bottom depth
+Clear the map of entities and regen them
+Reset the game_map as well, so things aren't explored
 
 # WIN CONDITION
 
@@ -36,6 +36,10 @@ Improve Charachter sheet
 Add a message to the log when a player equips or switches an item
 
 Using skills should update the log
+
+Revisit how skills are drawn when they are first clicked
+>>> Instead of drawing all 8 directions, draw arrows showing direction choices
+>>> Distance of arrows should reflect size of area
 
 #####--------------------------- MVP 0.4.0
 
