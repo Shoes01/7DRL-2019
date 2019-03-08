@@ -1,4 +1,13 @@
-# 7DRL-2019
+# 7DRL 2019 - Anima Mea
+
+__Dependencies__
+
+You need Python 3.7.0, Numpy 1.16.1 and tcod 9.0.0 to player.
+
+__How to play__
+
+Use the numpad for movement. Spacebar interacts with items - equips items, consumes souls, takes stairs. The numpad 5 will confirm actions.
+Once items are equipped, you will be able to use their skills, if any. The QWEASD keys allow you to do this.
 
 __Core mechanic__
 
@@ -16,4 +25,4 @@ If your SPD stat is five greater than your opponent, you will hit them twice. De
 
 _Skills_
 
-Items grant powerful skills. 
+Items grant powerful skills.
