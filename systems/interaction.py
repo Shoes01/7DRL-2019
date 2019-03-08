@@ -1,4 +1,5 @@
 from components.base import RenderOrder
+from game import FOV_RADIUS
 from systems.equip import equip_
 
 def interact(entities, event_queue, game_map, player):

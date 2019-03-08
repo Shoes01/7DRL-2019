@@ -5,7 +5,6 @@ from entity import Entity
 from dijkstra import Neighborhood
 from game_state_machine import GameStateMachine
 from map_functions import GameMap
-from render_functions.fov import initialize_fov, recompute_fov
 from systems.factory import create_monster
 from systems.message_log import MessageLog
 
@@ -78,17 +77,13 @@ def initialize_new_game():
 
     # Create other basic functions.
     game = GameThing()
-    game_map = GameMap(MAP.W, MAP.H)
+    game_map = GameMap(MAP.W, MAP.H, FOV_RADIUS)
     key = libtcod.Key()
     message_log = MessageLog(LOG.W, LOG.H)
     mouse = libtcod.Mouse()
 
     # Create a first map.
     game_map.generate_new_map(entities, player)
-
-    # Create fov map.
-    fov_map = initialize_fov(game_map)
-    recompute_fov(fov_map, player.pos.x, player.pos.y, FOV_RADIUS)
 
     # Create game state machine.
     game_state_machine = GameStateMachine()
@@ -98,7 +93,7 @@ def initialize_new_game():
 
     neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
 
-    return consoles, entities, fov_map, game, game_map, game_state_machine, key, message_log, mouse, neighborhood, player
+    return consoles, entities, game, game_map, game_state_machine, key, message_log, mouse, neighborhood, player
 
 class GameThing:
     def __init__(self):

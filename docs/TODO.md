@@ -4,15 +4,14 @@
 
 # DUNGEON
 
-Track depth
-Increases difficulty with each gen
+Move fov_map into the game_map object, call initialize_fov() and recompute_fov() from game_map directly
 Have a bottom depth
-Clear the map of entities and regen them
-Reset the game_map as well, so things aren't explored
+Spawn a boss monster
 
 # WIN CONDITION
 
 Defeat a special monster
+Move to a GameWon state
 
 #####--------------------------- MVP 0.2.0
 

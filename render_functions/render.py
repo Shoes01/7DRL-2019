@@ -10,12 +10,12 @@ from render_functions.render_map import render_map
 from render_functions.render_message_log import render_message_log
 from render_functions.render_panel import render_panel
 
-def render_all(action, consoles, entities, fov_map, game, game_map, game_state_machine, message_log, mouse, neighborhood, player):
+def render_all(action, consoles, entities, game, game_map, game_state_machine, message_log, mouse, neighborhood, player):
     ' Render all things that appear on the screen. '
     if game.debug_mode and not action:
         action = True
     
-    render_map(action, consoles, entities, fov_map, game, game_map, game_state_machine, neighborhood, player)
+    render_map(action, consoles, entities, game, game_map, game_state_machine, neighborhood, player)
 
     if action or game.redraw_map:
         render_message_log(consoles, message_log)

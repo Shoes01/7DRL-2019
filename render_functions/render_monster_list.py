@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from game import MONSTERS
 
-def render_monster_list(consoles, entities, fov_map):
+def render_monster_list(consoles, entities, game_map):
     console = consoles['monsters']
     console_root = consoles['root']
 
@@ -15,7 +15,7 @@ def render_monster_list(consoles, entities, fov_map):
 
     y = 1
     for entity in entities_in_render_order:
-        if fov_map.fov[entity.pos.x, entity.pos.y] and entity.base.char is not '@':
+        if game_map.fov_map.fov[entity.pos.x, entity.pos.y] and entity.base.char is not '@':
             if entity.base.char is '%':
                 string = entity.base.char + ' Corpse'    
             else:

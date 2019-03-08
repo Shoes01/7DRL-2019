@@ -6,11 +6,13 @@ from components.base import RenderOrder
 from systems.factory import create_monster_, create_stairs
 
 class GameMap:
-    def __init__(self, width, height):
+    def __init__(self, width, height, fov_radius):
         self.width = width
         self.height = height
-        self.tiles = self.initialize_tiles()
         self.depth = 0
+        self.tiles = self.initialize_tiles()
+        self.fov_map = libtcod.map.Map(self.width, self.height, order='F')
+        self.fov_radius = fov_radius
 
         self.rooms = []
         self.leaf_rooms = []
@@ -18,13 +20,24 @@ class GameMap:
     def initialize_tiles(self):
         # Create a numpy array full of ones.
         tiles = np.ones([self.width, self.height], dtype=[('blocks_sight', bool), ('blocks_path', bool), ('explored', bool)], order='F')
-
         tiles['explored'] = np.zeros([self.width, self.height], dtype=int)
 
         return tiles
 
+    def initialize_fov(self):
+        fov_map = libtcod.map.Map(self.width, self.height, order='F')
+
+        fov_map.walkable[...] = ~self.tiles['blocks_path']
+        fov_map.transparent[...] = ~self.tiles['blocks_sight']
+        
+        return fov_map
+
+    def recompute_fov(self, x, y, light_walls=True, algorithm=0):
+        self.fov_map.compute_fov(x=x, y=y, radius=self.fov_radius, light_walls=light_walls, algorithm=algorithm)
+
     def generate_new_map(self, entities, player):
         self.tiles = self.initialize_tiles()
+
         bsp = libtcod.bsp.BSP(x=0, y=0, width=self.width, height=self.height)
         bsp.split_recursive(
             depth=5,
@@ -47,6 +60,9 @@ class GameMap:
         self.place_stairs(entities)
         self.place_monsters(entities)
         self.depth += 1
+
+        self.fov_map = self.initialize_fov()
+        self.recompute_fov(player.pos.x, player.pos.y)
     
     def dig_room(self, node):
         ' Dig out a room in the center. Nothing fancy. '

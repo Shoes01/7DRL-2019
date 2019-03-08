@@ -4,9 +4,9 @@ import tcod as libtcod
 from map_functions import tile_occupied
 from systems.movement import move
 
-def take_turn(entity, entities, game_map, fov_map, neighborhood, player):
+def take_turn(entity, entities, game_map, neighborhood, player):
     turn_results = []
-    player_spotted = fov_map.fov[entity.pos.x, entity.pos.y]
+    player_spotted = game_map.fov_map.fov[entity.pos.x, entity.pos.y]
 
     if entity.status.stunned:
         return turn_results
