@@ -7,12 +7,12 @@ _brown = (160, 82, 45)
 
 class Job(Enum):
     ' Jobs determine which part of the soul number is used for which stat. '
-    NINJA =     {'stats': ('SPD', 'ATK', 'MAG', 'RES',  'HP', 'DEF'), 'color': libtcod.blue,     'name': 'ninja'}
-    PALADIN =   {'stats': ('RES',  'HP', 'ATK', 'DEF', 'MAG', 'SPD'), 'color': libtcod.red,      'name': 'paladin'}
-    PHALANX =   {'stats': ('DEF',  'HP', 'RES', 'ATK', 'SPD', 'MAG'), 'color': _brown,           'name': 'phalanx'}
-    WARRIOR =   {'stats': ('DEF',  'HP', 'ATK', 'SPD', 'RES', 'MAG'), 'color': libtcod.green,    'name': 'warrior'}
+    NINJA =     {'stats': ('SPD', 'ATK', 'MAG', 'RES',  'HP', 'DEF'), 'color': libtcod.blue,    'name': 'ninja'}
+    PALADIN =   {'stats': ('RES',  'HP', 'ATK', 'DEF', 'MAG', 'SPD'), 'color': libtcod.red,     'name': 'paladin'}
+    PHALANX =   {'stats': ('DEF',  'HP', 'RES', 'ATK', 'SPD', 'MAG'), 'color': _brown,          'name': 'phalanx'}
+    WARRIOR =   {'stats': ('DEF',  'HP', 'ATK', 'SPD', 'RES', 'MAG'), 'color': libtcod.green,   'name': 'warrior'}
     WIZARD =    {'stats': ('MAG', 'RES', 'DEF', 'SPD',  'HP', 'ATK'), 'color': libtcod.blue,    'name': 'wizard'}
-    BOSS =      {'stats': ('ATK', 'MAG', 'SPD',  'HP', 'DEF', 'RES'), 'color': libtcod.gold,    'name': ''}
+    BOSS =      {'stats': ('ATK', 'MAG', 'SPD',  'HP', 'DEF', 'RES'), 'color': libtcod.gold,    'name': 'prince'}
 
 def pick_job(race):
     if race == Race.GOBLIN:

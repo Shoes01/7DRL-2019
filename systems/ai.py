@@ -1,15 +1,58 @@
 import random
 import tcod as libtcod
 
+from components.ai import BRAIN
+from game import COLORS
 from map_functions import tile_occupied
 from systems.movement import move
 
 def take_turn(entity, entities, game_map, neighborhood, player):
     turn_results = []
-    player_spotted = game_map.fov_map.fov[entity.pos.x, entity.pos.y]
 
     if entity.status.stunned:
         return turn_results
+
+    if entity.ai.brain == BRAIN.ZOMBIE:
+        turn_results.extend(handle_zombie_brain(entity, entities, game_map, neighborhood, player))
+    elif entity.ai.brain == BRAIN.DEMON:
+        turn_results.extend(handle_demon_brain(entity, entities, game_map, neighborhood, player))
+
+    return turn_results
+
+def handle_demon_brain(entity, entities, game_map, neighborhood, player):
+    turn_results = []
+    x = entity.pos.x
+    y = entity.pos.y
+
+    d_value = neighborhood.dijkstra_map[y, x] - 15 # The 15 is the value added when a tile is occupied
+
+    if d_value <= 20 and entity.ai.scary_message_1 is False:
+        entity.ai.awake = True
+        entity.ai.scary_message_1 = True
+        _message = '"YOU HAVE FINALLY ARRIVED" bellows the {0}.'.format(entity.base.name.capitalize())
+        _color = COLORS['message_very_bad']
+        turn_results.append({'message': (_message, _color)})
+
+    if d_value <= 15 and entity.ai.scary_message_2 is False:
+        entity.ai.scary_message_2 = True
+        _message = '"BRING ME YOUR SOUL."'
+        _color = COLORS['message_very_bad']
+        turn_results.append({'message': (_message, _color)})
+
+    if entity.health.points <= int(entity.health.max * 0.3) and entity.ai.low_hp_message_1 is False:
+        entity.ai.low_hp_message_1 = True
+        _message = '"HOW DARE YOU FORCE ME TO EXERT MYSELF."'
+        _color = COLORS['message_very_bad']
+        turn_results.append({'message': (_message, _color)})
+
+    if entity.ai.awake:
+        turn_results.extend(hunt_player(entity, entities, game_map, player, neighborhood))
+
+    return turn_results
+
+def handle_zombie_brain(entity, entities, game_map, neighborhood, player):
+    turn_results = []
+    player_spotted = game_map.fov_map.fov[entity.pos.x, entity.pos.y]
 
     if entity.ai.awake:
         turn_results.extend(hunt_player(entity, entities, game_map, player, neighborhood))
@@ -26,8 +69,9 @@ def take_turn(entity, entities, game_map, neighborhood, player):
         if not entity.ai.awake:
             entity.ai.awake = True
             turn_results.append({'message': ('The {0} wakes up!'.format(entity.base.name.capitalize()), libtcod.light_grey)})
-    
+
     return turn_results
+
 
 def hunt_player(entity, entities, game_map, player, neighborhood):
     turn_results = []

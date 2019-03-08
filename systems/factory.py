@@ -99,7 +99,7 @@ def create_boss(difficulty):
     _race = Race.DEMON
     _job = Job.BOSS
 
-    _ai = AI(brain=BRAIN.ZOMBIE)
+    _ai = AI(brain=BRAIN.DEMON)
     _body = Body()
     _health = Health()
     _pos = Position()
