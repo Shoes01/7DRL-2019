@@ -78,7 +78,7 @@ def draw_tile(console_map, game, game_map, neighborhood, x, y):
             console_map.print(x, y, baseN(value, 35), fg=libtcod.pink, bg_blend=libtcod.BKGND_NONE)
 
 def draw_entity(console_map, entity, game_map):
-    if game_map.fov_map.fov[entity.pos.x, entity.pos.y] or True:
+    if game_map.fov_map.fov[entity.pos.x, entity.pos.y]:
         if entity.status and entity.status.stunned:
             _bg_color = COLORS['status_stunned']
         else:
