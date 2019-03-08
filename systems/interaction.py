@@ -2,7 +2,7 @@ from components.base import RenderOrder
 from game import FOV_RADIUS
 from systems.equip import equip_
 
-def interact(entities, event_queue, game_map, player):
+def interact(entities, event_queue, game_map, neighborhood, player):
     # Look on the ground for an item.
     # Equip it.
     # Or look for stairs.
@@ -27,6 +27,8 @@ def interact(entities, event_queue, game_map, player):
                 break
             elif item.base.render_order == RenderOrder.STAIRS:
                 game_map.generate_new_map(entities, player)
+                neighborhood.populate_directory(game_map)
+                neighborhood.update_dijkstra_map(entities, (player.pos.x, player.pos.y))
                 break
 
     else:

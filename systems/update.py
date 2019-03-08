@@ -40,11 +40,15 @@ def update(action, entities, event_queue, game, game_map, game_state_machine, me
         game.redraw_map = True
         player.health.points = player.health.max
 
+    if _game_state == 'OpeningScreen':
+        if _interact or _move or _wait or _skill_choice:
+            event_queue.append('begin')
+
     # Handle the player turn.
     if _game_state == 'PlayerTurn':
         # The player may act.
         if _interact:
-            turn_results.extend(interact(entities, event_queue, game_map, player))
+            turn_results.extend(interact(entities, event_queue, game_map, neighborhood, player))
 
         if _move:
             turn_results.extend(move(_move, player, entities, game_map))
@@ -160,7 +164,7 @@ def update(action, entities, event_queue, game, game_map, game_state_machine, me
         # The enemies have acted, their turn is done. It will be the player's turn!
         turn_results.extend(tick(entities))
 
-    handle_turn_results(game, message_log, turn_results)
+    handle_turn_results(event_queue, game, message_log, turn_results)
 
     if event_queue:
         handle_events(event_queue, game, game_state_machine, player)
@@ -174,7 +178,7 @@ def handle_events(event_queue, game, game_state_machine, player):
             game.redraw_map = True
             event_queue.remove(event)
 
-def handle_turn_results(game, message_log, results):
+def handle_turn_results(event_queue, game, message_log, results):
     while True:
         if len(results) == 0:
             return False
@@ -184,6 +188,7 @@ def handle_turn_results(game, message_log, results):
         # Possible results.
         _message = result.get('message')
         _redraw_map = result.get('redraw_map')
+        _victory = result.get('victory')
 
         if _message:
             _text, _color = _message
@@ -191,3 +196,6 @@ def handle_turn_results(game, message_log, results):
 
         elif _redraw_map:
             game.redraw_map = True
+        
+        elif _victory:
+            event_queue.append('victory')

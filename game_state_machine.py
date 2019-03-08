@@ -41,6 +41,8 @@ class PlayerTurn(State):
             return ConsumeSoul()
         elif event == 'open_character_sheet':
             return CharacterSheet()
+        elif event == 'victory':
+            return VictoryScreen()
         return self
 
 class Exit(State):
@@ -95,6 +97,20 @@ class CharacterSheet(State):
             return PlayerTurn()
         return self
 
+class VictoryScreen(State):
+    def on_event(self, event):
+        if event == 'exit':
+            return Exit()
+        return self
+
+class OpeningScreen(State):
+    def on_event(self, event):
+        if event == 'exit':
+            return Exit()
+        elif event == 'begin':
+            return PlayerTurn()
+        return self
+
 class GameStateMachine:
     """ 
     A simple state machine that mimics the functionality of a device from a 
@@ -105,7 +121,7 @@ class GameStateMachine:
         """ Initialize the components. """
 
         # Start with a default state.
-        self.state = PlayerTurn()
+        self.state = OpeningScreen()
 
     def on_event(self, event):
         """

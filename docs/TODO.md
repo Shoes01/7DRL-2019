@@ -2,14 +2,6 @@
 
 #####--------------------------- MVP 0.1.0
 
-# DUNGEON
-
-Have a bottom depth
-Spawn a boss monster
-
-# WIN CONDITION
-
-Defeat a special monster
 Move to a GameWon state
 
 #####--------------------------- MVP 0.2.0

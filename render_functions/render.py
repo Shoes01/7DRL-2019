@@ -2,6 +2,7 @@ import tcod as libtcod
 
 from game import COLORS, INFO, ITEMMENU, MAP, LOG, ROOT
 from render_functions.character_sheet import render_character_sheet
+from render_functions.opening_screen import render_opening_screen
 from render_functions.render_compare_items import render_compare_items
 from render_functions.render_consume_soul import render_consume_soul
 from render_functions.render_item_description import render_item_description
@@ -9,6 +10,7 @@ from render_functions.render_item_menu import render_item_menu
 from render_functions.render_map import render_map
 from render_functions.render_message_log import render_message_log
 from render_functions.render_panel import render_panel
+from render_functions.victory_screen import render_victory_screen
 
 def render_all(action, consoles, entities, game, game_map, game_state_machine, message_log, mouse, neighborhood, player):
     ' Render all things that appear on the screen. '
@@ -33,6 +35,13 @@ def render_all(action, consoles, entities, game, game_map, game_state_machine, m
     
     if _game_state == 'CharacterSheet':
         render_character_sheet(consoles, player)
+    
+    if _game_state == 'VictoryScreen':
+        render_victory_screen(consoles)
+    
+    if _game_state == 'OpeningScreen':
+        render_opening_screen(consoles)
+
 
     if game.debug_mode == True:
         get_things_under_mouse(consoles, entities, game_map, neighborhood, mouse)

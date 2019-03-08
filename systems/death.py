@@ -9,6 +9,12 @@ def kill(entity, entities, game_map):
     turn_results = []
 
     turn_results.append({'message': ('The {0} has been killed.'.format(entity.base.name.capitalize()), COLORS['message_kill'])})
+
+    if entity.race == Race.DEMON:
+        _message = 'You have vanquished the lord of this place! Conrgatulations. Now please leave before it gets awkard.'
+        _color = COLORS['message_very_good']
+        turn_results.append({'message': (_message, _color)})
+        turn_results.append({'victory': True})
     
     entity.ai = None
     entity.base.char = '%'

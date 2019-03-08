@@ -23,7 +23,7 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'message_very_bad': libtcod.red,
             'message_kill': libtcod.darker_red}
 FOV_RADIUS = 18
-GAME_TITLE = '7DRL 2019'
+GAME_TITLE = 'Anima Mea'
 
 ' Console constants. '
 Console = namedtuple('Console', ['X', 'Y', 'W', 'H'])

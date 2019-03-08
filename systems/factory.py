@@ -58,7 +58,7 @@ item_list = [
 ]
 
 def create_stairs():
-    _base = Base(name='stairs', char=u'\u2261', color=libtcod.white, render_order=RenderOrder.STAIRS)
+    _base = Base(name='stairs', char=u'\u2261', color=libtcod.black, render_order=RenderOrder.STAIRS)
     _pos = Position()
 
     return Entity(base=_base, pos=_pos)
