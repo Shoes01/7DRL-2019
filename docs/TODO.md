@@ -4,7 +4,6 @@
 
 # DUNGEON
 
-Move fov_map into the game_map object, call initialize_fov() and recompute_fov() from game_map directly
 Have a bottom depth
 Spawn a boss monster
 

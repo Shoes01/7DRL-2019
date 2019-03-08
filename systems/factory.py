@@ -94,6 +94,31 @@ def create_monster(name):
 
     return monster
 
+def create_boss(difficulty):
+    _rank = Rank.DEMON
+    _race = Race.DEMON
+    _job = Job.BOSS
+
+    _ai = AI(brain=BRAIN.ZOMBIE)
+    _body = Body()
+    _health = Health()
+    _pos = Position()
+    _soul = Soul(eccentricity=_race.value['eccentricity'], rank=_rank.value['rank'])
+    _status = Status()
+
+    _name = str(_rank.value['name']).capitalize() + ' ' + str(_race.value['name']).capitalize() + ' ' + str(_job.value['name']).capitalize()
+    _color = _rank.value['color']
+    _char = _race.value['char']
+
+    _base = Base(name=_name, char=_char, color=_color, render_order=RenderOrder.ACTOR)
+
+    monster = Entity(ai=_ai, base=_base, body=_body, health=_health, job=_job, pos=_pos, race=_race, soul=_soul, status=_status)
+    monster.health.points = monster.health.max
+
+    equip_monster(monster)
+
+    return monster
+
 def create_monster_(difficulty):
     _rank = pick_rank(difficulty)
     _race = pick_race(difficulty)

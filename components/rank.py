@@ -10,6 +10,7 @@ class Rank(Enum):
     SOLDIER =   {'name': 'soldier',     'rank': 3,  'color': libtcod.dark_yellow}
     HERO =      {'name': 'hero',        'rank': 5,  'color': libtcod.dark_orange}
     CHAMPION =  {'name': 'champion',    'rank': 10, 'color': libtcod.dark_red}
+    DEMON =     {'name': '',            'rank': 20, 'color': libtcod.gold}
 
 def pick_rank(difficulty=0):
     choice = randint(1, 100)

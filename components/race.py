@@ -55,6 +55,14 @@ class Race(Enum):
         ]
     }
 
+    DEMON = {
+        'bonus': 15,    
+        'char': '&', 
+        'name': 'demon',     
+        'eccentricity': 10,  
+        'loadout': []
+        }
+
 def pick_race(difficulty=0):
     _choice = randint(1, 100)
     

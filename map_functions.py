@@ -3,13 +3,14 @@ import random
 import tcod as libtcod
 
 from components.base import RenderOrder
-from systems.factory import create_monster_, create_stairs
+from systems.factory import create_boss, create_monster_, create_stairs
 
 class GameMap:
-    def __init__(self, width, height, fov_radius):
+    def __init__(self, width, height, fov_radius, max_depth):
         self.width = width
         self.height = height
         self.depth = 0
+        self.max_depth = max_depth
         self.tiles = self.initialize_tiles()
         self.fov_map = libtcod.map.Map(self.width, self.height, order='F')
         self.fov_radius = fov_radius
@@ -57,10 +58,14 @@ class GameMap:
         entities.clear()
         
         self.place_player(entities, player)
-        self.place_stairs(entities)
-        self.place_monsters(entities)
-        self.depth += 1
 
+        if self.depth == self.max_depth:
+            self.place_boss(entities)
+        else:
+            self.place_stairs(entities)
+            self.depth += 1
+
+        self.place_monsters(entities)
         self.fov_map = self.initialize_fov()
         self.recompute_fov(player.pos.x, player.pos.y)
     
@@ -155,6 +160,24 @@ class GameMap:
                     entities.append(monster)
 
                 number_of_monsters -= 1
+
+    def place_boss(self, entities):
+        room = self.leaf_rooms.pop(random.randint(0, len(self.leaf_rooms) - 1))
+        self.rooms.remove(room)
+
+        boss = create_boss(difficulty=self.depth)
+
+        success = False
+        while not success:
+            boss.pos.x = random.randint(room.x, room.x + room.w - 1)
+            boss.pos.y = random.randint(room.y, room.y + room.h - 1)
+
+            _, blocks_path, _ = self.tiles[boss.pos.x, boss.pos.y]
+
+            if not blocks_path:
+                success = True
+        
+        entities.append(boss)
 
 def is_stairs(entities, x, y):
     for entity in entities:

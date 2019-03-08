@@ -77,7 +77,7 @@ def initialize_new_game():
 
     # Create other basic functions.
     game = GameThing()
-    game_map = GameMap(MAP.W, MAP.H, FOV_RADIUS)
+    game_map = GameMap(MAP.W, MAP.H, FOV_RADIUS, 0)
     key = libtcod.Key()
     message_log = MessageLog(LOG.W, LOG.H)
     mouse = libtcod.Mouse()
