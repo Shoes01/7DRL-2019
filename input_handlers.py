@@ -77,7 +77,7 @@ def handle_generic_movement_keys(key):
     return {}
 
 def handle_compare_items_keys(key):
-    if key.vk == libtcod.KEY_KP5 or key.vk == libtcod.KEY_KPENTER:
+    if key.vk == libtcod.KEY_KP5 or key.vk == libtcod.KEY_KPENTER or key.vk == libtcod.KEY_ENTER:
         return {'confirm': True}
     elif key.vk == libtcod.KEY_SPACE:
         return {'confirm': False}
@@ -113,7 +113,7 @@ def handle_consume_soul_keys(key):
         return {'move': (1, 1)}
 
     # Confirmation keys.
-    if key.vk == libtcod.KEY_KP5 or key.vk == libtcod.KEY_KPENTER:
+    if key.vk == libtcod.KEY_KP5 or key.vk == libtcod.KEY_KPENTER or key.vk == libtcod.KEY_ENTER:
         return {'confirm': True}
     elif key.vk == libtcod.KEY_SPACE:
         return {'confirm': False}
