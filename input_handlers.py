@@ -47,6 +47,8 @@ def handle_general_keys(key):
     elif key.vk == libtcod.KEY_ESCAPE:
         # Exit the game
         return {'exit': True}
+    elif key.vk == libtcod.KEY_ENTER or key.vk == libtcod.KEY_KPENTER:
+        return {'confirm': True}
 
     # No key was pressed
     return {}

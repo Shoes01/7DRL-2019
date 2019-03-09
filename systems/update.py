@@ -41,7 +41,7 @@ def update(action, entities, event_queue, game, game_map, game_state_machine, me
         player.health.points = player.health.max
 
     if _game_state == 'OpeningScreen':
-        if _interact or _move or _wait or _skill_choice:
+        if _interact or _move or _wait or _skill_choice or _confirm:
             event_queue.append('begin')
 
     # Handle the player turn.
