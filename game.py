@@ -23,7 +23,7 @@ COLORS = {  'dark_floor': libtcod.light_blue,
             'message_very_bad': libtcod.red,
             'message_kill': libtcod.darker_red}
 FOV_RADIUS = 10
-GAME_TITLE = 'Anima Mea v0.1.1'
+GAME_TITLE = 'Anima Mea v0.1.2'
 
 ' Console constants. '
 Console = namedtuple('Console', ['X', 'Y', 'W', 'H'])
