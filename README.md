@@ -2,7 +2,7 @@
 
 __Dependencies__
 
-You need Python 3.7.0, Numpy 1.16.1 and tcod 9.0.0 to player.
+You need Python 3.7.0, Numpy 1.16.1 and tcod 9.0.0 to play.
 
 __How to play__
 
