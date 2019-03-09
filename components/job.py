@@ -13,6 +13,7 @@ class Job(Enum):
     WARRIOR =   {'stats': ('DEF',  'HP', 'ATK', 'SPD', 'RES', 'MAG'), 'color': libtcod.green,   'name': 'warrior'}
     WIZARD =    {'stats': ('MAG', 'RES', 'DEF', 'SPD',  'HP', 'ATK'), 'color': libtcod.blue,    'name': 'wizard'}
     BOSS =      {'stats': ('ATK', 'MAG', 'SPD',  'HP', 'DEF', 'RES'), 'color': libtcod.darker_crimson,    'name': 'prince'}
+    BARBARIAN = {'stats': ('ATK',  'HP', 'SPD', 'DEF', 'RES', 'MAG'), 'color': libtcod.red,     'name': 'barbarian'}
 
 def pick_job(race):
     if race == Race.GOBLIN:

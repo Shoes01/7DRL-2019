@@ -30,25 +30,27 @@ def print_text(console, entities, player):
     console.print(3, 3, 'Proposed soul consumption:')
 
     console.print(4, 5, str(soul))
-    console.print(17, 5, '+')
-    console.print(19, 5, str(new_soul))
-    console.print(32, 5, '=')
-    console.print(34, 5, str(soul + new_soul))
+    console.print(20, 5, '+')
+    console.print(22, 5, str(new_soul))
+    console.print(35, 5, '=')
+    console.print(37, 5, str(soul + new_soul))
     
     console.print(3, 8, 'Stat calculation')
-    console.print(4, 9, 'Race bonus + soul number = stat total')
+    console.print(4, 9, 'Your race grants a flat bonus to your stats. Race: {0}. Bonus: {1}.'.format(player.race.value['name'].capitalize(), player.race.value['bonus']))
     console.print(4, 10, 'Your job determines the order of the stats.')
     console.print(4, 11, 'HP is x4. If the total is less than 10, it is 10 instead.')
 
+    old_stats = get_ordered_soul(None, player.job, soul)
     new_stats = get_ordered_soul(None, player.job, new_soul + soul)
     total_stats = get_stats(None, player.job, player.race, new_soul + soul)
 
     order = player.job.value['stats']
     y = 0
     for stat in order:
-        _string = stat + ' : ' + str(player.race.value['bonus']) +  ' + ' + '{:>2}'.format(str(new_stats[stat])) +  ' = ' + '{:>2}'.format(str(total_stats[stat]))
+        _diff = new_stats[stat] - old_stats[stat]
+        _string = stat + ': ' + '{:>3}'.format(total_stats[stat]) + ' ({:>3})'.format(_diff)
         if stat == 'HP':
-            _string = stat + '  : ' + str(player.race.value['bonus']) +  ' + ' +'{:>2}'.format(str(new_stats[stat] // 4)) +  ' = ' + '{:>2}'.format(str(total_stats[stat] // 4)) + ' x4' + ' = ' + str(total_stats[stat])
+            _string = stat + ' : ' + '{:>3}'.format(total_stats[stat] // 4) + ' ({:>3})'.format(_diff // 4)
         console.print(4, 13 + y, _string)
         y += 1
 

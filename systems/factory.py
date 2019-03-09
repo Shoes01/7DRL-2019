@@ -83,7 +83,7 @@ def create_monster(name):
     _body = Body()
     _health = Health()
     _inv = Inventory()
-    _job = Job.PALADIN
+    _job = Job.BARBARIAN
     _pos = Position()
     _race = Race.HUMAN
     _soul = Soul(eccentricity=5, rank=10)
