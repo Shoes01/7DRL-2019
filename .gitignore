@@ -1,5 +1,6 @@
 # Custome git ignore files
 ROAD_MAP.md
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
