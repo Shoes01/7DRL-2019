@@ -28,17 +28,18 @@ def print_text(console, entities, player):
             new_soul = entity.soul.soul
 
     console.print(3, 3, 'Proposed soul consumption:')
+    console.print(4, 4, 'Use the numpas to rotate the soul before consumption.')
 
-    console.print(4, 5, str(soul))
-    console.print(20, 5, '+')
-    console.print(22, 5, str(new_soul))
-    console.print(35, 5, '=')
-    console.print(37, 5, str(soul + new_soul))
+    console.print(4, 6, str(soul))
+    console.print(20, 6, '+')
+    console.print(22, 6, str(new_soul))
+    console.print(35, 6, '=')
+    console.print(37, 6, str(soul + new_soul))
     
-    console.print(3, 8, 'Stat calculation')
-    console.print(4, 9, 'Your race grants a flat bonus to your stats. Race: {0}. Bonus: {1}.'.format(player.race.value['name'].capitalize(), player.race.value['bonus']))
-    console.print(4, 10, 'Your job determines the order of the stats.')
-    console.print(4, 11, 'HP is x4. If the total is less than 10, it is 10 instead.')
+    console.print(3, 9, 'Stat calculation')
+    console.print(4, 10, 'Your race grants a flat bonus to your stats. Race: {0}. Bonus: {1}.'.format(player.race.value['name'].capitalize(), player.race.value['bonus']))
+    console.print(4, 11, 'Your job determines the order of the stats.')
+    console.print(4, 12, 'HP is x4. If the total is less than 10, it is 10 instead.')
 
     old_stats = get_ordered_soul(None, player.job, soul)
     new_stats = get_ordered_soul(None, player.job, new_soul + soul)
@@ -51,7 +52,7 @@ def print_text(console, entities, player):
         _string = stat + ': ' + '{:>3}'.format(total_stats[stat]) + ' ({:>3})'.format(_diff)
         if stat == 'HP':
             _string = stat + ' : ' + '{:>3}'.format(total_stats[stat] // 4) + ' ({:>3})'.format(_diff // 4)
-        console.print(4, 13 + y, _string)
+        console.print(4, 14 + y, _string)
         y += 1
 
 def print_border(console):

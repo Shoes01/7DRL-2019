@@ -9,6 +9,7 @@ __How to play__
 Run engine.py to begin the game.
 
 Use the numpad for movement. Spacebar interacts with items - equips items, consumes souls, takes stairs. The numpad 5 will confirm actions.
+When consuming a soul, use the numpad to rotate it.
 Once items are equipped, you will be able to use their skills, if any. The QWEASD keys allow you to do this.
 
 __Core mechanic__
