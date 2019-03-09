@@ -6,6 +6,8 @@ You need Python 3.7.0, Numpy 1.16.1 and tcod 9.0.0 to player.
 
 __How to play__
 
+Run engine.py to begin the game.
+
 Use the numpad for movement. Spacebar interacts with items - equips items, consumes souls, takes stairs. The numpad 5 will confirm actions.
 Once items are equipped, you will be able to use their skills, if any. The QWEASD keys allow you to do this.
 
